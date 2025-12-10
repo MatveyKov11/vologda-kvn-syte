@@ -6,17 +6,31 @@
             </div>
         </h2>
     </div>
-    <table class="ui celled table">
-        <thead>
-            <tr><th>Название команды</th>
-            <th>ФИО капитана</th>
-            <th>Контакты капитана</th>
+    <table class="ui table">
+        <thead><tr>
+            <th class="five wide">Название команды</th>
+            <th class="five wide">ФИО капитана</th>
+            <th class="five wide">Контакты капитана</th>
+            <th class="one wide"></th>
         </tr></thead>
         <tbody>
             <tr v-for="team in teams" :key="team.id">
-                <td><input class="ui input" type="text" name="teamName" v-model="team.teamName"></td>
-                <td><input class="ui input" type="text" name="capitanFio" v-model="team.capitanFio"></td>
-                <td><input class="ui input" type="text" name="capitanContacts" v-model="team.capitanContacts"></td>
+                <td>
+                    <div class="ui fluid input">
+                        <input type="text" name="teamName" v-model="team.teamName">
+                    </div>
+                </td>
+                <td>
+                    <div class="ui fluid input">
+                        <input type="text" name="capitanFio" v-model="team.capitanFio">
+                    </div>
+                </td>
+                <td>
+                    <div class="ui fluid input">
+                        <input type="text" name="capitanContacts" v-model="team.capitanContacts">
+                    </div>
+
+                </td>
                 <td><i class="minus square icon" @click="deleteRow(team.id)"></i></td>
             </tr>
         </tbody>
