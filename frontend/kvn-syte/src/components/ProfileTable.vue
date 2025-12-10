@@ -9,10 +9,10 @@
     <table class="ui table">
         <thead>
             <tr>
-                <th>Логин</th>
-                <th>Пароль</th>
-                <th>Роль пользователя</th>
-                <th></th>
+                <th class="five wide">Логин</th>
+                <th class="five wide">Пароль</th>
+                <th class="five wide">Роль пользователя</th>
+                <th class="one wide"></th>
             </tr>
         </thead>
         <tbody>
@@ -26,12 +26,19 @@
                     <div class="ui fluid input">
                         <input type="text" name="password" v-model="profile.password">
                     </div>
+                    <button class="ui button" @click="openChangePass(profile.id)">
+                        Поменять пароль
+                    </button>
                 </td>
                 <td>
-                    <input class="ui input" type="radio" :name="'admin'+profile.id" v-model="profile.role" value="ADMIN">
-                    <label :for="'team'+profile.id"> Организатор </label>
-                    <input class="ui input" type="radio" :name="'team'+profile.id" v-model="profile.role" value="TEAM">
-                    <label :for="'team'+profile.id"> Команда </label>
+                    <form class="ui form">
+                        <div class="field">
+                            <select class="ui fluid dropdown" v-model="profile.role">
+                                <option value="ADMIN"> Организатор </option>
+                                <option value="TEAM"> Команда </option>
+                            </select>
+                        </div>
+                    </form>
                 </td>
                 <td><i class="minus square icon" @click="deleteRow(profile.id)"></i></td>
             </tr>
@@ -78,5 +85,13 @@ function deleteRow(id){
 
 function addRow(){
     profiles.value.push({id: profiles.value.length})
+}
+
+const selectedProfile = ref({})
+let isChanged = ref(false)
+
+function openChangePass(id){
+    isChanged.value = true
+    selectedProfile.value = profiles.value[id]
 }
 </script>

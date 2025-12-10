@@ -1,12 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import MainApp from '@/components/MainApp.vue'
 import AdminApp from '@/components/AdminApp.vue'
-import ContestApp from '@/components/ContestApp.vue'
-import TeamApp from '@/components/TeamApp.vue'
-import ScheduleApp from '@/components/ScheduleApp.vue'
-import ResultApp from '@/components/ResultApp.vue'
-import LogApp from '@/components/LogApp.vue'
-import ProfileApp from '@/components/ProfileApp.vue'
+import ContestTable from '@/components/ContestTable.vue'
+import TeamTable from '@/components/TeamTable.vue'
+import ScheduleTable from '@/components/ScheduleTable.vue'
+import ResultTable from '@/components/ResultTable.vue'
+import LogTable from '@/components/LogTable.vue'
+import ProfileTable from '@/components/ProfileTable.vue'
 
 const routes = [
   {
@@ -22,32 +22,32 @@ const routes = [
         {
             path: 'contest',
             name: 'Contests',
-            component: ContestApp
+            component: ContestTable
         },
         {
             path: 'team',
             name: 'Teams',
-            component: TeamApp
+            component: TeamTable
         },
         {
             path: 'schedule',
             name: 'Schedule',
-            component: ScheduleApp
+            component: ScheduleTable
         },
         {
             path: 'result',
             name: 'Results',
-            component: ResultApp
+            component: ResultTable
         },
         {
             path: 'log',
             name: 'Logs',
-            component: LogApp
+            component: LogTable
         },
         {
             path: 'profile',
             name: 'Profiles',
-            component: ProfileApp
+            component: ProfileTable
         }
     ]
   }
