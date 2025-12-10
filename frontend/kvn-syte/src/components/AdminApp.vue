@@ -29,7 +29,9 @@
         </div>
     </div>
     <div class="ui clearing divider"></div>
-    <router-view></router-view>
+    <div class="ui text container">
+        <router-view></router-view>
+    </div>
 </template>
 
 <script setup>

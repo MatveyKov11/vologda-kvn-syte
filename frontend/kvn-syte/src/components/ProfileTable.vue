@@ -23,9 +23,6 @@
                     </div>
                 </td>
                 <td>
-                    <div class="ui fluid input">
-                        <input type="text" name="password" v-model="profile.password">
-                    </div>
                     <button class="ui button" @click="openChangePass(profile.id)">
                         Поменять пароль
                     </button>
@@ -50,10 +47,12 @@
     <button class="ui button">
         <i class="check icon"></i> Сохранить изменения
     </button>
+    <ChangePassWind :profile="selectedProfile" v-if="isChanged" @quit="isChanged = false"/>
 </template>
 
 <script setup>
 import { ref } from 'vue';
+import ChangePassWind from './ChangePassWind.vue';
 
 const profiles = ref([
     {
