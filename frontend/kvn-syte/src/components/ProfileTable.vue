@@ -7,14 +7,12 @@
         </h2>
     </div>
     <table class="ui table">
-        <thead>
-            <tr>
-                <th class="five wide">Логин</th>
-                <th class="five wide">Пароль</th>
-                <th class="five wide">Роль пользователя</th>
-                <th class="one wide"></th>
-            </tr>
-        </thead>
+        <thead><tr>
+            <th class="five wide">Логин</th>
+            <th class="five wide">Пароль</th>
+            <th class="five wide">Роль пользователя</th>
+            <th class="one wide"></th>
+        </tr></thead>
         <tbody>
             <tr v-for="profile in profiles" :key="profile.id">
                 <td>

@@ -6,17 +6,30 @@
             </div>
         </h2>
     </div>
-    <table class="ui celled table">
-        <thead>
-            <tr><th>Название игры</th>
-            <th>Номер сезона</th>
-            <th>Дата игры</th>
+    <table class="ui table">
+        <thead><tr>
+            <th class="five wide">Название игры</th>
+            <th class="five wide">Номер сезона</th>
+            <th class="five wide">Дата игры</th>
+            <th class="one wide"></th>
         </tr></thead>
         <tbody>
             <tr v-for="game in games" :key="game.id">
-                <td><input class="ui input" type="text" name="gameName" v-model="game.gameName"></td>
-                <td><input class="ui input" type="number" name="seasonNumber" v-model="game.seasonNumber"></td>
-                <td><input class="ui input" type="date" name="gameDate" v-model="game.gameDate"></td>
+                <td>
+                    <div class="ui fluid input">
+                        <input type="text" name="gameName" v-model="game.gameName">
+                    </div>
+                </td>
+                <td>
+                    <div class="ui fluid input">
+                        <input type="number" name="seasonNumber" v-model="game.seasonNumber">
+                    </div>
+                </td>
+                <td>
+                    <div class="ui fluid input">
+                        <input type="date" name="gameDate" v-model="game.gameDate">
+                    </div>
+                </td>
                 <td><i class="minus square icon" @click="deleteRow(game.id)"></i></td>
             </tr>
         </tbody>
@@ -54,13 +67,13 @@ const games = ref([
 ])
 
 function deleteRow(id){
-    teams.value = teams.value.filter(el => el.id != id)
-    for(let i = 0; i < teams.value.length; i++){
-        teams.value[i].id = i
+    games.value = games.value.filter(el => el.id != id)
+    for(let i = 0; i < games.value.length; i++){
+        games.value[i].id = i
     }
 }
 
 function addRow(){
-    teams.value.push({id: teams.value.length})
+    games.value.push({id: games.value.length})
 }
 </script>
