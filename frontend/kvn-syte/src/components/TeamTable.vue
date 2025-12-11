@@ -38,7 +38,7 @@
     <button class="ui button" @click="addRow">
         <i class="plus icon"></i> Добавить команду
     </button>
-    <button class="ui button">
+    <button class="ui button" @click="saveChanges">
         <i class="check icon"></i> Сохранить изменения
     </button>
 </template>
@@ -76,5 +76,10 @@ function deleteRow(id){
 
 function addRow(){
     teams.value.push({id: teams.value.length})
+}
+
+function saveChanges(){
+    alert('Изменения сохранены!')
+    router.push({name: 'Admin Home'})
 }
 </script>

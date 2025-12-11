@@ -58,12 +58,13 @@
     <button class="ui button" @click="addRow">
         <i class="plus icon"></i> Добавить команду
     </button>
-    <button class="ui button">
+    <button class="ui button" @click="saveChanges">
         <i class="check icon"></i> Сохранить изменения
     </button>
 </template>
 
 <script setup>
+import router from '@/router';
 import { ref } from 'vue';
 
 const contests = ref([
@@ -164,5 +165,10 @@ function deleteColumn(id){
     for(let i = 0; i < results.value.length; i++){
         results.value[i].rates.pop()
     }
+}
+
+function saveChanges(){
+    alert('Изменения сохранены!')
+    router.push({name: 'Admin Home'})
 }
 </script>

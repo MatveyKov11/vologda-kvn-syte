@@ -42,7 +42,7 @@
     <button class="ui button" @click="addRow">
         <i class="plus icon"></i> Добавить учётную запись
     </button>
-    <button class="ui button">
+    <button class="ui button" @click="saveChanges">
         <i class="check icon"></i> Сохранить изменения
     </button>
     <ChangePassWind :profile="selectedProfile" v-if="isChanged" @quit="isChanged = false"/>
@@ -90,5 +90,10 @@ let isChanged = ref(false)
 function openChangePass(id){
     isChanged.value = true
     selectedProfile.value = profiles.value[id]
+}
+
+function saveChanges(){
+    alert('Изменения сохранены!')
+    router.push({name: 'Admin Home'})
 }
 </script>
