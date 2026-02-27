@@ -8,13 +8,13 @@
         <div v-if="block.type == 'text'" class="ui fluid container">
             <p v-for="i in block.data.length" :key="i" align="left"> 
                 {{ block.data[i-1] }}
-                <i class="minus square icon" @click="removeItem(block.id-1, i-1)"></i>
-                <i class="arrow up icon" @click="moveUpItem(block.id-1, i-1)"></i>
-                <i class="arrow down icon" @click="moveDownItem(block.id-1, i-1)"></i>
+                <i class="x icon" @click="removeItem(block.id, i-1)"></i>
+                <i class="arrow up icon" @click="moveUpItem(block.id, i-1)"></i>
+                <i class="arrow down icon" @click="moveDownItem(block.id, i-1)"></i>
             </p>
             <div class="ui action fluid input">
-                <input type="text" placeholder="Введите абзац..." v-model="inputText[block.id-1]" @keypress.enter="addItem(block.id-1)"/>
-                <button class="ui blue icon button" @click="addItem(block.id-1)">
+                <input type="text" placeholder="Введите абзац..." v-model="inputText[block.id]" @keypress.enter="addItem(block.id)"/>
+                <button class="ui blue icon button" @click="addItem(block.id)">
                     <i class="plus icon"></i>
                 </button>
             </div>
@@ -23,14 +23,14 @@
             <ul class="ui list">
                 <li v-for="i in block.data.length" :key="i" align="left"> 
                     {{ block.data[i-1] }}
-                    <i class="minus square icon" @click="removeItem(block.id-1, i-1)"></i>
-                    <i class="arrow up icon" @click="moveUpItem(block.id-1, i-1)"></i>
-                    <i class="arrow down icon" @click="moveDownItem(block.id-1, i-1)"></i>
+                    <i class="x icon" @click="removeItem(block.id, i-1)"></i>
+                    <i class="arrow up icon" @click="moveUpItem(block.id, i-1)"></i>
+                    <i class="arrow down icon" @click="moveDownItem(block.id, i-1)"></i>
                 </li>
             </ul>
             <div class="ui action fluid input">
-                <input type="text" placeholder="Введите элемент..." v-model="inputText[block.id-1]" @keypress.enter="addItem(block.id-1)"/>
-                <button class="ui blue icon button" @click="addItem(block.id-1)">
+                <input type="text" placeholder="Введите элемент..." v-model="inputText[block.id]" @keypress.enter="addItem(block.id)"/>
+                <button class="ui blue icon button" @click="addItem(block.id)">
                     <i class="plus icon"></i>
                 </button>
             </div>
@@ -39,14 +39,14 @@
             <ol class="ui list">
                 <li v-for="i in block.data.length" :key="i" align="left"> 
                     {{ block.data[i-1] }}
-                    <i class="minus square icon" @click="removeItem(block.id-1, i-1)"></i>
-                    <i class="arrow up icon" @click="moveUpItem(block.id-1, i-1)"></i>
-                    <i class="arrow down icon" @click="moveDownItem(block.id-1, i-1)"></i>
+                    <i class="x icon" @click="removeItem(block.id, i-1)"></i>
+                    <i class="arrow up icon" @click="moveUpItem(block.id, i-1)"></i>
+                    <i class="arrow down icon" @click="moveDownItem(block.id, i-1)"></i>
                 </li>
             </ol>
             <div class="ui action fluid input">
-                <input type="text" placeholder="Введите элемент..." v-model="inputText[block.id-1]" @keypress.enter="addItem(block.id-1)"/>
-                <button class="ui blue icon button" @click="addItem(block.id-1)">
+                <input type="text" placeholder="Введите элемент..." v-model="inputText[block.id]" @keypress.enter="addItem(block.id)"/>
+                <button class="ui blue icon button" @click="addItem(block.id)">
                     <i class="plus icon"></i>
                 </button>
             </div>
@@ -58,8 +58,8 @@
                 frameborder="0" allowfullscreen>
             </iframe>
             <div class="ui action fluid input">
-                <input type="text" placeholder="Введите код для вставки видео..." v-model="inputText[block.id-1]" @keypress.enter="editSrcVideo(block.id-1)"/>
-                <button class="ui blue icon button" @click="editSrcVideo(block.id-1)">
+                <input type="text" placeholder="Введите код для вставки видео..." v-model="inputText[block.id]" @keypress.enter="editSrcVideo(block.id)"/>
+                <button class="ui blue icon button" @click="editSrcVideo(block.id)">
                     <i class="edit icon"></i>
                 </button>
             </div>
@@ -71,8 +71,8 @@
                     :width="lenItem(block.data.length)" :src="block.data[i-1]"/>
             </div>
             <div class="ui action fluid input">
-                <input type="text" placeholder="Введите ссылку для вставки фото..." v-model="inputText[block.id-1]" @keypress.enter="editSrcVideo(block.id-1)"/>
-                <button class="ui blue icon button" @click="editSrcVideo(block.id-1)">
+                <input type="text" placeholder="Введите ссылку для вставки фото..." v-model="inputText[block.id]" @keypress.enter="editSrcVideo(block.id)"/>
+                <button class="ui blue icon button" @click="addItem(block.id)">
                     <i class="edit icon"></i>
                 </button>
             </div>
@@ -81,7 +81,40 @@
             {{ block.type }}
             {{ block.type }}
         </div>
+        <div class="ui right rail">
+            <div class="ui buttons">
+                <div class="ui icon button" @click="removeBlock(block.id)">
+                    <i class="x icon"></i>
+                </div>
+                <div class="ui icon button" @click="moveUpBlock(block.id)">
+                    <i class="arrow up icon"></i>
+                </div>
+                <div class="ui icon button" @click="moveDownBlock(block.id)">
+                    <i class="arrow down icon"></i>
+                </div>
+            </div>
+        </div>
     </div>
+    <div class="ui buttons">
+        <button class="ui button" @click="addBlock('text')">
+            Текст
+        </button>
+        <button class="ui button" @click="addBlock('mark-list')">
+            Маркированный список
+        </button>
+        <button class="ui button" @click="addBlock('numb-list')">
+            Нумерованный список
+        </button>
+        <button class="ui button" @click="addBlock('photo')">
+            Фото
+        </button>
+        <button class="ui button" @click="addBlock('video')">
+            Видео
+        </button>
+    </div>
+    <button class="ui button" @click="saveChanges">
+        <i class="check icon"></i> Сохранить изменения
+    </button>
 </template>
 
 <script setup>
@@ -89,27 +122,27 @@ import { ref } from 'vue';
 
 const blocks = ref([
     {
-        id: 1,
+        id: 0,
         type: 'text',
         data: ['Раз-раз-раз-раз-раз', 'Два-два-два-два-два-два-два', 'Два-два-два-два-два-два-два-два-два-два-два-два-два-два-два-два-два-два-два']
     },
     {
-        id: 2,
+        id: 1,
         type: 'mark-list',
         data: ['Раз-раз-раз-раз-раз', 'Два-два-два-два-два-два-два', 'Два-два-два-два-два-два-два-два-два-два-два-два-два-два-два-два-два-два-два']
     },
     {
-        id: 3,
+        id: 2,
         type: 'numb-list',
         data: ['Раз-раз-раз-раз-раз', 'Два-два-два-два-два-два-два', 'Два-два-два-два-два-два-два-два-два-два-два-два-два-два-два-два-два-два-два']
     },
     {
-        id: 4,
+        id: 3,
         type: 'video',
         data: ['https://vkvideo.ru/video_ext.php?oid=-127553155&id=456245257&hash=e92d9f33bf048f38&hd=3']
     },
     {
-        id: 5,
+        id: 4,
         type: 'photo',
         data: ['https://i.pinimg.com/originals/7d/be/d9/7dbed90655c6d7de0f4d01eb01b9cbe1.jpg?nii=t', 
             'https://i.pinimg.com/originals/7d/be/d9/7dbed90655c6d7de0f4d01eb01b9cbe1.jpg?nii=t',
@@ -161,6 +194,48 @@ function editSrcVideo(i){
 
 function lenItem(i){
     return (100 / i) - 2 + '%'
+}
+
+function addBlock(t){
+    blocks.value.push({
+        id: blocks.value.length,
+        type: t,
+        data: []
+    })
+}
+
+function removeBlock(i){
+    for (let j = i; j < blocks.value.length - 1; j++){
+        blocks.value[j] = JSON.parse(JSON.stringify(blocks.value[j+1]))
+        blocks.value[j].id = j
+    }
+    blocks.value = blocks.value.slice(0, blocks.value.length - 1)
+}
+
+function moveUpBlock(j){
+    if (j > 0){
+        let temp = JSON.parse(JSON.stringify(blocks.value[j-1]))
+        blocks.value[j-1] = JSON.parse(JSON.stringify(blocks.value[j]))
+        blocks.value[j] = temp
+
+        blocks.value[j-1].id = j-1
+        blocks.value[j].id = j
+    }
+}
+
+function moveDownBlock(j){
+    if (j < blocks.value.length - 1){
+        let temp = JSON.parse(JSON.stringify(blocks.value[j+1]))
+        blocks.value[j+1] = JSON.parse(JSON.stringify(blocks.value[j]))
+        blocks.value[j] = temp
+
+        blocks.value[j].id = j
+        blocks.value[j+1].id = j+1
+    }
+}
+
+function saveChanges(){
+    console.log(JSON.stringify(blocks.value))
 }
 </script>
 

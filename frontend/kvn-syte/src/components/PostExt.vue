@@ -1,13 +1,13 @@
 <template>
     <div class="ui text container">
         <h2 class="ui header">
-            {{ post.title }}
+            {{ props.post.title }}
         </h2>
         <p>
-            {{ post.data }}
+            {{ props.post.data }}
         </p>
     </div>
-    <div class="ui segment" v-for="block in post.blocks" :key="block.id">
+    <div class="ui segment" v-for="block in props.post.blocks" :key="block.id">
         <div v-if="block.type == 'text'" class="ui fluid container">
             <p v-for="i in block.data.length" :key="i" align="left"> 
                 {{ block.data[i-1] }}
@@ -36,50 +36,52 @@
             </iframe>
         </div>
         <div v-else-if="block.type == 'photo'" class="ui fluid container">
-            <img class="video"
-                :src="block.data[0]"/>
+            <img class="video" :src="block.data[0]"/>
+            <div class='gallery'>
+                <img v-for="i in block.data.length" :key="i" style="margin-right: 1%; margin-left: 1%;"
+                    :width="lenItem(block.data.length)" :src="block.data[i-1]"/>
+            </div>
         </div>
+    </div>
+    <div class="ui text container">
+        <h2 class="ui header">
+            Комментарии
+        </h2>
+    </div>
+    <div class="ui segment" v-for="comment in comments" :key="comment.id" align="left">
+        {{ comment.text }}
+    </div>
+    <div class="ui action fluid input">
+        <input type="text" placeholder="Оставьте комментарий..." v-model="inputText" @keypress.enter="addComment"/>
+        <button class="ui blue icon button" @click="addComment">
+            <i class="edit icon"></i>
+        </button>
     </div>
 </template>
 
 <script setup>
 import { ref, defineProps } from 'vue';
 
-const post = ref({
-    title: 'Прошёл фестиваль 2 сезона',
-    data: '13.02.2026',
-    blocks: [
-    {
-        id: 1,
-        type: 'text',
-        data: ['Раз-раз-раз-раз-раз', 'Два-два-два-два-два-два-два', 'Два-два-два-два-два-два-два-два-два-два-два-два-два-два-два-два-два-два-два']
-    },
-    {
-        id: 2,
-        type: 'mark-list',
-        data: ['Раз-раз-раз-раз-раз', 'Два-два-два-два-два-два-два', 'Два-два-два-два-два-два-два-два-два-два-два-два-два-два-два-два-два-два-два']
-    },
-    {
-        id: 3,
-        type: 'numb-list',
-        data: ['Раз-раз-раз-раз-раз', 'Два-два-два-два-два-два-два', 'Два-два-два-два-два-два-два-два-два-два-два-два-два-два-два-два-два-два-два']
-    },
-    {
-        id: 4,
-        type: 'video',
-        data: ['https://vkvideo.ru/video_ext.php?oid=-127553155&id=456245257&hash=e92d9f33bf048f38&hd=3']
-    },
-    {
-        id: 5,
-        type: 'photo',
-        data: ['https://i.pinimg.com/originals/7d/be/d9/7dbed90655c6d7de0f4d01eb01b9cbe1.jpg?nii=t']
-    }
-]
-})
+function lenItem(i){
+    return (100 / i) - 2 + '%'
+}
 
 const props = defineProps({
     post: Object
 })
+
+const comments = ref([
+])
+
+const inputText = ref('')
+
+function addComment(){
+    comments.value.push({
+        id: comments.value.length,
+        text: inputText.value
+    })
+    inputText.value = ''
+}
 </script>
 
 <style>
