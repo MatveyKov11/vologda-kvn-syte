@@ -13,9 +13,20 @@
     <div class="ui text container">
         <h2 class="ui header">
             <div class="content">
-                Главная страница сайта
+                Страница редактора
             </div>
         </h2>
+    </div>
+    <div class="ui attached stackable menu">
+        <div class="ui container">
+            <a class="item"  @click="newPost">
+                <span> Новый пост </span>
+            </a>
+        </div>
+    </div>
+    <div class="ui clearing divider"></div>
+    <div class="ui text container">
+        <router-view></router-view>
     </div>
 </template>
 
@@ -34,5 +45,9 @@ function admin() {
     router.push({name: 'Admin Home'})
 }
 
-router.push({name: 'Home'})
+function newPost(){
+    router.push({name: 'New Post'})
+}
+
+router.push({name: 'Editor Home'})
 </script>

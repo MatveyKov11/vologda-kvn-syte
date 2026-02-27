@@ -7,6 +7,8 @@ import ScheduleTable from '@/components/ScheduleTable.vue'
 import ResultTable from '@/components/ResultTable.vue'
 import LogTable from '@/components/LogTable.vue'
 import ProfileTable from '@/components/ProfileTable.vue'
+import EditorApp from '@/components/EditorApp.vue'
+import NewPostEditor from '@/components/NewPostEditor.vue'
 
 const routes = [
   {
@@ -19,38 +21,50 @@ const routes = [
     name: 'Admin Home',
     component: AdminApp,
     children: [
-        {
-            path: 'contest',
-            name: 'Contests',
-            component: ContestTable
-        },
-        {
-            path: 'team',
-            name: 'Teams',
-            component: TeamTable
-        },
-        {
-            path: 'schedule',
-            name: 'Schedule',
-            component: ScheduleTable
-        },
-        {
-            path: 'result',
-            name: 'Results',
-            component: ResultTable
-        },
-        {
-            path: 'log',
-            name: 'Logs',
-            component: LogTable
-        },
-        {
-            path: 'profile',
-            name: 'Profiles',
-            component: ProfileTable
-        }
+      {
+        path: 'contest',
+        name: 'Contests',
+        component: ContestTable
+      },
+      {
+        path: 'team',
+        name: 'Teams',
+        component: TeamTable
+      },
+      {
+        path: 'schedule',
+        name: 'Schedule',
+        component: ScheduleTable
+      },
+      {
+        path: 'result',
+        name: 'Results',
+        component: ResultTable
+      },
+      {
+        path: 'log',
+        name: 'Logs',
+        component: LogTable
+      },
+      {
+        path: 'profile',
+        name: 'Profiles',
+        component: ProfileTable
+      }
     ]
-  }
+  },
+  {
+    path: '/editor',
+    name: 'Editor Home',
+    component: EditorApp,
+    children: [
+      {
+        path: 'new-post',
+        name: 'New Post',
+        component: NewPostEditor
+      }
+    ]
+  },
 ]
 
 const router = createRouter({

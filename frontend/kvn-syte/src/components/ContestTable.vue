@@ -11,7 +11,7 @@
             <tr><th class="center aligned">Название конкурса</th> <th class="one wide"></th>
         </tr></thead>
         <tbody>
-            <tr v-for="contest in contests" :key="contest.id">
+            <tr v-for="contest in props.contests" :key="contest.id">
                 <td>
                     <div class="ui fluid input">
                         <input type="text" name="contestName" v-model="contest.contestName">
@@ -31,6 +31,7 @@
 
 <script setup>
 import { ref } from 'vue';
+import router from '@/router';
 
 const contests = ref([
     {
