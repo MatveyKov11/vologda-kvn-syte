@@ -38,11 +38,11 @@
                 </td>
                 <td>
                     <form class="ui form">
-			            <div class="field">
-                           <select class="ui fluid dropdown" v-model="profile.isActive">
-				                <option value="true"> Да </option>
-				                <option value="false"> Нет </option>
-                           </select>
+                        <div class="field">
+                            <select class="ui fluid dropdown" v-model="profile.isActive">
+                                <option value="true"> Да </option>
+                                <option value="false"> Нет </option>
+                            </select>
                         </div>
                     </form>
                 </td>
@@ -70,21 +70,21 @@ const profiles = ref([
         login: 'admin',
         password: '1234',
         role: 'ADMIN',
-	    isActive: 'true'
+        isActive: 'true'
     },
      {
         id: 1,
         login: 'admin2',
         password: '1111',
         role: 'ADMIN',
-	    isActive: 'true'
+        isActive: 'true'
     },
      {
         id: 2,
         login: 'comand35',
         password: '353535',
         role: 'TEAM',
-	    isActive: 'false'
+        isActive: 'false'
     }
 ])
 
