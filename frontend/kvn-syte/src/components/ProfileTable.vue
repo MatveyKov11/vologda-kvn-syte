@@ -15,7 +15,7 @@
             <th class="one wide"></th>
         </tr></thead>
         <tbody>
-            <tr v-for="profile in profiles" :key="profile.id">
+            <tr v-for="profile in profiles" :key="profile.id" @mouseover="profile.isVisible = true" @mouseleave="profile.isVisible = false">
                 <td>
                     <div class="ui fluid input">
                         <input type="text" name="login" v-model="profile.login">
@@ -46,7 +46,7 @@
                         </div>
                     </form>
                 </td>
-                <td><i class="minus square icon" @click="deleteRow(profile.id)"></i></td>
+                <td><i class="minus square icon" @click="deleteRow(profile.id)" v-if="profile.isVisible"></i></td>
             </tr>
         </tbody>
     </table>
@@ -70,23 +70,30 @@ const profiles = ref([
         login: 'admin',
         password: '1234',
         role: 'ADMIN',
-        isActive: 'true'
+        isActive: true,
+        isVisible: false // !!!
     },
      {
         id: 1,
         login: 'admin2',
         password: '1111',
         role: 'ADMIN',
-        isActive: 'true'
+        isActive: true,
+        isVisible: false  // !!!
     },
      {
         id: 2,
         login: 'comand35',
         password: '353535',
         role: 'TEAM',
-        isActive: 'false'
+        isActive: false,
+        isVisible: false  // !!!
     }
 ])
+
+for(let i = 0; i < profiles.value.length; i++){
+    profiles.value[i].isVisible = false
+}
 
 function deleteRow(id){
     profiles.value = profiles.value.filter(el => el.id != id)
