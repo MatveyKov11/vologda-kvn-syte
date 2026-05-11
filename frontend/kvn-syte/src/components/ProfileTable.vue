@@ -8,9 +8,10 @@
     </div>
     <table class="ui table">
         <thead><tr>
-            <th class="five wide">Логин</th>
+            <th class="four wide">Логин</th>
             <th class="five wide">Пароль</th>
-            <th class="five wide">Роль пользователя</th>
+            <th class="four wide">Роль пользователя</th>
+            <th class="two wide">Активирована</th>
             <th class="one wide"></th>
         </tr></thead>
         <tbody>
@@ -32,6 +33,16 @@
                                 <option value="ADMIN"> Организатор </option>
                                 <option value="TEAM"> Команда </option>
                             </select>
+                        </div>
+                    </form>
+                </td>
+                <td>
+                    <form class="ui form">
+			<div class="field">
+                           <select class="ui fluid dropdown" v-model="profile.isActive">
+				<option value="true"> Да </option>
+				<option value="false"> Нет </option>
+                           </select>
                         </div>
                     </form>
                 </td>
@@ -58,19 +69,22 @@ const profiles = ref([
         id: 0,
         login: 'admin',
         password: '1234',
-        role: 'ADMIN'
+        role: 'ADMIN',
+	isActive: 'true'
     },
      {
         id: 1,
         login: 'admin2',
         password: '1111',
-        role: 'ADMIN'
+        role: 'ADMIN',
+	isActive: 'true'
     },
      {
         id: 2,
         login: 'comand35',
         password: '353535',
-        role: 'TEAM'
+        role: 'TEAM',
+	isActive: 'false'
     }
 ])
 
