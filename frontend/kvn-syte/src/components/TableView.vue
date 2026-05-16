@@ -6,6 +6,7 @@
             </div>
         </h3>
     </div>
+    <div class="ui divider"></div>
     <div class="field">
         <select class="ui fluid dropdown" v-model="tableType">
             <option value="contest"> Конкурсы </option>
@@ -15,6 +16,7 @@
             <option value="own"> Свой тип </option>
         </select>
     </div>
+    <div class="ui divider"></div>
     <ContestTable v-if="tableType == 'contest'"></ContestTable>
     <ResultTable v-if="tableType == 'results'"></ResultTable>
     <TeamTable v-if="tableType == 'team'"></TeamTable>
