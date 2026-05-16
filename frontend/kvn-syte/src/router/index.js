@@ -1,14 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import MainApp from '@/components/MainApp.vue'
 import AdminApp from '@/components/AdminApp.vue'
-import ContestTable from '@/components/ContestTable.vue'
-import TeamTable from '@/components/TeamTable.vue'
-import ScheduleTable from '@/components/ScheduleTable.vue'
-import ResultTable from '@/components/ResultTable.vue'
 import LogTable from '@/components/LogTable.vue'
 import ProfileTable from '@/components/ProfileTable.vue'
 import EditorApp from '@/components/EditorApp.vue'
 import NewPostEditor from '@/components/NewPostEditor.vue'
+import TableView from '@/components/TableView.vue'
 
 const routes = [
   {
@@ -22,29 +19,14 @@ const routes = [
     component: AdminApp,
     children: [
       {
-        path: 'contest',
-        name: 'Contests',
-        component: ContestTable
-      },
-      {
-        path: 'team',
-        name: 'Teams',
-        component: TeamTable
-      },
-      {
-        path: 'schedule',
-        name: 'Schedule',
-        component: ScheduleTable
-      },
-      {
-        path: 'result',
-        name: 'Results',
-        component: ResultTable
-      },
-      {
         path: 'log',
         name: 'Logs',
         component: LogTable
+      },
+      {
+        path: 'table',
+        name: 'Tables',
+        component: TableView
       },
       {
         path: 'profile',

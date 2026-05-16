@@ -8,16 +8,25 @@
     </div>
     <table class="ui table">
         <thead>
-            <tr><th class="center aligned">Название конкурса</th> <th class="one wide"></th>
-        </tr></thead>
+            <tr>
+                <th class="center aligned">Название конкурса</th>
+                <th class="center aligned">Описание</th>
+                <th class="one wide"></th>
+            </tr>
+        </thead>
         <tbody>
-            <tr v-for="contest in contests" :key="contest.id">
+            <tr v-for="contest in contests" :key="contest.id" @mouseover="contest.isVisible = true" @mouseleave="contest.isVisible = false">
                 <td>
                     <div class="ui fluid input">
-                        <input type="text" name="contestName" v-model="contest.contestName">
+                        <input type="text" name="name" v-model="contest.name">
                     </div>
                 </td>
-                <td><i class="minus square icon" @click="deleteRow(contest.id)"></i></td>
+                <td>
+                    <div class="ui fluid input">
+                        <input type="text" name="description" v-model="contest.description">
+                    </div>
+                </td>
+                <td><i class="minus square icon" @click="deleteRow(contest.id)" v-if="contest.isVisible"></i></td>
             </tr>
         </tbody>
     </table>
@@ -36,19 +45,27 @@ import router from '@/router';
 const contests = ref([
     {
         id: 0,
-        contestName: 'Визитка'
+        name: 'Визитка',
+        description: '---',
+        isVisible: false  // !!!
     },
     {
         id: 1,
-        contestName: 'Разминка'
+        name: 'Разминка',
+        description: '---',
+        isVisible: false  // !!!
     },
     {
         id: 2,
-        contestName: 'Сложная ситуация'
+        name: 'Сложная ситуация',
+        description: '---',
+        isVisible: false  // !!!
     },
     {
         id: 3,
-        contestName: 'Музыкальное домашнее задание'
+        name: 'Музыкальное домашнее задание',
+        description: '---',
+        isVisible: false  // !!!
     }
 ])
 

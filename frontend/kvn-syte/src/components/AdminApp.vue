@@ -31,6 +31,9 @@
             <a class="item"  @click="schedule">
                 <span> Расписание игр на сезон </span>
             </a>
+            <a class="item"  @click="tables">
+                <span> Таблицы </span>
+            </a>
             <a class="item"  @click="profiles">
                 <span> Учётные записи </span>
             </a>
@@ -64,24 +67,12 @@ function logs() {
     router.push({name: 'Logs'})
 }
 
-function results() {
-    router.push({name: 'Results'})
-}
-
-function teams() {
-    router.push({name: 'Teams'})
-}
-
-function schedule() {
-    router.push({name: 'Schedule'})
-}
-
 function profiles() {
     router.push({name: 'Profiles'})
 }
 
-function contests_table() {
-    router.push({name: 'Contests'})
+function tables() {
+    router.push({name: 'Tables'})
 }
 
 router.push({name: 'Logs'})

@@ -8,10 +8,10 @@
     </div>
     <table class="ui table">
         <thead><tr>
-            <th class="four wide">Логин</th>
-            <th class="five wide">Пароль</th>
-            <th class="four wide">Роль пользователя</th>
-            <th class="two wide">Активирована</th>
+            <th class="center aligned four wide">Логин</th>
+            <th class="center aligned five wide">Пароль</th>
+            <th class="center aligned four wide">Роль пользователя</th>
+            <th class="center aligned two wide">Активирована</th>
             <th class="one wide"></th>
         </tr></thead>
         <tbody>
