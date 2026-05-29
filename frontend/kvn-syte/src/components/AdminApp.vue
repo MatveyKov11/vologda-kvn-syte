@@ -31,9 +31,7 @@
         </div>
     </div>
     <div class="ui clearing divider"></div>
-    <div class="ui text container">
-        <router-view></router-view>
-    </div>
+    <router-view></router-view>
 </template>
 
 <script setup>
