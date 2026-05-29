@@ -62,7 +62,7 @@
 <script setup>
 import router from '@/router';
 import { ref } from 'vue';
-import ChangePassWind from './ChangePassWind.vue';
+import ChangePassWind from './windows/ChangePassWind.vue';
 
 const profiles = ref([
     {
