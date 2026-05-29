@@ -22,23 +22,11 @@
             <a class="item"  @click="logs">
                 <span> Логи </span>
             </a>
-            <a class="item"  @click="results">
-                <span> Результаты игры </span>
-            </a>
-            <a class="item"  @click="teams">
-                <span> Команды </span>
-            </a>
-            <a class="item"  @click="schedule">
-                <span> Расписание игр на сезон </span>
-            </a>
-            <a class="item"  @click="tables">
-                <span> Таблицы </span>
-            </a>
             <a class="item"  @click="profiles">
                 <span> Учётные записи </span>
             </a>
-            <a class="item"  @click="contests_table">
-                <span> Список конкурсов </span>
+            <a class="item"  @click="tables">
+                <span> Таблицы </span>
             </a>
         </div>
     </div>
