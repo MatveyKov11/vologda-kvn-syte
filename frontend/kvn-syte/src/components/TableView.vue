@@ -25,10 +25,10 @@
 
 <script setup>
 import { ref } from 'vue';
-import ContestTable from './ContestTable.vue';
-import ResultTable from './ResultTable.vue';
-import ScheduleTable from './ScheduleTable.vue';
-import TeamTable from './TeamTable.vue';
+import ContestTable from './tables/ContestTable.vue';
+import ResultTable from './tables/ResultTable.vue';
+import ScheduleTable from './tables/ScheduleTable.vue';
+import TeamTable from './tables/TeamTable.vue';
 
 const tableType = ref('none')
 </script>
