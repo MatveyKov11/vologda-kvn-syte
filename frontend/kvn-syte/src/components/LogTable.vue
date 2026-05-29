@@ -17,7 +17,7 @@
         <tbody>
             <tr v-for="log in logs" :key="log.pos">
                 <td>
-                    asd
+                    <p @click="userId = 1">asd</p>
                 </td>
                 <td>
                     asd
@@ -30,12 +30,15 @@
                 </td>
             </tr>
         </tbody>
-    </table>
+        </table>
     </div>
+    <UserWind :userId="userId" v-if="userId != -1" @quit="userId = -1" @edit="toProfiles" @delete="deleteUser" @block="blockUser"/>
 </template>
 
 <script setup>
 import { ref } from 'vue';
+import router from '@/router';
+import UserWind from './windows/UserWind.vue';
 
 const logs = ref([
     {
@@ -45,4 +48,20 @@ const logs = ref([
         pos: 1
     }
 ])
+
+const userId = ref(-1)
+
+function toProfiles(){
+    router.push({name: 'Profiles'})
+}
+
+function deleteUser(){
+    alert("Заглушка!!! Пользователь удалён")
+    userId.value = -1
+}
+
+function blockUser(){
+    alert("Заглушка!!! Пользователь заблокирован")
+    userId.value = -1
+}
 </script>
