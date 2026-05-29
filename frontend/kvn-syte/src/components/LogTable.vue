@@ -17,7 +17,7 @@
         <tbody>
             <tr v-for="log in logs" :key="log.pos">
                 <td>
-                    <p @click="userId = 1">asd</p>
+                    <p @click="userId = 1" class="interactive">asd</p>
                 </td>
                 <td>
                     asd
@@ -65,3 +65,11 @@ function blockUser(){
     userId.value = -1
 }
 </script>
+
+<style scoped>
+.interactive{
+    cursor: pointer;
+    color: rgb(0, 180, 180);
+    text-decoration: underline;
+}
+</style>
