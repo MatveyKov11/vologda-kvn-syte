@@ -23,7 +23,7 @@
                     asd
                 </td>
                 <td>
-                    asd
+                    <p @click="tableId = 1" class="interactive">asd</p>
                 </td>
                 <td>
                     asd
@@ -33,12 +33,14 @@
         </table>
     </div>
     <UserWind :userId="userId" v-if="userId != -1" @quit="userId = -1" @edit="toProfiles" @delete="deleteUser" @block="blockUser"/>
+    <TableWind :tableId="tableId" v-if="tableId != -1" @quit="tableId = -1" @edit="toTables"/>
 </template>
 
 <script setup>
 import { ref } from 'vue';
 import router from '@/router';
 import UserWind from './windows/UserWind.vue';
+import TableWind from './windows/TableWind.vue';
 
 const logs = ref([
     {
@@ -50,9 +52,14 @@ const logs = ref([
 ])
 
 const userId = ref(-1)
+const tableId = ref(-1)
 
 function toProfiles(){
     router.push({name: 'Profiles'})
+}
+
+function toTables(){
+    router.push({name: 'Tables'})
 }
 
 function deleteUser(){

@@ -6,9 +6,9 @@
                     Пользователь test!!! {{ props.userId }}
                 </h2>
                 <div class="field">
-                    <p> Имя: </p>
-                    <p> Роль: </p>
-                    <p> Время последнего нахождения в сети: </p>
+                    <p> Имя: заглушка</p>
+                    <p> Роль: заглушка</p>
+                    <p> Время последнего нахождения в сети: заглушка</p>
                 </div>
                 <div class="ui clearing divider"></div>
                 <button class = "ui primary button" @click="$emit('edit')">Открыть в редакторе</button>
