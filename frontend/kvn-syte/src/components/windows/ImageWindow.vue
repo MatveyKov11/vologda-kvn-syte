@@ -1,7 +1,10 @@
 <template>
     <div class="back">
-        <div class="window">
+        <div :class="fullScreen ? 'window-full' : 'window'">
             <div class="ui buttons" style="position: absolute; top: 5px; right: 5px; z-index: 997;">
+                <div class="ui icon button" @click="fullScreen = !fullScreen">
+                    <i :class="fullScreen ? 'zoom-out icon' : 'zoom-in icon'"></i>
+                </div>
                 <div class="ui icon button" @click="$emit('quit')">
                     <i class="x icon"></i>
                 </div>
@@ -12,6 +15,8 @@
 </template>
 
 <script setup>
+import { ref } from 'vue';
+
 
 const props = defineProps({
     imageSrc: {
@@ -19,6 +24,8 @@ const props = defineProps({
         type: String
     }
 })
+
+const fullScreen = ref(false)
 
 //const emit = defineEmits(['quit', 'edit', 'block', 'delete'])
 
@@ -31,6 +38,18 @@ const props = defineProps({
   top: 15%;
   left: 30%;
   width: 40%;
+  background-color: #ffffff;
+  border: 3px solid #000000;
+  padding: 15px 15px;
+}
+
+.window-full {
+  position: fixed;
+  z-index: 999;
+  top: 0%;
+  left: 0%;
+  width: 100%;
+  height: 100%;
   background-color: #ffffff;
   border: 3px solid #000000;
   padding: 15px 15px;

@@ -17,16 +17,16 @@
         <tbody>
             <tr v-for="(log, i) in logs" :key="i">
                 <td>
-                    <p @click="userId = 1" :class="userClass(log.isAnon)">{{ log.user }}</p>
+                    <p @click="userId = 1" :class="log.isAnon ? 'not-interactive' : 'interactive'">#{{ log.user }}</p>
                 </td>
                 <td>
                     {{ log.action }}
                 </td>
                 <td>
-                    <p @click="userId = 1" class="interactive" v-if="log.type == 'user'">{{ log.object }}</p>
-                    <p @click="tableId = 1" class="interactive" v-if="log.type == 'table'">{{ log.object }}</p>
-                    <p @click="postId = 1" class="interactive" v-if="log.type == 'post'">{{ log.object }}</p>
-                    <p @click="commentId = 1" class="interactive" v-if="log.type == 'comment'">{{ log.object }}</p>
+                    <p @click="userId = 1" class="interactive" v-if="log.type == 'user'">#{{ log.object }}</p>
+                    <p @click="tableId = 1" class="interactive" v-if="log.type == 'table'">#{{ log.object }}</p>
+                    <p @click="postId = 1" class="interactive" v-if="log.type == 'post'">#{{ log.object }}</p>
+                    <p @click="commentId = 1" class="interactive" v-if="log.type == 'comment'">#{{ log.object }}</p>
                 </td>
                 <td>
                     {{ log.time }}
@@ -83,10 +83,6 @@ const logs = ref([
         time: '19.02'
     }
 ])
-
-function userClass(bool){
-    return bool ? 'not-interactive' : 'interactive'
-}
 
 const userId = ref(-1)
 const tableId = ref(-1)
