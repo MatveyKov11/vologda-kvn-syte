@@ -1,11 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import MainApp from '@/components/MainApp.vue'
 import AdminApp from '@/components/AdminApp.vue'
-import LogTable from '@/components/LogTable.vue'
-import ProfileTable from '@/components/ProfileTable.vue'
+import LogViewer from '@/components/LogViewer.vue'
+import ProfileViewer from '@/components/ProfileViewer.vue'
 import EditorApp from '@/components/EditorApp.vue'
 import NewPostEditor from '@/components/NewPostEditor.vue'
-import TableView from '@/components/TableView.vue'
+import TableViewer from '@/components/TableViewer.vue'
 
 const routes = [
   {
@@ -21,17 +21,17 @@ const routes = [
       {
         path: 'log',
         name: 'Logs',
-        component: LogTable
+        component: LogViewer
       },
       {
         path: 'table',
         name: 'Tables',
-        component: TableView
+        component: TableViewer
       },
       {
         path: 'profile',
         name: 'Profiles',
-        component: ProfileTable
+        component: ProfileViewer
       }
     ]
   },
