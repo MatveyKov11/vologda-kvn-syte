@@ -26,7 +26,7 @@
                     <p @click="tableId = 1" class="interactive">asd</p>
                 </td>
                 <td>
-                    asd
+                    <p @click="postId = 1" class="interactive">asd</p>
                 </td>
             </tr>
         </tbody>
@@ -34,6 +34,7 @@
     </div>
     <UserWindow :userId="userId" v-if="userId != -1" @quit="userId = -1" @edit="toProfiles" @delete="deleteUser" @block="blockUser"/>
     <TableWindow :tableId="tableId" v-if="tableId != -1" @quit="tableId = -1" @edit="toTables"/>
+    <PostWindow :postId="postId" v-if="postId != -1" @quit="postId = -1" @edit="toPosts"/>
 </template>
 
 <script setup>
@@ -41,6 +42,7 @@ import { ref } from 'vue';
 import router from '@/router';
 import UserWindow from './windows/UserWindow.vue';
 import TableWindow from './windows/TableWindow.vue';
+import PostWindow from './windows/PostWindow.vue';
 
 const logs = ref([
     {
@@ -53,6 +55,7 @@ const logs = ref([
 
 const userId = ref(-1)
 const tableId = ref(-1)
+const postId = ref(-1)
 
 function toProfiles(){
     router.push({name: 'Profiles'})
@@ -60,6 +63,10 @@ function toProfiles(){
 
 function toTables(){
     router.push({name: 'Tables'})
+}
+
+function toPosts(){
+    router.push({name: 'New Post'})
 }
 
 function deleteUser(){
