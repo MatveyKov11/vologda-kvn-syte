@@ -1,9 +1,12 @@
 <template>
     <div class="back">
         <div class="window">
+            <div class="ui buttons" style="position: absolute; top: 5px; right: 5px; z-index: 997;">
+                <div class="ui icon button" @click="$emit('quit')">
+                    <i class="x icon"></i>
+                </div>
+            </div>
             <img :src="props.imageSrc" class="img"/>
-            <div class="ui clearing divider"></div>
-            <button class = "ui button" @click="$emit('quit')">Выйти</button>
         </div>
     </div>
 </template>
@@ -42,7 +45,6 @@ const props = defineProps({
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
 }
-
 
 .img{
     width: 100%;

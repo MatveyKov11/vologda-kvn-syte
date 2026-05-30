@@ -1,7 +1,12 @@
 <template>
     <div class="back">
         <div class="window">
-            <div class="ui text container segment">
+            <div class="ui buttons" style="position: absolute; top: 5px; right: 5px; z-index: 997;">
+                <div class="ui icon button" @click="$emit('quit')">
+                    <i class="x icon"></i>
+                </div>
+            </div>
+            <div class="ui text container segment" style="width: 100%;">
                 <h2 class="ui header">
                     Комментарий test!!! {{ props.commentId }}
                 </h2>

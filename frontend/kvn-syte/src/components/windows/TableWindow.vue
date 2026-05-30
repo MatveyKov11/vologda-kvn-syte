@@ -1,7 +1,12 @@
 <template>
     <div class="back">
         <div class="window">
-            <div class="ui text container segment">
+            <div class="ui buttons" style="position: absolute; top: 5px; right: 5px; z-index: 997;">
+                <div class="ui icon button" @click="$emit('quit')">
+                    <i class="x icon"></i>
+                </div>
+            </div>
+            <div class="ui text container segment" style="width: 100%;">
                 <h2 class="ui header">
                      Таблица test!!! {{ props.tableId }}
                 </h2>
@@ -77,8 +82,8 @@ const table = ref({
   position: fixed;
   z-index: 999;
   top: 15%;
-  left: 30%;
-  width: 40%;
+  left: 25%;
+  width: 50%;
   background-color: #ffffff;
   border: 3px solid #000000;
   padding: 15px 15px;
