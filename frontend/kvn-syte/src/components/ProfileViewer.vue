@@ -56,13 +56,13 @@
     <button class="ui button" @click="saveChanges">
         <i class="check icon"></i> Сохранить изменения
     </button>
-    <ChangePassWind :profile="selectedProfile" v-if="isChanged" @quit="isChanged = false"/>
+    <ChangePassWindow :profile="selectedProfile" v-if="isChanged" @quit="isChanged = false"/>
 </template>
 
 <script setup>
 import router from '@/router';
 import { ref } from 'vue';
-import ChangePassWind from './windows/ChangePassWind.vue';
+import ChangePassWindow from './windows/ChangePassWindow.vue/index.js';
 
 const profiles = ref([
     {
