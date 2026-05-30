@@ -36,10 +36,10 @@
             </iframe>
         </div>
         <div v-else-if="block.type == 'photo'" class="ui fluid container">
-            <img class="video" :src="block.data[0]"/>
+            <img class="video" :src="block.data[0]" @click="imageSrc = block.data[0]"/>
             <div class='gallery'>
                 <img v-for="i in block.data.length" :key="i" style="margin-right: 1%; margin-left: 1%;"
-                    :width="lenItem(block.data.length)" :src="block.data[i-1]"/>
+                    :width="lenItem(block.data.length)" :src="block.data[i-1]" @click="imageSrc = block.data[i-1]"/>
             </div>
         </div>
     </div>
@@ -57,14 +57,12 @@
             <i class="edit icon"></i>
         </button>
     </div>
+    <ImageWindow :image-src="imageSrc" v-if="imageSrc.length" @quit="imageSrc = ''"/>
 </template>
 
 <script setup>
-import { ref, defineProps } from 'vue';
-
-function lenItem(i){
-    return (100 / i) - 2 + '%'
-}
+import { ref } from 'vue';
+import ImageWindow from './windows/ImageWindow.vue';
 
 const props = defineProps({
     post: Object
@@ -72,8 +70,8 @@ const props = defineProps({
 
 const comments = ref([
 ])
-
 const inputText = ref('')
+const imageSrc = ref('')
 
 function addComment(){
     comments.value.push({
@@ -81,6 +79,10 @@ function addComment(){
         text: inputText.value
     })
     inputText.value = ''
+}
+
+function lenItem(i){
+    return (100 / i) - 2 + '%'
 }
 </script>
 
