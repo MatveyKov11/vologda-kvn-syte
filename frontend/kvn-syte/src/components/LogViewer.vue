@@ -39,8 +39,8 @@
 <script setup>
 import { ref } from 'vue';
 import router from '@/router';
-import UserWindow from './windows/UserWindow.vue/index.js';
-import TableWindow from './windows/TableWindow.vue/index.js';
+import UserWindow from './windows/UserWindow.vue';
+import TableWindow from './windows/TableWindow.vue';
 
 const logs = ref([
     {
