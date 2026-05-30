@@ -36,8 +36,8 @@
             </iframe>
         </div>
         <div v-else-if="block.type == 'photo'" class="ui fluid container">
-            <img class="video" :src="block.data[0]" @click="imageSrc = block.data[0]"/>
-            <div class='gallery'>
+            <img :src="block.data[0]" @click="imageSrc = block.data[0]" style="width: 100%;"/>
+            <div class='gallery' v-if="block.data.length > 1">
                 <img v-for="i in block.data.length" :key="i" style="margin-right: 1%; margin-left: 1%;"
                     :width="lenItem(block.data.length)" :src="block.data[i-1]" @click="imageSrc = block.data[i-1]"/>
             </div>
@@ -89,6 +89,5 @@ function lenItem(i){
 <style>
 .video{
     width: 100%;
-    height: 360px;
 }
 </style>
