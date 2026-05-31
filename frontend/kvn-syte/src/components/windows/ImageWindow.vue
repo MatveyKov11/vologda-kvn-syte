@@ -53,6 +53,7 @@ const fullScreen = ref(false)
   background-color: #ffffff;
   border: 3px solid #000000;
   padding: 15px 15px;
+  overflow-y: scroll;
 }
 
 .back {
@@ -66,7 +67,6 @@ const fullScreen = ref(false)
 }
 
 .img{
-    max-width: 100%;
-    max-height: 100%;
+    width: 100%;
 }
 </style>
