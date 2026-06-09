@@ -5,7 +5,7 @@
                 Логи
             </div>
         </h2>
-        <table class="ui table">
+        <table class="ui celled table">
         <thead>
             <tr>
                 <th class="center aligned">Субъект</th>
@@ -55,13 +55,58 @@ import CommentWindow from './windows/CommentWindow.vue';
 
 const logs = ref([
     {
+        user: 'admin2',
+        userId: 2,
+        action: 'Удалил комментарий',
+        object: 'comment1',
+        objectId: 1,
+        type: 'comment',
+        time: '22.02.26 19:02:00'
+    },
+    {
+        user: 'Аноним',
+        userId: -1,
+        action: 'Оставил комментарий',
+        object: 'comment2',
+        objectId: 2,
+        type: 'comment',
+        time: '22.02.26 19:01:00'
+    },
+    {
         user: 'Аноним',
         userId: -1,
         action: 'Оставил комментарий',
         object: 'comment1',
         objectId: 1,
         type: 'comment',
-        time: '22.02'
+        time: '22.02.26 19:00:00'
+    },
+    {
+        user: 'admin1',
+        userId: 1,
+        action: 'Опубликовал черновик поста',
+        object: 'post2',
+        objectId: 2,
+        type: 'post',
+        time: '21.02.26 19:03:00'
+    },
+    {
+        user: 'admin1',
+        userId: 1,
+        action: 'Изменил черновик поста',
+        object: 'post2',
+        objectId: 2,
+        type: 'post',
+        time: '21.02.26 19:02:00'
+    },
+    {
+        user: 'admin2',
+        userId: 2,
+        action: 'Создал черновик поста',
+        object: 'post2',
+        objectId: 2,
+        type: 'post',
+        time: '21.02.26 19:01:00'
     },
     {
         user: 'admin1',
@@ -70,16 +115,43 @@ const logs = ref([
         object: 'post1',
         objectId: 1,
         type: 'post',
-        time: '21.02'
+        time: '21.02.26 19:00:00'
     },
     {
         user: 'admin2',
         userId: 2,
-        action: 'Добавил новую таблицу',
+        action: 'Удалил таблицу',
+        object: 'table2',
+        objectId: 2,
+        type: 'table',
+        time: '20.02.26 19:03:00'
+    },
+    {
+        user: 'admin2',
+        userId: 2,
+        action: 'Изменил таблицу',
+        object: 'table2',
+        objectId: 2,
+        type: 'table',
+        time: '20.02.26 19:02:00'
+    },
+    {
+        user: 'admin1',
+        userId: 1,
+        action: 'Создал новую таблицу',
+        object: 'table2',
+        objectId: 2,
+        type: 'table',
+        time: '20.02.26 19:01:00'
+    },
+    {
+        user: 'admin2',
+        userId: 2,
+        action: 'Создал новую таблицу',
         object: 'table1',
         objectId: 1,
         type: 'table',
-        time: '20.02'
+        time: '20.02.26 19:00:00'
     },
     {
         user: 'admin1',
@@ -88,7 +160,7 @@ const logs = ref([
         object: 'admin2',
         objectId: 2,
         type: 'user',
-        time: '19.02'
+        time: '19.02.26 19:03:00'
     },
     {
         user: 'admin1',
@@ -97,7 +169,7 @@ const logs = ref([
         object: 'admin4',
         objectId: 4,
         type: 'user',
-        time: '19.02'
+        time: '19.02.26 19:02:00'
     },
     {
         user: 'admin1',
@@ -106,7 +178,7 @@ const logs = ref([
         object: 'admin4',
         objectId: 4,
         type: 'user',
-        time: '19.02'
+        time: '19.02.26 19:01:00'
     },
     {
         user: 'admin1',
@@ -115,7 +187,7 @@ const logs = ref([
         object: 'admin4',
         objectId: 4,
         type: 'user',
-        time: '19.02'
+        time: '19.02.26 19:00:00'
     }
 ])
 
