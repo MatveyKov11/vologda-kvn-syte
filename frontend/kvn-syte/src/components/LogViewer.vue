@@ -17,16 +17,20 @@
         <tbody>
             <tr v-for="(log, i) in logs" :key="i">
                 <td>
-                    <p @click="userId = 1" :class="log.isAnon ? 'not-interactive' : 'interactive'">#{{ log.user }}</p>
+                    <p @click="userId = 1" :class="log.userId == -1 ? 'not-interactive' : 'interactive'">#{{ log.user }}</p>
                 </td>
                 <td>
                     {{ log.action }}
                 </td>
                 <td>
-                    <p @click="userId = 1" class="interactive" v-if="log.type == 'user'">#{{ log.object }}</p>
-                    <p @click="tableId = 1" class="interactive" v-if="log.type == 'table'">#{{ log.object }}</p>
-                    <p @click="postId = 1" class="interactive" v-if="log.type == 'post'">#{{ log.object }}</p>
-                    <p @click="commentId = 1" class="interactive" v-if="log.type == 'comment'">#{{ log.object }}</p>
+                    <p @click="userId = log.objectId" :class="log.objectId == -1 ? 'not-interactive' : 'interactive'"
+                        v-if="log.type == 'user'">#{{ log.object }}</p>
+                    <p @click="tableId = log.objectId" :class="log.objectId == -1 ? 'not-interactive' : 'interactive'"
+                        v-if="log.type == 'table'">#{{ log.object }}</p>
+                    <p @click="postId = log.objectId" :class="log.objectId == -1 ? 'not-interactive' : 'interactive'"
+                        v-if="log.type == 'post'">#{{ log.object }}</p>
+                    <p @click="commentId = log.objectId" :class="log.objectId == -1 ? 'not-interactive' : 'interactive'"
+                        v-if="log.type == 'comment'">#{{ log.object }}</p>
                 </td>
                 <td>
                     {{ log.time }}
@@ -52,33 +56,64 @@ import CommentWindow from './windows/CommentWindow.vue';
 const logs = ref([
     {
         user: 'Аноним',
-        isAnon: true,
+        userId: -1,
         action: 'Оставил комментарий',
         object: 'comment1',
+        objectId: 1,
         type: 'comment',
         time: '22.02'
     },
     {
         user: 'admin1',
-        isAnon: false,
+        userId: 1,
         action: 'Опубликовал новый пост',
         object: 'post1',
+        objectId: 1,
         type: 'post',
         time: '21.02'
     },
     {
         user: 'admin2',
-        isAnon: false,
+        userId: 2,
         action: 'Добавил новую таблицу',
         object: 'table1',
+        objectId: 1,
         type: 'table',
         time: '20.02'
     },
     {
         user: 'admin1',
-        isAnon: false,
+        userId: 1,
         action: 'Добавил новую учётную запись',
         object: 'admin2',
+        objectId: 2,
+        type: 'user',
+        time: '19.02'
+    },
+    {
+        user: 'admin1',
+        userId: 1,
+        action: 'Удалил учётную запись',
+        object: 'admin4',
+        objectId: 4,
+        type: 'user',
+        time: '19.02'
+    },
+    {
+        user: 'admin1',
+        userId: 1,
+        action: 'Заблокировал учётную запись',
+        object: 'admin4',
+        objectId: 4,
+        type: 'user',
+        time: '19.02'
+    },
+    {
+        user: 'admin1',
+        userId: 1,
+        action: 'Добавил новую учётную запись',
+        object: 'admin4',
+        objectId: 4,
         type: 'user',
         time: '19.02'
     }
