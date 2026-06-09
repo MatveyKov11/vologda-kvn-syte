@@ -5,6 +5,7 @@
                 Логи
             </div>
         </h2>
+        <LogFilter/>
         <table class="ui celled table">
         <thead>
             <tr>
@@ -52,6 +53,7 @@ import UserWindow from './windows/UserWindow.vue';
 import TableWindow from './windows/TableWindow.vue';
 import PostWindow from './windows/PostWindow.vue';
 import CommentWindow from './windows/CommentWindow.vue';
+import LogFilter from './LogFilter.vue';
 
 const logs = ref([
     {
