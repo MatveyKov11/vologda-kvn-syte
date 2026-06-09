@@ -5,7 +5,7 @@
                 Логи
             </div>
         </h2>
-        <LogFilter/>
+        <LogFilter @clear="clearFilter" @filter="(f) => applyFilter(JSON.parse(JSON.stringify(f)))"/>
         <table class="ui celled table">
         <thead>
             <tr>
@@ -16,7 +16,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr v-for="(log, i) in logs" :key="i">
+            <tr v-for="(log, i) in filteredLogs" :key="i">
                 <td>
                     <p @click="userId = 1" :class="log.userId == -1 ? 'not-interactive' : 'interactive'">#{{ log.user }}</p>
                 </td>
@@ -62,136 +62,213 @@ const logs = ref([
         action: 'Удалил комментарий',
         object: 'comment1',
         objectId: 1,
-        type: 'comment',
-        time: '22.02.26 19:02:00'
+        objectType: 'comment',
+        time: '2026-02-22T19:02'
     },
     {
         user: 'Аноним',
         userId: -1,
+        userType: 'anon',
         action: 'Оставил комментарий',
         object: 'comment2',
         objectId: 2,
-        type: 'comment',
-        time: '22.02.26 19:01:00'
+        objectType: 'comment',
+        time: '2026-02-22T19:01'
     },
     {
         user: 'Аноним',
         userId: -1,
+        userType: 'anon',
         action: 'Оставил комментарий',
         object: 'comment1',
         objectId: 1,
-        type: 'comment',
-        time: '22.02.26 19:00:00'
+        objectType: 'comment',
+        time: '2026-02-22T19:00'
     },
     {
         user: 'admin1',
         userId: 1,
+        userType: 'admin',
         action: 'Опубликовал черновик поста',
         object: 'post2',
         objectId: 2,
-        type: 'post',
-        time: '21.02.26 19:03:00'
+        objectType: 'post',
+        time: '2026-02-21T19:03'
     },
     {
         user: 'admin1',
         userId: 1,
+        userType: 'admin',
         action: 'Изменил черновик поста',
         object: 'post2',
         objectId: 2,
-        type: 'post',
-        time: '21.02.26 19:02:00'
+        objectType: 'post',
+        time: '2026-02-21T19:02'
     },
     {
         user: 'admin2',
         userId: 2,
+        userType: 'admin',
         action: 'Создал черновик поста',
         object: 'post2',
         objectId: 2,
-        type: 'post',
-        time: '21.02.26 19:01:00'
+        objectType: 'post',
+        time: '2026-02-21T19:01'
     },
     {
         user: 'admin1',
         userId: 1,
+        userType: 'admin',
         action: 'Опубликовал новый пост',
         object: 'post1',
         objectId: 1,
-        type: 'post',
-        time: '21.02.26 19:00:00'
+        objectType: 'post',
+        time: '2026-02-21T19:00'
     },
     {
         user: 'admin2',
         userId: 2,
+        userType: 'admin',
         action: 'Удалил таблицу',
         object: 'table2',
         objectId: 2,
-        type: 'table',
-        time: '20.02.26 19:03:00'
+        objectType: 'table',
+        time: '2026-02-20T19:03'
     },
     {
         user: 'admin2',
         userId: 2,
+        userType: 'admin',
         action: 'Изменил таблицу',
         object: 'table2',
         objectId: 2,
-        type: 'table',
-        time: '20.02.26 19:02:00'
+        objectType: 'table',
+        time: '2026-02-20T19:02'
     },
     {
         user: 'admin1',
         userId: 1,
+        userType: 'admin',
         action: 'Создал новую таблицу',
         object: 'table2',
         objectId: 2,
-        type: 'table',
-        time: '20.02.26 19:01:00'
+        objectType: 'table',
+        time: '2026-02-20T19:01'
     },
     {
         user: 'admin2',
         userId: 2,
+        userType: 'admin',
         action: 'Создал новую таблицу',
         object: 'table1',
         objectId: 1,
-        type: 'table',
-        time: '20.02.26 19:00:00'
+        objectType: 'table',
+        time: '2026-02-20T19:00'
     },
     {
         user: 'admin1',
         userId: 1,
+        userType: 'admin',
         action: 'Добавил новую учётную запись',
         object: 'admin2',
         objectId: 2,
-        type: 'user',
-        time: '19.02.26 19:03:00'
+        objectType: 'user',
+        time: '2026-02-19T19:03'
     },
     {
         user: 'admin1',
         userId: 1,
+        userType: 'admin',
         action: 'Удалил учётную запись',
         object: 'admin4',
         objectId: 4,
-        type: 'user',
-        time: '19.02.26 19:02:00'
+        objectType: 'user',
+        time: '2026-02-19T19:02'
     },
     {
         user: 'admin1',
         userId: 1,
+        userType: 'admin',
         action: 'Заблокировал учётную запись',
         object: 'admin4',
         objectId: 4,
-        type: 'user',
-        time: '19.02.26 19:01:00'
+        objectType: 'user',
+        time: '2026-02-19T19:01'
     },
     {
         user: 'admin1',
         userId: 1,
+        userType: 'admin',
         action: 'Добавил новую учётную запись',
         object: 'admin4',
         objectId: 4,
-        type: 'user',
-        time: '19.02.26 19:00:00'
+        objectType: 'user',
+        time: '2026-02-19T19:00'
     }
 ])
+
+const filteredLogs = ref([])
+logs.value.forEach((log) => {
+    filteredLogs.value.push(log)
+})
+
+function clearFilter(){
+    let filteredLogsCopy = []
+    logs.value.forEach((log) => {
+        filteredLogsCopy.push(log)
+    })
+    filteredLogs.value = filteredLogsCopy
+}
+
+function applyFilter(f){
+    let filteredLogsCopy = []
+    logs.value.forEach((log) => {
+        if(f.subject.length == 0 || f.subject.includes(log.userType)){
+            filteredLogsCopy.push(log)
+        }
+    })
+    let filteredLogsCopy2 = []
+    if (f.action.includes("Созд")){
+        f.action.push("Добав")
+        f.action.push("Остав")
+        f.action.push("Опублик")
+    }
+    if (f.action.includes("Измен")){
+        f.action.push("Заблок")
+        f.action.push("Разблок")
+    }
+    filteredLogsCopy.forEach((log) => {
+        if(f.action.length == 0){
+            filteredLogsCopy2.push(log)
+        }else{
+            f.action.forEach((act) => {
+                if(log.action.startsWith(act)){
+                    filteredLogsCopy2.push(log)
+                }
+            })
+            
+        }
+    })
+    filteredLogsCopy = []
+    filteredLogsCopy2.forEach((log) => {
+        if(f.object.length == 0 || f.object.includes(log.type)){
+            filteredLogsCopy.push(log)
+        }
+    })
+    filteredLogsCopy2 = []
+    filteredLogsCopy.forEach((log) => {
+        if(f.before == 0 || f.before >= log.time){
+            filteredLogsCopy2.push(log)
+        }
+    })
+    filteredLogsCopy = []
+    filteredLogsCopy2.forEach((log) => {
+        if(f.after == 0 || f.after <= log.time){
+            filteredLogsCopy.push(log)
+        }
+    })
+    filteredLogs.value = filteredLogsCopy
+}
 
 const userId = ref(-1)
 const tableId = ref(-1)

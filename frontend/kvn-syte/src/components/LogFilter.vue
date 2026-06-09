@@ -19,12 +19,12 @@
                     </div>
                     <div class="ui divider"/>
                     <div class="ui checkbox">
-                        <input type="checkbox" v-model="filter.subject" value="edit">
+                        <input type="checkbox" v-model="filter.subject" value="editor">
                         <label>Редакторы</label>
                     </div>
                     <div class="ui divider"/>
                     <div class="ui checkbox">
-                        <input type="checkbox" v-model="filter.subject" value="adm">
+                        <input type="checkbox" v-model="filter.subject" value="admin">
                         <label>Администраторы</label>
                     </div>
                 </div>
@@ -56,25 +56,25 @@
                         </div>
                     </h4>
                     <div class="ui checkbox">
-                        <input type="checkbox" v-model="filter.subject" value="post">
+                        <input type="checkbox" v-model="filter.object" value="post">
                         <label>Пост</label>
                     </div>
                     <div class="ui checkbox">
-                        <input type="checkbox" v-model="filter.subject" value="table">
+                        <input type="checkbox" v-model="filter.object" value="table">
                         <label>Таблица</label>
                     </div>
                     <div class="ui divider"/>
                     <div class="ui checkbox">
-                        <input type="checkbox" v-model="filter.action" value="change">
+                        <input type="checkbox" v-model="filter.object" value="change">
                         <label>Стиль</label>
                     </div>
                     <div class="ui checkbox">
-                        <input type="checkbox" v-model="filter.action" value="user">
+                        <input type="checkbox" v-model="filter.object" value="user">
                         <label>Учетная запись</label>
                     </div>
                     <div class="ui divider"/>
                     <div class="ui checkbox">
-                        <input type="checkbox" v-model="filter.action" value="comment">
+                        <input type="checkbox" v-model="filter.object" value="comment">
                         <label>Комментарий</label>
                     </div>
                 </div>
@@ -92,10 +92,10 @@
             </div>
         </div>
         <div class="ui divider"/>
-        <button class="ui button">
+        <button class="ui button" @click="filter = emptyFilter; $emit('clear')">
             <i class="x icon"></i> Очистить
         </button>
-        <button class="ui primary button">
+        <button class="ui primary button" @click="$emit('filter', filter)">
             <i class="check icon"></i> Применить фильтр
         </button>
     </div>
@@ -112,4 +112,12 @@ const filter = ref({
     before: 0,
     after: 0
 })
+
+const emptyFilter = {
+    subject: [],
+    action: [],
+    object: [],
+    before: 0,
+    after: 0
+}
 </script>
