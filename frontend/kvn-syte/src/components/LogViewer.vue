@@ -25,13 +25,13 @@
                 </td>
                 <td>
                     <p @click="userId = log.objectId" :class="log.objectId == -1 ? 'not-interactive' : 'interactive'"
-                        v-if="log.type == 'user'">#{{ log.object }}</p>
+                        v-if="log.objectType == 'user'">#{{ log.object }}</p>
                     <p @click="tableId = log.objectId" :class="log.objectId == -1 ? 'not-interactive' : 'interactive'"
-                        v-if="log.type == 'table'">#{{ log.object }}</p>
+                        v-if="log.objectType == 'table'">#{{ log.object }}</p>
                     <p @click="postId = log.objectId" :class="log.objectId == -1 ? 'not-interactive' : 'interactive'"
-                        v-if="log.type == 'post'">#{{ log.object }}</p>
+                        v-if="log.objectType == 'post'">#{{ log.object }}</p>
                     <p @click="commentId = log.objectId" :class="log.objectId == -1 ? 'not-interactive' : 'interactive'"
-                        v-if="log.type == 'comment'">#{{ log.object }}</p>
+                        v-if="log.objectType == 'comment'">#{{ log.object }}</p>
                 </td>
                 <td>
                     {{ log.time }}
