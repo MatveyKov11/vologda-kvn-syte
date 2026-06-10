@@ -36,6 +36,8 @@ const props = defineProps({
 })
 
 //const emit = defineEmits(['quit', 'edit', 'block', 'delete'])
+
+// Заглушка-пользователь
 const user = ref({
     username: "Test",
     role: "Admin",

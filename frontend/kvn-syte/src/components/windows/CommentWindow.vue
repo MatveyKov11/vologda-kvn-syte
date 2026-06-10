@@ -8,10 +8,12 @@
             </div>
             <div class="ui text container segment" style="width: 100%;">
                 <h2 class="ui header">
-                    Комментарий test!!! {{ props.commentId }}
+                    Комментарий #{{ props.commentId }}
                 </h2>
                 <div class="ui segment" align="left">
-                    {{ comment.text }}
+                    <p><b> {{ comment.user }} </b></p>
+                    <p> {{ comment.text }} </p>
+                    <p align="right"> {{ comment.time }}</p>
                 </div>
                 <div class="ui clearing divider"></div>
                 <button class = "ui primary button" @click="$emit('show')">Открыть пост</button>
@@ -36,7 +38,9 @@ const props = defineProps({
 
 // Заглушка-комментарий
 const comment = ref({
-    text: 'Abacaba'
+    user: "Аноним",
+    text: "Abacaba",
+    time: "26.02.19T19:00"
 })
 
 </script>
