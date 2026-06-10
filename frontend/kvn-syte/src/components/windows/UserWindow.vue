@@ -8,12 +8,12 @@
             </div>
             <div class="ui text container segment" style="width: 100%;">
                 <h2 class="ui header">
-                    Пользователь test!!! {{ props.userId }}
+                    Пользователь #{{ props.userId }}
                 </h2>
                 <div class="field">
-                    <p> Имя: заглушка</p>
-                    <p> Роль: заглушка</p>
-                    <p> Время последнего нахождения в сети: заглушка</p>
+                    <p> Имя: {{ user.username }}</p>
+                    <p> Роль: {{ user.role }}</p>
+                    <p> Время последнего нахождения в сети: {{ user.lastActionTime }}</p>
                 </div>
                 <div class="ui clearing divider"></div>
                 <button class = "ui primary button" @click="$emit('edit')">Открыть в редакторе</button>
@@ -26,6 +26,8 @@
 </template>
 
 <script setup>
+import { ref } from 'vue';
+
 
 const props = defineProps({
     userId: {
@@ -34,7 +36,11 @@ const props = defineProps({
 })
 
 //const emit = defineEmits(['quit', 'edit', 'block', 'delete'])
-
+const user = ref({
+    username: "Test",
+    role: "Admin",
+    lastActionTime: "26.02.18T19:00"
+})
 </script>
 
 <style scoped>

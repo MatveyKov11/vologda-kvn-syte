@@ -18,7 +18,7 @@
         <tbody>
             <tr v-for="(log, i) in filteredLogs" :key="i">
                 <td>
-                    <p @click="userId = 1" :class="log.userId == -1 ? 'not-interactive' : 'interactive'">#{{ log.user }}</p>
+                    <p @click="userId = log.userId" :class="log.userId == -1 ? 'not-interactive' : 'interactive'">#{{ log.user }}</p>
                 </td>
                 <td>
                     {{ log.action }}
