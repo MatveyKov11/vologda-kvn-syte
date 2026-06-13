@@ -47,17 +47,17 @@
                     </td>
                     <td>
                         <div class="ui icon red button" @click="deleteRow(profile.id)" v-if="profile.isVisible">
-                            <i class="x icon"></i>
+                            <i class="x icon"/>
                         </div>
                     </td>
                 </tr>
             </tbody>
         </table>
         <button class="ui primary button" @click="addRow">
-            <i class="plus icon"></i> Добавить учётную запись
+            <i class="plus icon"/> Добавить учётную запись
         </button>
         <button class="ui green button" @click="saveChanges">
-            <i class="check icon"></i> Сохранить изменения
+            <i class="check icon"/> Сохранить изменения
         </button>
     </div>
     <ChangePassWindow :profile="selectedProfile" v-if="isChanged" @quit="isChanged = false"/>

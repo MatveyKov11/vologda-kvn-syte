@@ -7,14 +7,15 @@
         </h2>
     </div>
     <table class="ui table">
-        <thead><tr>
-            <th class="five wide">Название игры</th>
-            <th class="five wide">Номер сезона</th>
-            <th class="five wide">Дата игры</th>
-            <th class="one wide"></th>
-        </tr></thead>
+        <thead>
+            <tr>
+                <th class="center aligned">Название игры</th>
+                <th class="center aligned">Расписание</th>
+                <th class="one wide"></th>
+            </tr>
+        </thead>
         <tbody>
-            <tr v-for="game in games" :key="game.id">
+            <tr v-for="(game, i) in games" :key="i" @mouseover="game.isVisible = true" @mouseleave="game.isVisible = false">
                 <td>
                     <div class="ui fluid input">
                         <input type="text" name="gameName" v-model="game.gameName">
@@ -22,22 +23,21 @@
                 </td>
                 <td>
                     <div class="ui fluid input">
-                        <input type="number" name="seasonNumber" v-model="game.seasonNumber">
-                    </div>
-                </td>
-                <td>
-                    <div class="ui fluid input">
                         <input type="date" name="gameDate" v-model="game.gameDate">
                     </div>
                 </td>
-                <td><i class="minus square icon" @click="deleteRow(game.id)"></i></td>
+                <td>
+                    <div class="ui icon red button" @click="deleteRow(i)" v-if="game.isVisible">
+                        <i class="x icon"></i>
+                    </div>
+                </td>
             </tr>
         </tbody>
     </table>
-    <button class="ui button" @click="addRow">
+    <button class="ui primary button" @click="addRow">
         <i class="plus icon"></i> Добавить игру
     </button>
-    <button class="ui button" @click="saveChanges">
+    <button class="ui green button" @click="saveChanges">
         <i class="check icon"></i> Сохранить изменения
     </button>
 </template>
@@ -48,38 +48,38 @@ import { ref } from 'vue';
 
 const games = ref([
     {
-        id: 0,
         gameName: 'Фестиваль',
-        seasonNumber: 1,
-        gameDate: ''
+        gameDate: '',
+        isVisible: false
     },
     {
-        id: 1,
         gameName: 'Полуфинал',
-        seasonNumber: 1,
-        gameDate: ''
+        gameDate: '',
+        isVisible: false
     },
     {
-        id: 2,
         gameName: 'Финал',
-        seasonNumber: 1,
-        gameDate: ''
+        gameDate: '',
+        isVisible: false
     }
 ])
 
-function deleteRow(id){
-    games.value = games.value.filter(el => el.id != id)
+function deleteRow(r){
+    let gamesCopy = []
     for(let i = 0; i < games.value.length; i++){
-        games.value[i].id = i
+        if(i != r){
+            gamesCopy.push(games.value[i])
+        }
     }
+    games.value = gamesCopy
 }
 
 function addRow(){
-    games.value.push({id: games.value.length})
+    games.value.push({})
 }
 
 function saveChanges(){
-    alert('Изменения сохранены!')
+    alert('Заглушка! Изменения сохранены!')
     router.push({name: 'Admin Home'})
 }
 </script>

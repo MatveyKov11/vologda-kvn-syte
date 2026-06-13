@@ -9,57 +9,55 @@
     <table class="ui table">
         <thead><tr>
             <th>Название команды</th>
-            <th v-for="i in columns.length" :key="i">
-                <form class="ui form">
-                    <div class="field">
-                        <select class="ui fluid dropdown" v-model="columns[i-1]">
-                            <option disabled value="">Конкурс</option>
-                            <option v-for="contest in contests" :key="contest.id" :value="contest.contestName">{{ contest.contestName }}</option>
-                        </select>
-                    </div>
-                </form>
+            <th v-for="i in results.columns.length" :key="i">
+                <div class="ui fluid input">
+                    <input type="text" name="contest" v-model="results.columns[i-1]" placeholder="Название конкурса">
+                </div>
             </th>
             <th> Всего</th>
-            <th><i class="plus icon" @click="addColumn()"></i></th>
+            <th>
+                <div class="ui icon green button" @click="addColumn()">
+                    <i class="plus icon"/>
+                </div>
+            </th>
         </tr></thead>
         <tbody>
-            <tr v-for="result in results" :key="result.id">
+            <tr v-for="(row, i) in results.rows" :key="i" @mouseover="row.isVisible = true" @mouseleave="row.isVisible = false">
                 <td>
-                    <form class="ui form">
-                        <div class="field">
-                            <select class="ui fluid dropdown" v-model="result.team">
-                                <option disabled value="">Команда</option>
-                                <option v-for="team in teams" :key="team.id" :value="team.teamName">{{ team.teamName }}</option>
-                            </select>
-                        </div>
-                    </form>
-                </td>
-                <td v-for="i in result.rates.length" :key="i">
                     <div class="ui fluid input">
-                        <input type="number" :name="'rate'+i" v-model="result.rates[i-1]">
+                        <input type="text" name="team" v-model="row.team">
                     </div>
                 </td>
-                <td> {{ sumFinal(result.rates) }}</td>
-                <td><i class="minus square icon" @click="deleteRow(result.id)"></i></td>
+                <td v-for="(rate, j) in row.rates" :key="j">
+                    <div class="ui fluid input">
+                        <input type="number" :name="'rate'+j" v-model="row.rates[j]">
+                    </div>
+                </td>
+                <td> {{ sumFinal(row.rates) }}</td>
+                <td>
+                    <div class="ui icon red button" @click="deleteRow(i)" v-if="row.isVisible">
+                        <i class="x icon"/>
+                    </div>
+                </td>
             </tr>
             <tr>
-                <td></td>
-                <td v-for="i in columns.length" :key="i" align="center">
-                    <div class="ui icon fluid button" @click="deleteColumn(i-1)">
-                        <i class="minus square icon"></i>
+                <td/>
+                <td v-for="i in results.columns.length" :key="i" align="center">
+                    <div class="ui icon fluid red button" @click="deleteColumn(i)">
+                        <i class="x icon"/>
                         Удалить
                     </div>
                 </td>
-                <td></td>
-                <td></td>
+                <td/>
+                <td/>
             </tr>
         </tbody>
     </table>
-    <button class="ui button" @click="addRow">
-        <i class="plus icon"></i> Добавить команду
+    <button class="ui primary button" @click="addRow">
+        <i class="plus icon"/> Добавить команду
     </button>
-    <button class="ui button" @click="saveChanges">
-        <i class="check icon"></i> Сохранить изменения
+    <button class="ui green button" @click="saveChanges">
+        <i class="check icon"/> Сохранить изменения
     </button>
 </template>
 
@@ -67,108 +65,86 @@
 import router from '@/router';
 import { ref } from 'vue';
 
-const contests = ref([
+const results = ref({
+    columns: ['Визитка', 'Разминка', 'Сложная ситуация'],
+    rows: [
     {
-        id: 0,
-        contestName: 'Визитка'
-    },
-    {
-        id: 1,
-        contestName: 'Разминка'
-    },
-    {
-        id: 2,
-        contestName: 'Сложная ситуация'
-    },
-    {
-        id: 3,
-        contestName: 'Музыкальное домашнее задание'
-    }
-])
-
-const teams = ref([
-    {
-        id: 0,
-        teamName: '35 Элемент',
-        capitanFio: 'Маслов Всеволод',
-        capitanContacts: '-'
-    },
-    {
-        id: 1,
-        teamName: 'Люди ФСИНем',
-        capitanFio: 'Калантаев Симеон',
-        capitanContacts: '-'
-    },
-    {
-        id: 2,
-        teamName: 'Хлорид Натрия',
-        capitanFio: 'Лощилова Анна',
-        capitanContacts: '-'
-    }
-])
-
-const columns = ref([
-    'Визитка', 'Разминка', 'Сложная ситуация'
-])
-
-const results = ref([
-    {
-        id: 0,
         team: '35 Элемент',
-        rates: [5, 5, 5]
+        rates: [5, 5, 5],
+        isVisible: false
     },
     {
-        id: 1,
         team: 'Хлорид Натрия',
-        rates: [5, 4, 5]
-    }
-])
+        rates: [5, 4, 5],
+        isVisible: false
+    }]
+})
 
 function sumFinal(arr){
     let s = 0
-    for(let i = 0; i < arr.length; i++){
-        s += arr[i]
-    }
+    arr.forEach(el => {
+        s += el
+    })
     return s
 }
 
-function deleteRow(id){
-    results.value = results.value.filter(el => el.id != id)
-    for(let i = 0; i < results.value.length; i++){
-        results.value[i].id = i
+function deleteRow(r){
+    let resultsCopy = {
+        columns: results.value.columns,
+        rows: []
     }
+    for(let i = 0; i < results.value.rows.length; i++){
+        if(i != r){
+            resultsCopy.rows.push(results.value.rows[i])
+        }
+    }
+    results.value = resultsCopy
 }
 
 function addRow(){
     let res = []
-    for(let i = 0; i < columns.value.length; i++){
+    for(let i = 0; i < results.value.columns.length; i++){
         res.push(0)
     }
-    results.value.push({id: results.value.length, team: '', rates: res})
+    results.value.rows.push({rates: res})
 }
 
 function addColumn(){
-    columns.value.push('')
-    for(let i = 0; i < results.value.length; i++){
-        results.value[i].rates.push(0)
-    }
+    results.value.columns.push('')
+    results.value.rows.forEach(row => {
+        row.rates.push(0)
+    })
 }
 
-function deleteColumn(id){
-    for(let i = id; i < columns.value.length-1; i++){
-        columns.value[i] = columns.value[i+1].slice()
-        for(let j = 0; j < results.value.length; j++){
-            results.value[j].rates[i] = results.value[j].rates[i+1]
+function deleteColumn(c){
+    let columnsCopy = []
+    for(let i = 0; i < results.value.columns.length; i++){
+        if(i != c){
+            columnsCopy.push(results.value.columns[i])
         }
     }
-    columns.value.pop()
-    for(let i = 0; i < results.value.length; i++){
-        results.value[i].rates.pop()
+
+    let resultsCopy = {
+        columns: columnsCopy,
+        rows: []
     }
+    for(let i = 0; i < results.value.rows.length; i++){
+        resultsCopy.rows.push({
+            team: results.value.rows[i].team,
+            rates: [],
+            isVisible: false
+        })
+        for(let j = 0; j < results.value.columns.length; j++){
+            if(j != c){
+                resultsCopy.rows[i].rates.push(results.value.rows[i].rates[j])
+            }
+        }
+    }
+    results.value = resultsCopy
 }
 
 function saveChanges(){
-    alert('Изменения сохранены!')
+    alert('Заглушка! Изменения сохранены!')
     router.push({name: 'Admin Home'})
 }
 </script>

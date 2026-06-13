@@ -7,14 +7,15 @@
         </h2>
     </div>
     <table class="ui table">
-        <thead><tr>
-            <th class="five wide">Название команды</th>
-            <th class="five wide">ФИО капитана</th>
-            <th class="five wide">Контакты капитана</th>
-            <th class="one wide"></th>
-        </tr></thead>
+        <thead>
+            <tr>
+                <th class="center aligned">Название команды</th>
+                <th class="center aligned">Описание</th>
+                <th class="one wide"></th>
+            </tr>
+        </thead>
         <tbody>
-            <tr v-for="team in teams" :key="team.id">
+            <tr v-for="(team, i) in teams" :key="i" @mouseover="team.isVisible = true" @mouseleave="team.isVisible = false">
                 <td>
                     <div class="ui fluid input">
                         <input type="text" name="teamName" v-model="team.teamName">
@@ -22,24 +23,22 @@
                 </td>
                 <td>
                     <div class="ui fluid input">
-                        <input type="text" name="capitanFio" v-model="team.capitanFio">
+                        <input type="text" name="capitanFio" v-model="team.description">
                     </div>
                 </td>
                 <td>
-                    <div class="ui fluid input">
-                        <input type="text" name="capitanContacts" v-model="team.capitanContacts">
+                    <div class="ui icon red button" @click="deleteRow(i)" v-if="team.isVisible">
+                        <i class="x icon"/>
                     </div>
-
                 </td>
-                <td><i class="minus square icon" @click="deleteRow(team.id)"></i></td>
             </tr>
         </tbody>
     </table>
     <button class="ui button" @click="addRow">
-        <i class="plus icon"></i> Добавить команду
+        <i class="plus icon"/> Добавить команду
     </button>
     <button class="ui button" @click="saveChanges">
-        <i class="check icon"></i> Сохранить изменения
+        <i class="check icon"/> Сохранить изменения
     </button>
 </template>
 
@@ -49,38 +48,38 @@ import { ref } from 'vue';
 
 const teams = ref([
     {
-        id: 0,
         teamName: '35 Элемент',
-        capitanFio: 'Маслов Всеволод',
-        capitanContacts: '-'
+        description: '---',
+        isVisible: false
     },
     {
-        id: 1,
         teamName: 'Люди ФСИНем',
-        capitanFio: 'Калантаев Симеон',
-        capitanContacts: '-'
+        description: '---',
+        isVisible: false
     },
     {
-        id: 2,
         teamName: 'Хлорид Натрия',
-        capitanFio: 'Лощилова Анна',
-        capitanContacts: '-'
+        description: '---',
+        isVisible: false
     }
 ])
 
-function deleteRow(id){
-    teams.value = teams.value.filter(el => el.id != id)
+function deleteRow(r){
+    let teamsCopy = []
     for(let i = 0; i < teams.value.length; i++){
-        teams.value[i].id = i
+        if(i != r){
+            teamsCopy.push(teams.value[i])
+        }
     }
+    teams.value = teamsCopy
 }
 
 function addRow(){
-    teams.value.push({id: teams.value.length})
+    teams.value.push({})
 }
 
 function saveChanges(){
-    alert('Изменения сохранены!')
+    alert('Заглушка! Изменения сохранены!')
     router.push({name: 'Admin Home'})
 }
 </script>

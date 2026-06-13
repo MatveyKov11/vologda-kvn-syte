@@ -15,7 +15,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr v-for="contest in contests" :key="contest.id" @mouseover="contest.isVisible = true" @mouseleave="contest.isVisible = false">
+            <tr v-for="(contest, i) in contests" :key="i" @mouseover="contest.isVisible = true" @mouseleave="contest.isVisible = false">
                 <td>
                     <div class="ui fluid input">
                         <input type="text" name="name" v-model="contest.name">
@@ -26,15 +26,19 @@
                         <input type="text" name="description" v-model="contest.description">
                     </div>
                 </td>
-                <td><i class="minus square icon" @click="deleteRow(contest.id)" v-if="contest.isVisible"></i></td>
+                <td>
+                    <div class="ui icon red button" @click="deleteRow(i)" v-if="contest.isVisible">
+                        <i class="x icon"/>
+                    </div>
+                </td>
             </tr>
         </tbody>
     </table>
-    <button class="ui button" @click="addRow">
-        <i class="plus icon"></i> Добавить конкурс
+    <button class="ui primary button" @click="addRow">
+        <i class="plus icon"/> Добавить конкурс
     </button>
-    <button class="ui button" @click="saveChanges">
-        <i class="check icon"></i> Сохранить изменения
+    <button class="ui green button" @click="saveChanges">
+        <i class="check icon"/> Сохранить изменения
     </button>
 </template>
 
@@ -44,44 +48,43 @@ import router from '@/router';
 
 const contests = ref([
     {
-        id: 0,
         name: 'Визитка',
         description: '---',
         isVisible: false  // !!!
     },
     {
-        id: 1,
         name: 'Разминка',
         description: '---',
         isVisible: false  // !!!
     },
     {
-        id: 2,
         name: 'Сложная ситуация',
         description: '---',
         isVisible: false  // !!!
     },
     {
-        id: 3,
         name: 'Музыкальное домашнее задание',
         description: '---',
         isVisible: false  // !!!
     }
 ])
 
-function deleteRow(id){
-    contests.value = contests.value.filter(el => el.id != id)
+function deleteRow(r){
+    let contestsCopy = []
     for(let i = 0; i < contests.value.length; i++){
-        contests.value[i].id = i
+        if(i != r){
+            contestsCopy.push(contests.value[i])
+        }
     }
+    contests.value = contestsCopy
 }
 
 function addRow(){
-    contests.value.push({id: contests.value.length})
+    contests.value.push({})
 }
 
 function saveChanges(){
-    alert('Изменения сохранены!')
+    alert('Заглушка! Изменения сохранены!')
     router.push({name: 'Admin Home'})
 }
 </script>
