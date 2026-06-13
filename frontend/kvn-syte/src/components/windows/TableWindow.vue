@@ -13,14 +13,14 @@
                 <table class="ui table">
                     <thead>
                         <tr>
-                            <th v-for="col in table.columns" :key="col.pos">
-                                {{ col.name }}
+                            <th v-for="(col, i) in table.columns" :key="i">
+                                {{ col }}
                             </th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="row in table.rows" :key="row.pos">
-                            <td v-for="el in row.elements" :key="el.pos">
+                        <tr v-for="(row, i) in table.rows" :key="i">
+                            <td v-for="(el, j) in row" :key="j">
                                 <p> {{ el }}</p>
                             </td>
                         </tr>
@@ -40,6 +40,11 @@ import { ref } from 'vue';
 
 const props = defineProps({
     tableId: {
+        type: Number,
+        required: true
+    },
+    table: {
+        type: Object,
         required: true
     }
 })
@@ -48,32 +53,19 @@ const props = defineProps({
 
 // Заглушка-таблица
 const table = ref({
-    columns: [
-        {
-            name: "ABC",
-            pos: 0
-        },
-        {
-            name: "QWE",
-            pos: 1
-        },
-        {
-            name: "ASD",
-            pos: 2
-        },
-        {
-            name: "ZXC",
-            pos: 3
-        }
-    ],
+    columns: ["ABC", "QWE", "ASD", "ZXC"],
     rows: [
-        { elements: [1, 2, "pop", "1a2"]},
-        { elements: [8, 21, "asd", "j54"]},
-        { elements: [2, 11, "zass", "fgh5"]},
-        { elements: [3, 9, "prpr", "fw3f"]},
-        { elements: [5, 7, "vvc", "1234f"]}
+        [1, 2, "pop", "1a2"],
+        [8, 21, "asd", "j54"],
+        [2, 11, "zass", "fgh5"],
+        [3, 9, "prpr", "fw3f"],
+        [5, 7, "vvc", "1234f"]
     ]
 })
+
+if(props.table){
+    table.value = JSON.parse(JSON.stringify(props.table))
+}
 
 </script>
 

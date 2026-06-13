@@ -59,11 +59,16 @@
     <button class="ui green button" @click="saveChanges">
         <i class="check icon"/> Сохранить изменения
     </button>
+    <button class="ui button" @click="lookTable">
+        <i class="eye icon"/> Предпросмотр таблицы
+    </button>
+    <TableWindow :tableId="-1" :table="table" v-if="isLook" @quit="isLook = false; table = {columns: [], rows: []}"/>
 </template>
 
 <script setup>
 import router from '@/router';
 import { ref } from 'vue';
+import TableWindow from '../windows/TableWindow.vue';
 
 const results = ref({
     columns: ['Визитка', 'Разминка', 'Сложная ситуация'],
@@ -146,5 +151,29 @@ function deleteColumn(c){
 function saveChanges(){
     alert('Заглушка! Изменения сохранены!')
     router.push({name: 'Admin Home'})
+}
+
+const table = ref({
+    columns: [],
+    rows: []
+})
+const isLook = ref(false)
+
+function lookTable(){
+    table.value.columns.push("Название команды")
+    results.value.columns.forEach(col => {
+        table.value.columns.push(col)
+    })
+    table.value.columns.push("Всего")
+
+    results.value.rows.forEach((row, i) => {
+        table.value.rows.push([row.team])
+        row.rates.forEach(rate => {
+            table.value.rows[i].push(rate)
+        })
+        table.value.rows[i].push(sumFinal(row.rates))
+    })
+
+    isLook.value = true
 }
 </script>
