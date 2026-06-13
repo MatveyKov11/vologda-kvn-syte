@@ -40,11 +40,16 @@
     <button class="ui green button" @click="saveChanges">
         <i class="check icon"></i> Сохранить изменения
     </button>
+    <button class="ui button" @click="lookTable">
+        <i class="eye icon"/> Предпросмотр таблицы
+    </button>
+    <TableWindow :tableId="-1" :table="table" v-if="isLook" @quit="isLook = false; table = {columns: [], rows: []}"/>
 </template>
 
 <script setup>
 import router from '@/router';
 import { ref } from 'vue';
+import TableWindow from '../windows/TableWindow.vue';
 
 const games = ref([
     {
@@ -81,5 +86,23 @@ function addRow(){
 function saveChanges(){
     alert('Заглушка! Изменения сохранены!')
     router.push({name: 'Admin Home'})
+}
+
+const table = ref({
+    columns: [],
+    rows: []
+})
+const isLook = ref(false)
+
+function lookTable(){
+    table.value.columns = ["Название игры", "Расписание"]
+
+    games.value.forEach(game => {
+        table.value.rows.push([
+            game.gameName, game.gameDate
+        ])
+    })
+
+    isLook.value = true
 }
 </script>
