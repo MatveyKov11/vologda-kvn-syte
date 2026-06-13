@@ -6,6 +6,10 @@
             </div>
         </h2>
     </div>
+    <div class="ui hidden divider"></div>
+    <div class="ui input">
+        <input type="text" name="name" v-model="tableTitle" placeholder="Название таблицы">
+    </div>
     <table class="ui table">
         <thead><tr>
             <th>Название команды</th>
@@ -153,13 +157,18 @@ function saveChanges(){
     router.push({name: 'Admin Home'})
 }
 
+const tableTitle = ref("")
+
 const table = ref({
+    title: "",
     columns: [],
     rows: []
 })
 const isLook = ref(false)
 
 function lookTable(){
+    table.value.title = tableTitle.value
+
     table.value.columns.push("Название команды")
     results.value.columns.forEach(col => {
         table.value.columns.push(col)

@@ -7,8 +7,11 @@
                 </div>
             </div>
             <div class="ui text container segment" style="width: 100%;">
-                <h2 class="ui header">
+                <h2 class="ui header" v-if="props.tableId != -1">
                      Таблица #{{ props.tableId }}
+                </h2>
+                <h2 class="ui header" v-else>
+                     Таблица {{ table.title }}
                 </h2>
                 <table class="ui table">
                     <thead>
@@ -27,7 +30,7 @@
                     </tbody>
                 </table>
                 <div class="ui clearing divider"></div>
-                <button class = "ui primary button" @click="$emit('edit')">Открыть в редакторе</button>
+                <button class = "ui primary button" @click="$emit('edit')" v-if="props.tableId != -1">Открыть в редакторе</button>
                 <button class = "ui button" @click="$emit('quit')">Выйти</button>
             </div>
         </div>
@@ -53,6 +56,7 @@ const props = defineProps({
 
 // Заглушка-таблица
 const table = ref({
+    title: "Abacaba",
     columns: ["ABC", "QWE", "ASD", "ZXC"],
     rows: [
         [1, 2, "pop", "1a2"],
