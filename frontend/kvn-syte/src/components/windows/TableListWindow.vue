@@ -6,7 +6,11 @@
                     <i class="x icon"/>
                 </div>
             </div>
-            <div class="ui segment" v-for="(el, i) in list" :key="i">
+            <div class="ui icon input">
+                <i class="search icon"/>
+                <input type="text" placeholder="Поиск..." v-model="searchWord">
+            </div>
+            <div class="ui segment" v-for="(el, i) in listFiltered" :key="i" @click="$emit('select', el)">
                 {{ el.title }}: {{ el.type }}
             </div>
             <div class="ui clearing divider"/>
@@ -16,32 +20,43 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 
-
+const searchWord = ref("")
 const list = ref([
     {
         title: 'table1',
-        type: 'reward'
+        type: 'reward',
+        id: 0
     },
     {
         title: 'table2',
-        type: 'score'
+        type: 'schedule',
+        id: 1
     },
     {
         title: 'table3',
-        type: 'own'
+        type: 'own',
+        id: 2
     },
     {
         title: 'table4',
-        type: 'team'
+        type: 'team',
+        id: 3
     },
     {
         title: 'table5',
-        type: 'contest'
+        type: 'contest',
+        id: 4
+    },
+    {
+        title: 'table1',
+        type: 'result',
+        id: 5
     }
 ])
 
+let listFiltered = computed(() => list.value.filter(el => el.title.includes(searchWord.value)))
 </script>
 
 <style scoped>

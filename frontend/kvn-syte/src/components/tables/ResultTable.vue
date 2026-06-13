@@ -74,6 +74,13 @@ import router from '@/router';
 import { ref } from 'vue';
 import TableWindow from '../windows/TableWindow.vue';
 
+const props = defineProps({
+    table: {
+        type: Object,
+        required: true
+    }
+})
+
 const results = ref({
     columns: ['Визитка', 'Разминка', 'Сложная ситуация'],
     rows: [
@@ -88,6 +95,18 @@ const results = ref({
         isVisible: false
     }]
 })
+const tableTitle = ref("")
+const table = ref({
+    title: "",
+    columns: [],
+    rows: []
+})
+const isLook = ref(false)
+
+if (props.table){
+    results.value = JSON.parse(JSON.stringify(props.table.results))
+    tableTitle.value = ''+props.table.title
+}
 
 function sumFinal(arr){
     let s = 0
@@ -156,15 +175,6 @@ function saveChanges(){
     alert('Заглушка! Изменения сохранены!')
     router.push({name: 'Admin Home'})
 }
-
-const tableTitle = ref("")
-
-const table = ref({
-    title: "",
-    columns: [],
-    rows: []
-})
-const isLook = ref(false)
 
 function lookTable(){
     table.value.title = tableTitle.value

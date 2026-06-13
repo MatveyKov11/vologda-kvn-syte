@@ -13,17 +13,17 @@
             <select class="ui fluid dropdown" v-model="tableType">
                 <option value="contest"> Конкурсы </option>
                 <option value="team"> Команды </option>
-                <option value="score"> Расписание игр </option>
+                <option value="schedule"> Расписание игр </option>
                 <option value="result"> Результаты игр </option>
                 <option value="own"> Свой тип </option>
             </select>
         </div>
         <div class="ui divider"></div>
-        <ContestTable v-if="tableType == 'contest'"/>
-        <ResultTable v-if="tableType == 'result'"/>
-        <TeamTable v-if="tableType == 'team'"/>
-        <ScheduleTable v-if="tableType == 'score'"/>
-        <TableListWindow v-if="listTable" @quit="listTable = false"/>
+        <ContestTable v-if="tableType == 'contest'" :table="table" :title="table.title"/>
+        <ResultTable v-if="tableType == 'result'" :table="table"/>
+        <TeamTable v-if="tableType == 'team'" :table="table"/>
+        <ScheduleTable v-if="tableType == 'schedule'" :table="table"/>
+        <TableListWindow v-if="listTable" @quit="listTable = false" @select="(t) => selectTable(t)"/>
     </div>
 </template>
 
@@ -37,4 +37,84 @@ import TableListWindow from './windows/TableListWindow.vue';
 
 const tableType = ref('none')
 const listTable = ref(false)
+const table = ref({
+    title: ""
+})
+
+function selectTable(t){
+    tableType.value = t.type
+    listTable.value = false
+
+    table.value.title = t.title
+    if (t.type == 'team'){
+        table.value.teams = ref([
+            {
+                teamName: 'ЖХК',
+                description: '---',
+                isVisible: false
+            },
+            {
+                teamName: 'Правило трёх',
+                description: '---',
+                isVisible: false
+            },
+            {
+                teamName: 'Хлорид Натрия',
+                description: '---',
+                isVisible: false
+            }
+        ])
+    }else if(t.type == 'contest'){
+        table.value.contests = [
+            {
+                name: 'Визитка',
+                description: '---',
+                isVisible: false  // !!!
+            },
+            {
+                name: 'Разминка',
+                description: '---',
+                isVisible: false  // !!!
+            },
+            {
+                name: 'Капитанский конкурс',
+                description: '---',
+                isVisible: false  // !!!
+            },
+            {
+                name: 'Музыкальное домашнее задание',
+                description: '---',
+                isVisible: false  // !!!
+            }
+        ]
+    }else if(t.type == 'schedule'){
+        table.value.games = [
+            {
+                gameName: 'Кубок работающей молодёжи',
+                gameDate: '',
+                isVisible: false
+            },
+            {
+                gameName: 'Музыкальный фестиваль',
+                gameDate: '',
+                isVisible: false
+            }
+        ]
+    }else if(t.type == 'result'){
+        table.value.results = {
+            columns: ['Визитка', 'Разминка', 'Сложная ситуация'],
+            rows: [
+            {
+                team: 'ЖХК',
+                rates: [3, 3, 3],
+                isVisible: false
+            },
+            {
+                team: 'Правило трёх',
+                rates: [3, 3, 3],
+                isVisible: false
+            }]
+        }
+    }
+}
 </script>

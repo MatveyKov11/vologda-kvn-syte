@@ -55,6 +55,13 @@ import router from '@/router';
 import { ref } from 'vue';
 import TableWindow from '../windows/TableWindow.vue';
 
+const props = defineProps({
+    table: {
+        type: Object,
+        required: true
+    }
+})
+
 const contests = ref([
     {
         name: 'Визитка',
@@ -77,6 +84,18 @@ const contests = ref([
         isVisible: false  // !!!
     }
 ])
+const tableTitle = ref("")
+const table = ref({
+    title: "",
+    columns: [],
+    rows: []
+})
+const isLook = ref(false)
+
+if (props.table){
+    contests.value = JSON.parse(JSON.stringify(props.table.contests))
+    tableTitle.value = ''+props.table.title
+}
 
 function deleteRow(r){
     let contestsCopy = []
@@ -96,15 +115,6 @@ function saveChanges(){
     alert('Заглушка! Изменения сохранены!')
     router.push({name: 'Admin Home'})
 }
-
-const tableTitle = ref("")
-
-const table = ref({
-    title: "",
-    columns: [],
-    rows: []
-})
-const isLook = ref(false)
 
 function lookTable(){
     table.value.title = tableTitle.value

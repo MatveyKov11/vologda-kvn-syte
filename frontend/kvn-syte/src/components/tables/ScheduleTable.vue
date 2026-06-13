@@ -55,6 +55,13 @@ import router from '@/router';
 import { ref } from 'vue';
 import TableWindow from '../windows/TableWindow.vue';
 
+const props = defineProps({
+    table: {
+        type: Object,
+        required: true
+    }
+})
+
 const games = ref([
     {
         gameName: 'Фестиваль',
@@ -72,6 +79,18 @@ const games = ref([
         isVisible: false
     }
 ])
+const tableTitle = ref("")
+const table = ref({
+    title: "",
+    columns: [],
+    rows: []
+})
+const isLook = ref(false)
+
+if (props.table){
+    games.value = JSON.parse(JSON.stringify(props.table.games))
+    tableTitle.value = ''+props.table.title
+}
 
 function deleteRow(r){
     let gamesCopy = []
@@ -91,15 +110,6 @@ function saveChanges(){
     alert('Заглушка! Изменения сохранены!')
     router.push({name: 'Admin Home'})
 }
-
-const tableTitle = ref("")
-
-const table = ref({
-    title: "",
-    columns: [],
-    rows: []
-})
-const isLook = ref(false)
 
 function lookTable(){
     table.value.title = tableTitle.value
