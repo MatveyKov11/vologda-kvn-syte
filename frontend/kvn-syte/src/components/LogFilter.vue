@@ -99,7 +99,6 @@
             <i class="check icon"></i> Применить фильтр
         </button>
     </div>
-    {{ filter }}
 </template>
 
 <script setup>
