@@ -2,7 +2,7 @@
     <div class="ui text container">
         <h2 class="ui header">
             <div class="content">
-                Команды сезонов
+                Награды
             </div>
         </h2>
     </div>
@@ -13,25 +13,25 @@
     <table class="ui table">
         <thead>
             <tr>
-                <th class="center aligned">Название команды</th>
-                <th class="center aligned">Описание</th>
+                <th class="center aligned">Описание награды</th>
+                <th class="center aligned">Кого наградили</th>
                 <th class="one wide"></th>
             </tr>
         </thead>
         <tbody>
-            <tr v-for="(team, i) in teams" :key="i" @mouseover="team.isVisible = true" @mouseleave="team.isVisible = false">
+            <tr v-for="(reward, i) in rewards" :key="i" @mouseover="reward.isVisible = true" @mouseleave="reward.isVisible = false">
                 <td>
                     <div class="ui fluid input">
-                        <input type="text" name="teamName" v-model="team.teamName">
+                        <input type="text" name="description" v-model="reward.description">
                     </div>
                 </td>
                 <td>
                     <div class="ui fluid input">
-                        <input type="text" name="capitanFio" v-model="team.description">
+                        <input type="text" name="to" v-model="reward.to">
                     </div>
                 </td>
                 <td>
-                    <div class="ui icon red button" @click="deleteRow(i)" v-if="team.isVisible">
+                    <div class="ui icon red button" @click="deleteRow(i)" v-if="reward.isVisible">
                         <i class="x icon"/>
                     </div>
                 </td>
@@ -39,7 +39,7 @@
         </tbody>
     </table>
     <button class="ui primary button" @click="addRow">
-        <i class="plus icon"/> Добавить команду
+        <i class="plus icon"/> Добавить награду
     </button>
     <button class="ui green button" @click="saveChanges">
         <i class="check icon"/> Сохранить изменения
@@ -62,21 +62,16 @@ const props = defineProps({
     }
 })
 
-const teams = ref([
+const rewards = ref([
     {
-        teamName: '35 Элемент',
-        description: '---',
-        isVisible: false
+        description: "Лучшая мужская роль",
+        to: "Денис Давыдов из '99 стайл'",
+        isVisible: false  // !!!
     },
     {
-        teamName: 'Люди ФСИНем',
-        description: '---',
-        isVisible: false
-    },
-    {
-        teamName: 'Хлорид Натрия',
-        description: '---',
-        isVisible: false
+        description: "Лучшая женская роль",
+        to: "Саша Нивина из '35 элемент'",
+        isVisible: false  // !!!
     }
 ])
 const tableTitle = ref("")
@@ -87,23 +82,23 @@ const table = ref({
 })
 const isLook = ref(false)
 
-if (props.table.teams){
-    teams.value = JSON.parse(JSON.stringify(props.table.teams))
+if (props.table.rewards){
+    rewards.value = JSON.parse(JSON.stringify(props.table.rewards))
     tableTitle.value = ''+props.table.title
 }
 
 function deleteRow(r){
-    let teamsCopy = []
-    for(let i = 0; i < teams.value.length; i++){
+    let rewardsCopy = []
+    for(let i = 0; i < rewards.value.length; i++){
         if(i != r){
-            teamsCopy.push(teams.value[i])
+            rewardsCopy.push(rewards.value[i])
         }
     }
-    teams.value = teamsCopy
+    rewards.value = rewardsCopy
 }
 
 function addRow(){
-    teams.value.push({})
+    rewards.value.push({})
 }
 
 function saveChanges(){
@@ -113,11 +108,11 @@ function saveChanges(){
 
 function lookTable(){
     table.value.title = tableTitle.value
-    table.value.columns = ["Название команды", "Описание"]
+    table.value.columns = ["Описание награды", "Кого наградили"]
 
-    teams.value.forEach(team => {
+    rewards.value.forEach(reward => {
         table.value.rows.push([
-            team.teamName, team.description
+            reward.description, reward.to
         ])
     })
 

@@ -92,7 +92,7 @@ const table = ref({
 })
 const isLook = ref(false)
 
-if (props.table){
+if (props.table.contests){
     contests.value = JSON.parse(JSON.stringify(props.table.contests))
     tableTitle.value = ''+props.table.title
 }
