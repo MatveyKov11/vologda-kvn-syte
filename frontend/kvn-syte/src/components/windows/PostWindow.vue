@@ -3,7 +3,7 @@
         <div class="window">
             <div class="ui buttons" style="position: absolute; top: 5px; right: 5px; z-index: 997;">
                 <div class="ui icon button" @click="$emit('quit')">
-                    <i class="x icon"></i>
+                    <i class="x icon"/>
                 </div>
             </div>
             <div class="ui text container segment" style="width: 100%">
@@ -66,7 +66,7 @@
                         </table>
                     </div>
                 </div>
-                <div class="ui clearing divider"></div>
+                <div class="ui clearing divider"/>
                 <button class = "ui primary button" @click="$emit('edit')">Открыть в редакторе</button>
                 <button class = "ui button" @click="$emit('quit')">Выйти</button>
             </div>

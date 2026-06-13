@@ -1,28 +1,33 @@
 <template>
     <div class="back">
         <div class="window">
+            <div class="ui buttons" style="position: absolute; top: 5px; right: 5px; z-index: 997;">
+                <div class="ui icon button" @click="$emit('quit')">
+                    <i class="x icon"/>
+                </div>
+            </div>
             <div class="ui text container segment">
                 <h2 class="ui header">
                     Изменение пароля для {{props.profile.login}}
                 </h2>
                 <div class="field">
                     <div class="ui left icon fluid input">
-                        <i class="lock icon"></i>
+                        <i class="lock icon"/>
                         <input type="password" name="password" v-model="pass" placeholder="Пароль">
                     </div>
                 </div>
                 <div class="field">
                     <div class="ui left icon fluid input">
-                        <i class="lock icon"></i>
+                        <i class="lock icon"/>
                         <input type="password" name="password" v-model="passCopy" placeholder="Подтвердите пароль">
                     </div>
                 </div>
                 <div class="ui left red message" v-if="!isCorrectPass">
-                    <i class="times icon"></i>
+                    <i class="times icon"/>
                     Пароли не совпадают
                 </div>
                 <div class="ui left green message" v-else>
-                    <i class="check icon"></i>
+                    <i class="check icon"/>
                     Пароли совпадают
                 </div>
                 <button class = "ui button primary" @click="changePass" :disabled="!isCorrectPass || !pass">Поменять пароль</button>

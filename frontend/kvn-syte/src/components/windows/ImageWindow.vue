@@ -3,10 +3,10 @@
         <div :class="fullScreen ? 'window-full' : 'window'">
             <div class="ui buttons" style="position: absolute; top: 5px; right: 5px; z-index: 997;">
                 <div class="ui icon button" @click="fullScreen = !fullScreen">
-                    <i :class="fullScreen ? 'zoom-out icon' : 'zoom-in icon'"></i>
+                    <i :class="fullScreen ? 'zoom-out icon' : 'zoom-in icon'"/>
                 </div>
                 <div class="ui icon button" @click="$emit('quit')">
-                    <i class="x icon"></i>
+                    <i class="x icon"/>
                 </div>
             </div>
             <img :src="props.imageSrc" class="img"/>
