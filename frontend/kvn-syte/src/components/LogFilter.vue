@@ -55,7 +55,7 @@
                             Объект
                         </div>
                     </h4>
-                    <div class="ui checkbox">
+                    <div class="ui checkbox" style="margin-right: 5%;">
                         <input type="checkbox" v-model="filter.object" value="post">
                         <label>Пост</label>
                     </div>
@@ -64,7 +64,7 @@
                         <label>Таблица</label>
                     </div>
                     <div class="ui divider"/>
-                    <div class="ui checkbox">
+                    <div class="ui checkbox" style="margin-right: 5%;">
                         <input type="checkbox" v-model="filter.object" value="change">
                         <label>Стиль</label>
                     </div>
