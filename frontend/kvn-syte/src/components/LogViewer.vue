@@ -32,6 +32,8 @@
                         v-if="log.objectType == 'post'">#{{ log.object }}</p>
                     <p @click="commentId = log.objectId" :class="log.objectId == -1 ? 'not-interactive' : 'interactive'"
                         v-if="log.objectType == 'comment'">#{{ log.object }}</p>
+                    <p @click="styleId = log.objectId" :class="log.objectId == -1 ? 'not-interactive' : 'interactive'"
+                        v-if="log.objectType == 'style'">#{{ log.object }}</p>
                 </td>
                 <td>
                     {{ log.time }}
@@ -44,6 +46,7 @@
     <TableWindow :tableId="tableId" v-if="tableId != -1" @quit="tableId = -1" @edit="toTables"/>
     <PostWindow :postId="postId" v-if="postId != -1" @quit="postId = -1" @edit="toPostEditor"/>
     <CommentWindow :commentId="commentId" v-if="commentId != -1" @quit="commentId = -1" @show="toPost" @delete="deleteComment"/>
+    <StyleWindow :styleId="styleId" v-if="styleId != -1" @quit="styleId = -1" @show="toStyleEditor"/>
 </template>
 
 <script setup>
@@ -54,8 +57,49 @@ import TableWindow from './windows/TableWindow.vue';
 import PostWindow from './windows/PostWindow.vue';
 import CommentWindow from './windows/CommentWindow.vue';
 import LogFilter from './LogFilter.vue';
+import StyleWindow from './windows/StyleWindow.vue';
 
 const logs = ref([
+    {
+        user: 'admin2',
+        userId: 2,
+        userType: 'admin',
+        action: 'Удалил стиль',
+        object: 'style2',
+        objectId: 2,
+        objectType: 'style',
+        time: '2026-02-20T19:03'
+    },
+    {
+        user: 'admin2',
+        userId: 2,
+        userType: 'admin',
+        action: 'Изменил стиль',
+        object: 'style2',
+        objectId: 2,
+        objectType: 'style',
+        time: '2026-02-20T19:02'
+    },
+    {
+        user: 'admin1',
+        userId: 1,
+        userType: 'admin',
+        action: 'Создал новый стиль',
+        object: 'style2',
+        objectId: 2,
+        objectType: 'style',
+        time: '2026-02-20T19:01'
+    },
+    {
+        user: 'admin1',
+        userId: 1,
+        userType: 'admin',
+        action: 'Создал новый стиль',
+        object: 'style1',
+        objectId: 1,
+        objectType: 'style',
+        time: '2026-02-20T19:01'
+    },
     {
         user: 'admin2',
         userId: 2,
@@ -274,6 +318,7 @@ const userId = ref(-1)
 const tableId = ref(-1)
 const postId = ref(-1)
 const commentId = ref(-1)
+const styleId = ref(-1)
 
 function toProfiles(){
     router.push({name: 'Profiles'})
@@ -284,6 +329,10 @@ function toTables(){
 }
 
 function toPostEditor(){
+    router.push({name: 'New Post'})
+}
+
+function toStyleEditor(){
     router.push({name: 'New Post'})
 }
 

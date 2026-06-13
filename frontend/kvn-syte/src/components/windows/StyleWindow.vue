@@ -8,17 +8,24 @@
             </div>
             <div class="ui text container segment" style="width: 100%;">
                 <h2 class="ui header">
-                    Пользователь #{{ props.userId }}
+                    Стиль #{{ props.styleId }}
                 </h2>
                 <div class="field" align="left">
-                    <p> Имя: {{ user.username }}</p>
-                    <p> Роль: {{ user.role }}</p>
-                    <p> Время последнего нахождения в сети: {{ user.lastActionTime }}</p>
+                    <p> Название: {{ style.name }}</p>
+                    <p> Роль стиля: {{ style.role }}</p>
+                    <p> Шрифт: {{ style.fontname }}</p>
+                    <p> Размер шрифта: {{ style.fontsize }}</p>
+                </div>
+                <h4 class="ui header">
+                    Цвета
+                </h4>
+                <div v-for="(col, i) in style.colors" :key="i" align="left">
+                    #{{ i }}
+                    <div :style="{width: diam + 'px', height: diam + 'px', borderRadius: diam / 2 + 'px', backgroundColor: col}"/>
+                    {{ col }}
                 </div>
                 <div class="ui clearing divider"></div>
                 <button class = "ui primary button" @click="$emit('edit')">Открыть в редакторе</button>
-                <button class = "ui negative button" @click="$emit('block')">Заблокировать</button>
-                <button class = "ui negative button" @click="$emit('delete')">Удалить</button>
                 <button class = "ui button" @click="$emit('quit')">Выйти</button>
             </div>
         </div>
@@ -30,19 +37,21 @@ import { ref } from 'vue';
 
 
 const props = defineProps({
-    userId: {
+    styleId: {
         required: true
     }
 })
 
-//const emit = defineEmits(['quit', 'edit', 'block', 'delete'])
-
-// Заглушка-пользователь
-const user = ref({
-    username: "Test",
-    role: "Admin",
-    lastActionTime: "26.02.18T19:00"
+// Заглушка-стиль
+const style = ref({
+    name: "Test",
+    role: "dark-theme",
+    fontname: "Arial",
+    fontsize: "16pt",
+    colors: ["rgb(0, 0, 0)", "rgb(255, 255, 0)", "rgb(255, 0, 255)"]
 })
+
+const diam = ref(50)
 </script>
 
 <style scoped>
