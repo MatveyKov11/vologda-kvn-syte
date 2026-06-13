@@ -8,7 +8,7 @@
             </div>
             <div class="ui text container segment" style="width: 100%;">
                 <h2 class="ui header">
-                     Таблица test!!! {{ props.tableId }}
+                     Таблица #{{ props.tableId }}
                 </h2>
                 <table class="ui table">
                     <thead>
