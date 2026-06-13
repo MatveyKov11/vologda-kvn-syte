@@ -1,61 +1,65 @@
 <template>
-    <div class="ui text container">
+    <div class="ui container">
         <h2 class="ui header">
             <div class="content">
                 Учётные записи
             </div>
         </h2>
+        <table class="ui table">
+            <thead><tr>
+                <th class="center aligned four wide">Логин</th>
+                <th class="center aligned five wide">Пароль</th>
+                <th class="center aligned four wide">Роль пользователя</th>
+                <th class="center aligned two wide">Активирована</th>
+                <th class="one wide"></th>
+            </tr></thead>
+            <tbody>
+                <tr v-for="profile in profiles" :key="profile.id" @mouseover="profile.isVisible = true" @mouseleave="profile.isVisible = false">
+                    <td>
+                        <div class="ui fluid input">
+                            <input type="text" name="login" v-model="profile.login">
+                        </div>
+                    </td>
+                    <td>
+                        <button class="ui button" @click="openChangePass(profile.id)">
+                            Поменять пароль
+                        </button>
+                    </td>
+                    <td>
+                        <form class="ui form">
+                            <div class="field">
+                                <select class="ui fluid dropdown" v-model="profile.role">
+                                    <option value="ADMIN"> Администратор </option>
+                                    <option value="EDITOR"> Редактор </option>
+                                </select>
+                            </div>
+                        </form>
+                    </td>
+                    <td>
+                        <form class="ui form">
+                            <div class="field">
+                                <select class="ui fluid dropdown" v-model="profile.isActive">
+                                    <option value="true"> Да </option>
+                                    <option value="false"> Нет </option>
+                                </select>
+                            </div>
+                        </form>
+                    </td>
+                    <td>
+                        <div class="ui icon red button" @click="deleteRow(profile.id)" v-if="profile.isVisible">
+                            <i class="x icon"></i>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <button class="ui primary button" @click="addRow">
+            <i class="plus icon"></i> Добавить учётную запись
+        </button>
+        <button class="ui green button" @click="saveChanges">
+            <i class="check icon"></i> Сохранить изменения
+        </button>
     </div>
-    <table class="ui table">
-        <thead><tr>
-            <th class="center aligned four wide">Логин</th>
-            <th class="center aligned five wide">Пароль</th>
-            <th class="center aligned four wide">Роль пользователя</th>
-            <th class="center aligned two wide">Активирована</th>
-            <th class="one wide"></th>
-        </tr></thead>
-        <tbody>
-            <tr v-for="profile in profiles" :key="profile.id" @mouseover="profile.isVisible = true" @mouseleave="profile.isVisible = false">
-                <td>
-                    <div class="ui fluid input">
-                        <input type="text" name="login" v-model="profile.login">
-                    </div>
-                </td>
-                <td>
-                    <button class="ui button" @click="openChangePass(profile.id)">
-                        Поменять пароль
-                    </button>
-                </td>
-                <td>
-                    <form class="ui form">
-                        <div class="field">
-                            <select class="ui fluid dropdown" v-model="profile.role">
-                                <option value="ADMIN"> Организатор </option>
-                                <option value="TEAM"> Команда </option>
-                            </select>
-                        </div>
-                    </form>
-                </td>
-                <td>
-                    <form class="ui form">
-                        <div class="field">
-                            <select class="ui fluid dropdown" v-model="profile.isActive">
-                                <option value="true"> Да </option>
-                                <option value="false"> Нет </option>
-                            </select>
-                        </div>
-                    </form>
-                </td>
-                <td><i class="minus square icon" @click="deleteRow(profile.id)" v-if="profile.isVisible"></i></td>
-            </tr>
-        </tbody>
-    </table>
-    <button class="ui button" @click="addRow">
-        <i class="plus icon"></i> Добавить учётную запись
-    </button>
-    <button class="ui button" @click="saveChanges">
-        <i class="check icon"></i> Сохранить изменения
-    </button>
     <ChangePassWindow :profile="selectedProfile" v-if="isChanged" @quit="isChanged = false"/>
 </template>
 
@@ -85,7 +89,7 @@ const profiles = ref([
         id: 2,
         login: 'comand35',
         password: '353535',
-        role: 'TEAM',
+        role: 'EDITOR',
         isActive: false,
         isVisible: false  // !!!
     }
