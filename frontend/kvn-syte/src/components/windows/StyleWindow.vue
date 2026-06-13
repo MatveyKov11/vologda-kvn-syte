@@ -19,10 +19,18 @@
                 <h4 class="ui header">
                     Цвета
                 </h4>
-                <div v-for="(col, i) in style.colors" :key="i" align="left">
-                    #{{ i }}
-                    <div :style="{width: diam + 'px', height: diam + 'px', borderRadius: diam / 2 + 'px', backgroundColor: col}"/>
-                    {{ col }}
+                <div class="ui segment" v-for="(col, i) in style.colors" :key="i">
+                    <h4 class="ui header">
+                        #{{ i+1 }}
+                    </h4>
+                    <table class="ui very basic table">
+                        <thead><tr>
+                            <th class="one wide">
+                                <div :style="circleStyle(col)"/>
+                            </th>
+                            <th class="left aligned eight wide">{{ col }}</th>
+                        </tr></thead>
+                    </table>
                 </div>
                 <div class="ui clearing divider"></div>
                 <button class = "ui primary button" @click="$emit('edit')">Открыть в редакторе</button>
@@ -34,7 +42,6 @@
 
 <script setup>
 import { ref } from 'vue';
-
 
 const props = defineProps({
     styleId: {
@@ -52,6 +59,17 @@ const style = ref({
 })
 
 const diam = ref(50)
+
+function circleStyle(col){
+    return {
+        width: diam.value + 'px',
+        height: diam.value + 'px',
+        borderRadius: diam.value / 2 + 'px',
+        backgroundColor: col,
+        marginLeft: '20%',
+        borderStyle: 'solid'
+    }
+}
 </script>
 
 <style scoped>
