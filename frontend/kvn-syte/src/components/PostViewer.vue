@@ -3,30 +3,30 @@
         <div class="ui fluid input">
             <input type="text" placeholder="Заголовок поста..." v-model="title"/>
         </div>
-        <div class="ui segment" v-for="block in blocks" :key="block.id">
+        <div class="ui segment" v-for="(block, i) in blocks" :key="i">
             <TextBlock :text="block.data" :colons-number="block.meta" v-if="block.type == 'text'"
-                @add="(text) => addItem (block.id, text)" @delete="(j) => removeItem(block.id, j)"
-                @up="(j) => upItem(block.id, j)" @down="(j) => downItem(block.id, j)"/>
+                @add="(text) => addItem(i, text)" @delete="(j) => removeItem(i, j)"
+                @up="(j) => upItem(i, j)" @down="(j) => downItem(i, j)"/>
             <ListBlock :text="block.data" :list-type="block.meta" v-else-if="block.type == 'list'"
-                @add="(text) => addItem (block.id, text)" @delete="(j) => removeItem(block.id, j)"
-                @up="(j) => upItem(block.id, j)" @down="(j) => downItem(block.id, j)"/>
+                @add="(text) => addItem(i, text)" @delete="(j) => removeItem(i, j)"
+                @up="(j) => upItem(i, j)" @down="(j) => downItem(i, j)"/>
             <VideoBlock :video-src="block.data[0]" v-else-if="block.type == 'video'"
-                @edit="(src) => editVideo(block.id, src)" />
+                @edit="(src) => editVideo(i, src)" />
             <ImageBlock :image-src="block.data" :view-type="gallery" v-else-if="block.type == 'photo'"
-                @add="(src) => addItem(block.id, src)"/>
+                @add="(src) => addItem(i, src)" @delete="removeItem(i, block.data.length-1)"/>
             <div v-else>
                 {{ block.type }}
                 {{ block.type }}
             </div>
             <div class="ui right rail">
                 <div class="ui buttons">
-                    <div class="ui icon red button" @click="removeBlock(block.id)">
+                    <div class="ui icon red button" @click="removeBlock(i)">
                         <i class="x icon"/>
                     </div>
-                    <div class="ui icon primary button" @click="upBlock(block.id)">
+                    <div class="ui icon primary button" @click="upBlock(i)">
                         <i class="arrow up icon"/>
                     </div>
-                    <div class="ui icon primary button" @click="downBlock(block.id)">
+                    <div class="ui icon primary button" @click="downBlock(i)">
                         <i class="arrow down icon"/>
                     </div>
                 </div>
@@ -118,7 +118,6 @@ import ImageBlock from './blocks/ImageBlock.vue';
 
 const blocks = ref([
     {
-        id: 0,
         type: 'text',
         data: [
             'Раз-раз-раз-раз-раз', 
@@ -129,7 +128,6 @@ const blocks = ref([
         meta: 1
     },
     {
-        id: 2,
         type: 'list',
         data: [
             'Раз-раз-раз-раз-раз',
@@ -139,7 +137,6 @@ const blocks = ref([
         meta: 'disc'
     },
     {
-        id: 2,
         type: 'list',
         data: [
             'Раз-раз-раз-раз-раз',
@@ -149,15 +146,13 @@ const blocks = ref([
         meta: 'numb'
     },
     {
-        id: 3,
         type: 'video',
         data: ['https://vkvideo.ru/video_ext.php?oid=-127553155&id=456245257&hash=e92d9f33bf048f38&hd=3']
     },
     {
-        id: 4,
         type: 'photo',
         data: ['https://i.pinimg.com/originals/7d/be/d9/7dbed90655c6d7de0f4d01eb01b9cbe1.jpg?nii=t', 
-            'https://i.pinimg.com/originals/7d/be/d9/7dbed90655c6d7de0f4d01eb01b9cbe1.jpg?nii=t',
+            'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fbabyimages.ru%2Fkartinki%2Fderevo-kartinka-03.jpg&f=1&nofb=1&ipt=53fa373c4b87731786d96ebfb42884d43ce1ca004478a2aeae755a9f2d8c5d26',
             'https://i.pinimg.com/originals/7d/be/d9/7dbed90655c6d7de0f4d01eb01b9cbe1.jpg?nii=t'
         ]
     }

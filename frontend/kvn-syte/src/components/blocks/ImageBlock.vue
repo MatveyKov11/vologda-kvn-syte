@@ -1,6 +1,6 @@
 <template>
     <div class="ui fluid container">
-        <img class="main-img" :src="props.imageSrc[selectedImage]"/>
+        <img class="main-img" v-if="props.imageSrc.length > 0" :src="props.imageSrc[selectedImage]"/>
         <div class="ui fluid segment">
             <div class="gallery">
                 <img v-for="(src, i) in props.imageSrc" :key="i" :src="src" 
@@ -17,6 +17,9 @@
             <i class="edit icon"/>
         </button>
     </div>
+    <button class="ui red icon button" @click="$emit('delete')">
+        <i class="x icon"/> Удалить последнее изображение
+    </button>
 </template>
 
 <script setup>
