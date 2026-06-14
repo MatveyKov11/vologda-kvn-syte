@@ -7,6 +7,7 @@
                     <i class="arrow down icon" @click="$emit('down', i)"/>
         </p>
     </div>
+    <div class="ui hidden divider"/>
     <div class="ui action fluid input">
         <input type="text" placeholder="Введите абзац..." v-model="inputText" 
             @keypress.enter="$emit('add', inputText); inputText = ''"/>

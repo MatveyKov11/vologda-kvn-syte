@@ -7,38 +7,9 @@
             <TextBlock :text="block.data" :colons-number="block.meta" v-if="block.type == 'text'"
                 @add="(text) => addItem (block.id, text)" @delete="(j) => removeItem(block.id, j)"
                 @up="(j) => upItem(block.id, j)" @down="(j) => downItem(block.id, j)"/>
-            <div v-else-if="block.type == 'mark-list'" class="ui fluid container">
-                <ul class="ui list">
-                    <li v-for="i in block.data.length" :key="i" align="left"> 
-                        {{ block.data[i-1] }}
-                        <i class="x icon" @click="removeItem(block.id, i-1)"></i>
-                        <i class="arrow up icon" @click="upItem(block.id, i-1)"></i>
-                        <i class="arrow down icon" @click="downItem(block.id, i-1)"></i>
-                    </li>
-                </ul>
-                <div class="ui action fluid input">
-                    <input type="text" placeholder="Введите элемент..." v-model="inputText[block.id]" @keypress.enter="addItem2Block(block.id)"/>
-                    <button class="ui blue icon button" @click="addItem2Block(block.id)">
-                        <i class="plus icon"></i>
-                    </button>
-                </div>
-            </div>
-            <div v-else-if="block.type == 'numb-list'" class="ui fluid container">
-                <ol class="ui list">
-                    <li v-for="i in block.data.length" :key="i" align="left"> 
-                        {{ block.data[i-1] }}
-                        <i class="x icon" @click="removeItem(block.id, i-1)"></i>
-                        <i class="arrow up icon" @click="upItem(block.id, i-1)"></i>
-                        <i class="arrow down icon" @click="downItem(block.id, i-1)"></i>
-                    </li>
-                </ol>
-                <div class="ui action fluid input">
-                    <input type="text" placeholder="Введите элемент..." v-model="inputText[block.id]" @keypress.enter="addItem2Block(block.id)"/>
-                    <button class="ui blue icon button" @click="addItem2Block(block.id)">
-                        <i class="plus icon"></i>
-                    </button>
-                </div>
-            </div>
+            <ListBlock :text="block.data" :list-type="block.meta" v-else-if="block.type == 'list'"
+                @add="(text) => addItem (block.id, text)" @delete="(j) => removeItem(block.id, j)"
+                @up="(j) => upItem(block.id, j)" @down="(j) => downItem(block.id, j)"/>
             <div v-else-if="block.type == 'video'" class="ui fluid container">
                 <iframe class="video"
                     :src="block.data[0]" 
@@ -109,6 +80,33 @@
                     </div>
                 </div>
             </div>
+            <div class="ui left rail" v-else-if="block.type == 'list'">
+                <div class="ui segment">
+                    <div class="ui form">
+                        <div class="inline fields">
+                            <label for="colons">Тип списка:</label>
+                            <div class="field">
+                                <div class="ui radio checkbox">
+                                    <input type="radio" name="colons" value="numb" v-model="block.meta">
+                                    <label>1.</label>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="ui radio checkbox">
+                                    <input type="radio" name="colons" value="disc" v-model="block.meta">
+                                    <label><i class="ui circle icon"/></label>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="ui radio checkbox">
+                                    <input type="radio" name="colons" value="square" v-model="block.meta">
+                                    <label><i class="ui square icon"/></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="ui buttons">
@@ -136,6 +134,7 @@
 <script setup>
 import { ref } from 'vue';
 import TextBlock from './blocks/TextBlock.vue';
+import ListBlock from './blocks/ListBlock.vue';
 
 const blocks = ref([
     {
@@ -150,14 +149,24 @@ const blocks = ref([
         meta: 1
     },
     {
-        id: 1,
-        type: 'mark-list',
-        data: ['Раз-раз-раз-раз-раз', 'Два-два-два-два-два-два-два', 'Два-два-два-два-два-два-два-два-два-два-два-два-два-два-два-два-два-два-два']
+        id: 2,
+        type: 'list',
+        data: [
+            'Раз-раз-раз-раз-раз',
+            'Два-два-два-два-два-два-два',
+            'Два-два-два-два-два-два-два-два-два-два-два-два-два-два-два-два-два-два-два'
+        ],
+        meta: 'disc'
     },
     {
         id: 2,
-        type: 'numb-list',
-        data: ['Раз-раз-раз-раз-раз', 'Два-два-два-два-два-два-два', 'Два-два-два-два-два-два-два-два-два-два-два-два-два-два-два-два-два-два-два']
+        type: 'list',
+        data: [
+            'Раз-раз-раз-раз-раз',
+            'Два-два-два-два-два-два-два',
+            'Два-два-два-два-два-два-два-два-два-два-два-два-два-два-два-два-два-два-два'
+        ],
+        meta: 'numb'
     },
     {
         id: 3,
