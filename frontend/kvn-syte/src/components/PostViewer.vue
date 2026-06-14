@@ -71,14 +71,14 @@
             </div>
             <div class="ui right rail">
                 <div class="ui buttons">
-                    <div class="ui icon button" @click="removeBlock(block.id)">
-                        <i class="x icon"></i>
+                    <div class="ui icon red button" @click="removeBlock(block.id)">
+                        <i class="x icon"/>
                     </div>
-                    <div class="ui icon button" @click="upBlock(block.id)">
-                        <i class="arrow up icon"></i>
+                    <div class="ui icon primary button" @click="upBlock(block.id)">
+                        <i class="arrow up icon"/>
                     </div>
-                    <div class="ui icon button" @click="downBlock(block.id)">
-                        <i class="arrow down icon"></i>
+                    <div class="ui icon primary button" @click="downBlock(block.id)">
+                        <i class="arrow down icon"/>
                     </div>
                 </div>
             </div>
