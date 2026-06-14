@@ -47,7 +47,7 @@
             <tr>
                 <td/>
                 <td v-for="i in results.columns.length" :key="i" align="center">
-                    <div class="ui icon fluid red button" @click="deleteColumn(i)">
+                    <div class="ui icon fluid red button" @click="deleteColumn(i-1)">
                         <i class="x icon"/>
                         Удалить
                     </div>

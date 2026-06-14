@@ -25,6 +25,7 @@
         <TeamTable v-if="tableType == 'team'" :table="table"/>
         <ScheduleTable v-if="tableType == 'schedule'" :table="table"/>
         <RewardTable v-if="tableType == 'reward'" :table="table"/>
+        <CustomTable v-if="tableType == 'own'" :table="table"/>
         <TableListWindow v-if="listTable" @quit="listTable = false" @select="(t) => selectTable(t)"/>
     </div>
 </template>
@@ -37,6 +38,7 @@ import ScheduleTable from './tables/ScheduleTable.vue';
 import TeamTable from './tables/TeamTable.vue';
 import TableListWindow from './windows/TableListWindow.vue';
 import RewardTable from './tables/RewardTable.vue';
+import CustomTable from './tables/CustomTable.vue';
 
 const tableType = ref('none')
 const listTable = ref(false)
