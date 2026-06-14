@@ -14,7 +14,6 @@
             <i class="plus icon"/>
         </button>
     </div>
-    {{ props.colonsNumber }}
 </template>
 
 <script setup>
