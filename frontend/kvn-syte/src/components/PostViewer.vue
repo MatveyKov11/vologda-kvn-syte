@@ -12,7 +12,7 @@
                 @up="(j) => upItem(i, j)" @down="(j) => downItem(i, j)"/>
             <VideoBlock :video-src="block.data[0]" v-else-if="block.type == 'video'"
                 @edit="(src) => editVideo(i, src)" />
-            <ImageBlock :image-src="block.data" :view-type="gallery" v-else-if="block.type == 'photo'"
+            <ImageBlock :image-src="block.data" :view-type="block.meta" v-else-if="block.type == 'image'"
                 @add="(src) => addItem(i, src)" @delete="removeItem(i, block.data.length-1)"/>
             <div v-else>
                 {{ block.type }}
@@ -62,23 +62,44 @@
                 <div class="ui segment">
                     <div class="ui form">
                         <div class="inline fields">
-                            <label for="colons">Тип списка:</label>
+                            <label for="list">Тип списка:</label>
                             <div class="field">
                                 <div class="ui radio checkbox">
-                                    <input type="radio" name="colons" value="numb" v-model="block.meta">
+                                    <input type="radio" name="list" value="numb" v-model="block.meta">
                                     <label>1.</label>
                                 </div>
                             </div>
                             <div class="field">
                                 <div class="ui radio checkbox">
-                                    <input type="radio" name="colons" value="disc" v-model="block.meta">
+                                    <input type="radio" name="list" value="disc" v-model="block.meta">
                                     <label><i class="ui circle icon"/></label>
                                 </div>
                             </div>
                             <div class="field">
                                 <div class="ui radio checkbox">
-                                    <input type="radio" name="colons" value="square" v-model="block.meta">
+                                    <input type="radio" name="list" value="square" v-model="block.meta">
                                     <label><i class="ui square icon"/></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="ui left rail" v-else-if="block.type == 'image'">
+                <div class="ui segment">
+                    <div class="ui form">
+                        <div class="grouped fields">
+                            <label for="img">Отображение:</label>
+                            <div class="field">
+                                <div class="ui radio checkbox">
+                                    <input type="radio" name="img" value="gallery" v-model="block.meta">
+                                    <label>Галерея</label>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="ui radio checkbox">
+                                    <input type="radio" name="img" value="carusel" v-model="block.meta">
+                                    <label>Карусель</label>
                                 </div>
                             </div>
                         </div>
@@ -150,11 +171,12 @@ const blocks = ref([
         data: ['https://vkvideo.ru/video_ext.php?oid=-127553155&id=456245257&hash=e92d9f33bf048f38&hd=3']
     },
     {
-        type: 'photo',
+        type: 'image',
         data: ['https://i.pinimg.com/originals/7d/be/d9/7dbed90655c6d7de0f4d01eb01b9cbe1.jpg?nii=t', 
             'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fbabyimages.ru%2Fkartinki%2Fderevo-kartinka-03.jpg&f=1&nofb=1&ipt=53fa373c4b87731786d96ebfb42884d43ce1ca004478a2aeae755a9f2d8c5d26',
             'https://i.pinimg.com/originals/7d/be/d9/7dbed90655c6d7de0f4d01eb01b9cbe1.jpg?nii=t'
-        ]
+        ],
+        meta: 'gallery'
     }
 ])
 

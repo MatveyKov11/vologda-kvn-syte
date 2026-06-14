@@ -1,5 +1,5 @@
 <template>
-    <div class="ui fluid container">
+    <div class="ui fluid container" v-if="props.viewType == 'gallery'">
         <img class="main-img" v-if="props.imageSrc.length > 0" :src="props.imageSrc[selectedImage]"/>
         <div class="ui fluid segment">
             <div class="gallery">
@@ -8,6 +8,15 @@
                     @click="selectedImage = i"/>
             </div>
         </div>
+    </div>
+    <div class="ui fluid container" v-else>
+        <img class="main-img" v-if="props.imageSrc.length > 0" :src="props.imageSrc[selectedImage]"/>
+        <button class="circular ui icon button" @click="selectedImage--" v-if="selectedImage > 0">
+            <i class="arrow left icon"/>
+        </button>
+        <button class="circular ui icon button" @click="selectedImage++" v-if="selectedImage < props.imageSrc.length-1">
+            <i class="arrow right icon"/>
+        </button>
     </div>
     <div class="ui hidden divider"/>
     <div class="ui action fluid input">
