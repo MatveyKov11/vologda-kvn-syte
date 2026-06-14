@@ -10,19 +10,8 @@
             <ListBlock :text="block.data" :list-type="block.meta" v-else-if="block.type == 'list'"
                 @add="(text) => addItem (block.id, text)" @delete="(j) => removeItem(block.id, j)"
                 @up="(j) => upItem(block.id, j)" @down="(j) => downItem(block.id, j)"/>
-            <div v-else-if="block.type == 'video'" class="ui fluid container">
-                <iframe class="video"
-                    :src="block.data[0]" 
-                    allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;" 
-                    frameborder="0" allowfullscreen>
-                </iframe>
-                <div class="ui action fluid input">
-                    <input type="text" placeholder="Введите код для вставки видео..." v-model="inputText[block.id]" @keypress.enter="editSrcVideo(block.id)"/>
-                    <button class="ui blue icon button" @click="editSrcVideo(block.id)">
-                        <i class="edit icon"></i>
-                    </button>
-                </div>
-            </div>
+            <VideoBlock :video-src="block.data[0]" v-else-if="block.type == 'video'"
+                @edit="(src) => editVideo(block.id, src)" />
             <div v-else-if="block.type == 'photo'" class="ui fluid container">
                 <img class="video" :src="block.data[0]"/>
                 <div class='gallery'>
@@ -135,6 +124,7 @@
 import { ref } from 'vue';
 import TextBlock from './blocks/TextBlock.vue';
 import ListBlock from './blocks/ListBlock.vue';
+import VideoBlock from './blocks/VideoBlock.vue';
 
 const blocks = ref([
     {
@@ -226,6 +216,16 @@ function editSrcVideo(i){
     blocks.value[i].data[0] = inputText[i].slice(begin, inputText[i].indexOf('"', begin))
     console.log(blocks.value[i].data[0])
     inputText[i] = ''
+}
+
+function editVideo(i, src){
+    let begin = src.indexOf('src="')
+    if(begin != -1){
+        begin += 5
+        blocks.value[i].data[0] = src.slice(begin, src.indexOf('"', begin))    
+    }else{
+        blocks.value[i].data[0] = src
+    }
 }
 
 function lenItem(i){
