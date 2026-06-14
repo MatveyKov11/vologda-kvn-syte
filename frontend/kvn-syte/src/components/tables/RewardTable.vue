@@ -41,8 +41,11 @@
     <button class="ui primary button" @click="addRow">
         <i class="plus icon"/> Добавить награду
     </button>
-    <button class="ui green button" @click="saveChanges">
+    <button class="ui green button" @click="saveChanges" v-if="props.table.rewards">
         <i class="check icon"/> Сохранить изменения
+    </button>
+    <button class="ui green button" @click="saveTable" v-else>
+        <i class="check icon"/> Сохранить таблицу
     </button>
     <button class="ui button" @click="lookTable">
         <i class="eye icon"/> Предпросмотр таблицы
@@ -101,12 +104,7 @@ function addRow(){
     rewards.value.push({})
 }
 
-function saveChanges(){
-    alert('Заглушка! Изменения сохранены!')
-    router.push({name: 'Admin Home'})
-}
-
-function lookTable(){
+function fixTable(){
     table.value.title = tableTitle.value
     table.value.columns = ["Описание награды", "Кого наградили"]
 
@@ -115,6 +113,24 @@ function lookTable(){
             reward.description, reward.to
         ])
     })
+}
+
+function saveChanges(){
+    fixTable()
+
+    alert('Заглушка! Изменения сохранены!')
+    router.push({name: 'Admin Home'})
+}
+
+function saveTable(){
+    fixTable()
+
+    alert('Заглушка! Таблица сохранена!')
+    router.push({name: 'Admin Home'})
+}
+
+function lookTable(){
+    fixTable()
 
     isLook.value = true
 }

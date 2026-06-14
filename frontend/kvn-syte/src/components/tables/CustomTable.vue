@@ -50,8 +50,11 @@
     <button class="ui primary button" @click="addRow">
         <i class="plus icon"/> Добавить строку
     </button>
-    <button class="ui green button" @click="saveChanges">
+    <button class="ui green button" @click="saveChanges" v-if="props.table.columns">
         <i class="check icon"/> Сохранить изменения
+    </button>
+    <button class="ui green button" @click="saveTable" v-else>
+        <i class="check icon"/> Сохранить таблицу
     </button>
     <button class="ui button" @click="lookTable">
         <i class="eye icon"/> Предпросмотр таблицы
@@ -149,18 +152,31 @@ function deleteColumn(c){
     table.value = tableCopy
 }
 
-function saveChanges(){
-    alert('Заглушка! Изменения сохранены!')
-    router.push({name: 'Admin Home'})
-}
-
-function lookTable(){
+function fixTable(){
     tableCopy.value.title = table.value.title
     tableCopy.value.columns = table.value.columns
 
     table.value.rows.forEach((row) => {
         tableCopy.value.rows.push(row.arr)
     })
+}
+
+function saveChanges(){
+    fixTable()
+
+    alert('Заглушка! Изменения сохранены!')
+    router.push({name: 'Admin Home'})
+}
+
+function saveTable(){
+    fixTable()
+
+    alert('Заглушка! Табилца сохранена!')
+    router.push({name: 'Admin Home'})
+}
+
+function lookTable(){
+    fixTable()
 
     isLook.value = true
 }

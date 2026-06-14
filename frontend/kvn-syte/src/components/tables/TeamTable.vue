@@ -41,8 +41,11 @@
     <button class="ui primary button" @click="addRow">
         <i class="plus icon"/> Добавить команду
     </button>
-    <button class="ui green button" @click="saveChanges">
+    <button class="ui green button" @click="saveChanges" v-if="props.table.teams">
         <i class="check icon"/> Сохранить изменения
+    </button>
+    <button class="ui green button" @click="saveTable" v-else>
+        <i class="check icon"/> Сохранить таблицу
     </button>
     <button class="ui button" @click="lookTable">
         <i class="eye icon"/> Предпросмотр таблицы
@@ -106,12 +109,7 @@ function addRow(){
     teams.value.push({})
 }
 
-function saveChanges(){
-    alert('Заглушка! Изменения сохранены!')
-    router.push({name: 'Admin Home'})
-}
-
-function lookTable(){
+function fixTable(){
     table.value.title = tableTitle.value
     table.value.columns = ["Название команды", "Описание"]
 
@@ -120,6 +118,24 @@ function lookTable(){
             team.teamName, team.description
         ])
     })
+}
+
+function saveChanges(){
+    fixTable()
+
+    alert('Заглушка! Изменения сохранены!')
+    router.push({name: 'Admin Home'})
+}
+
+function saveChanges(){
+    fixTable()
+
+    alert('Заглушка! Таблица сохранена!')
+    router.push({name: 'Admin Home'})
+}
+
+function lookTable(){
+    fixTable()
 
     isLook.value = true
 }
