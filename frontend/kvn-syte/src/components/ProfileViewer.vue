@@ -21,7 +21,7 @@
                         </div>
                     </td>
                     <td>
-                        <button class="ui button" @click="openChangePass(profile.id)">
+                        <button class="ui fluid button" @click="openChangePass(profile.id)">
                             Поменять пароль
                         </button>
                     </td>
