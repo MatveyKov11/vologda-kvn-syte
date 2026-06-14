@@ -40,6 +40,5 @@ const props = defineProps({
         required: true
     }
 })
-
 const inputText = ref("")
 </script>

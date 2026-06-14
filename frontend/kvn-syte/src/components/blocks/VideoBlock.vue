@@ -25,6 +25,11 @@ const props = defineProps({
         required: true
     }
 })
-
 const inputText = ref("")
 </script>
+
+<style scoped>
+.video{
+    width: 100%;
+}
+</style>

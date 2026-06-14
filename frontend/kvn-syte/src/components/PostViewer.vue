@@ -12,19 +12,8 @@
                 @up="(j) => upItem(block.id, j)" @down="(j) => downItem(block.id, j)"/>
             <VideoBlock :video-src="block.data[0]" v-else-if="block.type == 'video'"
                 @edit="(src) => editVideo(block.id, src)" />
-            <div v-else-if="block.type == 'photo'" class="ui fluid container">
-                <img class="video" :src="block.data[0]"/>
-                <div class='gallery'>
-                    <img v-for="i in block.data.length" :key="i" style="margin-right: 1%; margin-left: 1%;"
-                        :width="lenItem(block.data.length)" :src="block.data[i-1]"/>
-                </div>
-                <div class="ui action fluid input">
-                    <input type="text" placeholder="Введите ссылку для вставки фото..." v-model="inputText[block.id]" @keypress.enter="editSrcVideo(block.id)"/>
-                    <button class="ui blue icon button" @click="addItem2Block(block.id)">
-                        <i class="edit icon"></i>
-                    </button>
-                </div>
-            </div>
+            <ImageBlock :image-src="block.data" :view-type="gallery" v-else-if="block.type == 'photo'"
+                @add="(src) => addItem(block.id, src)"/>
             <div v-else>
                 {{ block.type }}
                 {{ block.type }}
@@ -125,6 +114,7 @@ import { ref } from 'vue';
 import TextBlock from './blocks/TextBlock.vue';
 import ListBlock from './blocks/ListBlock.vue';
 import VideoBlock from './blocks/VideoBlock.vue';
+import ImageBlock from './blocks/ImageBlock.vue';
 
 const blocks = ref([
     {
@@ -174,12 +164,6 @@ const blocks = ref([
 ])
 
 const title = ref('Заголовок поста')
-const inputText = ['', '', '', '', '', '', '', '', '', '']
-
-function addItem2Block(i){
-    blocks.value[i].data.push(inputText[i])
-    inputText[i] = ''
-}
 
 function addItem(i, text){
     blocks.value[i].data.push(text)
@@ -208,16 +192,6 @@ function downItem(i, j){
     }
 }
 
-function editSrcVideo(i){
-    let begin = inputText[i].indexOf('"')+1
-    console.log(inputText[i])
-    console.log(begin)
-    console.log(inputText[i].indexOf('"', begin))
-    blocks.value[i].data[0] = inputText[i].slice(begin, inputText[i].indexOf('"', begin))
-    console.log(blocks.value[i].data[0])
-    inputText[i] = ''
-}
-
 function editVideo(i, src){
     let begin = src.indexOf('src="')
     if(begin != -1){
@@ -226,10 +200,6 @@ function editVideo(i, src){
     }else{
         blocks.value[i].data[0] = src
     }
-}
-
-function lenItem(i){
-    return (100 / i) - 2 + '%'
 }
 
 function addBlock(t){
