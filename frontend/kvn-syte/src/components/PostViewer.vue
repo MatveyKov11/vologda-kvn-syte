@@ -4,7 +4,7 @@
             <input type="text" placeholder="Заголовок поста..." v-model="title"/>
         </div>
         <div class="ui segment" v-for="block in blocks" :key="block.id">
-            <TextBlock :text="block.data" :colons-number="1" v-if="block.type == 'text'"
+            <TextBlock :text="block.data" :colons-number="block.meta" v-if="block.type == 'text'"
                 @add="(text) => addItem (block.id, text)" @delete="(j) => removeItem(block.id, j)"
                 @up="(j) => upItem(block.id, j)" @down="(j) => downItem(block.id, j)"/>
             <div v-else-if="block.type == 'mark-list'" class="ui fluid container">
@@ -82,6 +82,33 @@
                     </div>
                 </div>
             </div>
+            <div class="ui left rail" v-if="block.type == 'text'">
+                <div class="ui segment">
+                    <div class="ui form">
+                        <div class="inline fields">
+                            <label for="colons">Число колонок:</label>
+                            <div class="field">
+                                <div class="ui radio checkbox">
+                                    <input type="radio" name="colons" value="1" v-model="block.meta">
+                                    <label>1</label>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="ui radio checkbox">
+                                    <input type="radio" name="colons" value="2" v-model="block.meta">
+                                    <label>2</label>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="ui radio checkbox">
+                                    <input type="radio" name="colons" value="3" v-model="block.meta">
+                                    <label>3</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="ui buttons">
@@ -114,7 +141,13 @@ const blocks = ref([
     {
         id: 0,
         type: 'text',
-        data: ['Раз-раз-раз-раз-раз', 'Два-два-два-два-два-два-два', 'Два-два-два-два-два-два-два-два-два-два-два-два-два-два-два-два-два-два-два Два-два-два-два-два-два-два-два-два-два-два-два-два-два-два-два-два-два-два']
+        data: [
+            'Раз-раз-раз-раз-раз', 
+            'Два-два-два-два-два-два-два', 
+            'Два-два-два-два-два-два-два-два-два-два-два-два-два-два-два-два-два-два-два'+ 
+            'Два-два-два-два-два-два-два-два-два-два-два-два-два-два-два-два-два-два-два'
+        ],
+        meta: 1
     },
     {
         id: 1,
