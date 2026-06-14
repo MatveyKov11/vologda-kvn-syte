@@ -14,10 +14,7 @@
                 @edit="(src) => editVideo(i, src)" />
             <ImageBlock :image-src="block.data" :view-type="block.meta" v-else-if="block.type == 'image'"
                 @add="(src) => addItem(i, src)" @delete="removeItem(i, block.data.length-1)"/>
-            <div v-else>
-                {{ block.type }}
-                {{ block.type }}
-            </div>
+            <TableBlock :table-id="block.data[0]" v-if="block.type == 'table'"/>
             <div class="ui right rail">
                 <div class="ui buttons">
                     <div class="ui icon red button" @click="removeBlock(i)">
@@ -136,6 +133,7 @@ import TextBlock from './blocks/TextBlock.vue';
 import ListBlock from './blocks/ListBlock.vue';
 import VideoBlock from './blocks/VideoBlock.vue';
 import ImageBlock from './blocks/ImageBlock.vue';
+import TableBlock from './blocks/TableBlock.vue';
 
 const blocks = ref([
     {
@@ -177,6 +175,10 @@ const blocks = ref([
             'https://i.pinimg.com/originals/7d/be/d9/7dbed90655c6d7de0f4d01eb01b9cbe1.jpg?nii=t'
         ],
         meta: 'gallery'
+    },
+    {
+        type: 'table',
+        data: [0]
     }
 ])
 
