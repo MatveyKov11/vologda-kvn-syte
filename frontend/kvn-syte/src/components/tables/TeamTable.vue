@@ -127,7 +127,7 @@ function saveChanges(){
     router.push({name: 'Admin Home'})
 }
 
-function saveChanges(){
+function saveTable(){
     fixTable()
 
     alert('Заглушка! Таблица сохранена!')
