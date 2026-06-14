@@ -28,6 +28,9 @@
             <a class="item"  @click="tables">
                 <span> Таблицы </span>
             </a>
+            <a class="item"  @click="posts">
+                <span> Посты </span>
+            </a>
         </div>
     </div>
     <div class="ui clearing divider"></div>
@@ -59,6 +62,10 @@ function profiles() {
 
 function tables() {
     router.push({name: 'Tables'})
+}
+
+function posts() {
+    router.push({name: 'Posts'})
 }
 
 router.push({name: 'Logs'})

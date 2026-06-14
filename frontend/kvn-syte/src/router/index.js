@@ -4,8 +4,8 @@ import AdminApp from '@/components/AdminApp.vue'
 import LogViewer from '@/components/LogViewer.vue'
 import ProfileViewer from '@/components/ProfileViewer.vue'
 import EditorApp from '@/components/EditorApp.vue'
-import NewPostEditor from '@/components/NewPostEditor.vue'
 import TableViewer from '@/components/TableViewer.vue'
+import PostViewer from '@/components/PostViewer.vue'
 
 const routes = [
   {
@@ -24,14 +24,19 @@ const routes = [
         component: LogViewer
       },
       {
-        path: 'table',
-        name: 'Tables',
-        component: TableViewer
-      },
-      {
         path: 'profile',
         name: 'Profiles',
         component: ProfileViewer
+      },
+      {
+        path: 'post',
+        name: 'Posts',
+        component: PostViewer
+      },
+      {
+        path: 'table',
+        name: 'Tables',
+        component: TableViewer
       }
     ]
   },
@@ -40,11 +45,6 @@ const routes = [
     name: 'Editor Home',
     component: EditorApp,
     children: [
-      {
-        path: 'new-post',
-        name: 'New Post',
-        component: NewPostEditor
-      }
     ]
   },
 ]

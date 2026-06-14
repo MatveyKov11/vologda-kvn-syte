@@ -8,7 +8,7 @@
     </div>
     <div class="ui hidden divider"></div>
     <div class="ui input">
-        <input type="text" name="name" v-model="table.title" placeholder="Название таблицы">
+        <input type="text" name="name" v-model="table.title" placeholder="Название таблицы...">
     </div>
     <table class="ui table">
         <thead><tr>

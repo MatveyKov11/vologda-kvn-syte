@@ -1,96 +1,96 @@
 <template>
     <div class="ui text container">
         <div class="ui fluid input">
-                <input type="text" placeholder="Введите заголовок..." v-model="title"/>
-            </div>
-    </div>
-    <div class="ui segment" v-for="block in blocks" :key="block.id">
-        <div v-if="block.type == 'text'" class="ui fluid container">
-            <p v-for="i in block.data.length" :key="i" align="left"> 
-                {{ block.data[i-1] }}
-                <i class="x icon" @click="removeItem(block.id, i-1)"></i>
-                <i class="arrow up icon" @click="moveUpItem(block.id, i-1)"></i>
-                <i class="arrow down icon" @click="moveDownItem(block.id, i-1)"></i>
-            </p>
-            <div class="ui action fluid input">
-                <input type="text" placeholder="Введите абзац..." v-model="inputText[block.id]" @keypress.enter="addItem(block.id)"/>
-                <button class="ui blue icon button" @click="addItem(block.id)">
-                    <i class="plus icon"></i>
-                </button>
-            </div>
+            <input type="text" placeholder="Заголовок поста..." v-model="title"/>
         </div>
-        <div v-else-if="block.type == 'mark-list'" class="ui fluid container">
-            <ul class="ui list">
-                <li v-for="i in block.data.length" :key="i" align="left"> 
+        <div class="ui segment" v-for="block in blocks" :key="block.id">
+            <div v-if="block.type == 'text'" class="ui fluid container">
+                <p v-for="i in block.data.length" :key="i" align="left"> 
                     {{ block.data[i-1] }}
                     <i class="x icon" @click="removeItem(block.id, i-1)"></i>
                     <i class="arrow up icon" @click="moveUpItem(block.id, i-1)"></i>
                     <i class="arrow down icon" @click="moveDownItem(block.id, i-1)"></i>
-                </li>
-            </ul>
-            <div class="ui action fluid input">
-                <input type="text" placeholder="Введите элемент..." v-model="inputText[block.id]" @keypress.enter="addItem(block.id)"/>
-                <button class="ui blue icon button" @click="addItem(block.id)">
-                    <i class="plus icon"></i>
-                </button>
-            </div>
-        </div>
-        <div v-else-if="block.type == 'numb-list'" class="ui fluid container">
-            <ol class="ui list">
-                <li v-for="i in block.data.length" :key="i" align="left"> 
-                    {{ block.data[i-1] }}
-                    <i class="x icon" @click="removeItem(block.id, i-1)"></i>
-                    <i class="arrow up icon" @click="moveUpItem(block.id, i-1)"></i>
-                    <i class="arrow down icon" @click="moveDownItem(block.id, i-1)"></i>
-                </li>
-            </ol>
-            <div class="ui action fluid input">
-                <input type="text" placeholder="Введите элемент..." v-model="inputText[block.id]" @keypress.enter="addItem(block.id)"/>
-                <button class="ui blue icon button" @click="addItem(block.id)">
-                    <i class="plus icon"></i>
-                </button>
-            </div>
-        </div>
-        <div v-else-if="block.type == 'video'" class="ui fluid container">
-            <iframe class="video"
-                :src="block.data[0]" 
-                allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;" 
-                frameborder="0" allowfullscreen>
-            </iframe>
-            <div class="ui action fluid input">
-                <input type="text" placeholder="Введите код для вставки видео..." v-model="inputText[block.id]" @keypress.enter="editSrcVideo(block.id)"/>
-                <button class="ui blue icon button" @click="editSrcVideo(block.id)">
-                    <i class="edit icon"></i>
-                </button>
-            </div>
-        </div>
-        <div v-else-if="block.type == 'photo'" class="ui fluid container">
-            <img class="video" :src="block.data[0]"/>
-            <div class='gallery'>
-                <img v-for="i in block.data.length" :key="i" style="margin-right: 1%; margin-left: 1%;"
-                    :width="lenItem(block.data.length)" :src="block.data[i-1]"/>
-            </div>
-            <div class="ui action fluid input">
-                <input type="text" placeholder="Введите ссылку для вставки фото..." v-model="inputText[block.id]" @keypress.enter="editSrcVideo(block.id)"/>
-                <button class="ui blue icon button" @click="addItem(block.id)">
-                    <i class="edit icon"></i>
-                </button>
-            </div>
-        </div>
-        <div v-else>
-            {{ block.type }}
-            {{ block.type }}
-        </div>
-        <div class="ui right rail">
-            <div class="ui buttons">
-                <div class="ui icon button" @click="removeBlock(block.id)">
-                    <i class="x icon"></i>
+                </p>
+                <div class="ui action fluid input">
+                    <input type="text" placeholder="Введите абзац..." v-model="inputText[block.id]" @keypress.enter="addItem(block.id)"/>
+                    <button class="ui blue icon button" @click="addItem(block.id)">
+                        <i class="plus icon"></i>
+                    </button>
                 </div>
-                <div class="ui icon button" @click="moveUpBlock(block.id)">
-                    <i class="arrow up icon"></i>
+            </div>
+            <div v-else-if="block.type == 'mark-list'" class="ui fluid container">
+                <ul class="ui list">
+                    <li v-for="i in block.data.length" :key="i" align="left"> 
+                        {{ block.data[i-1] }}
+                        <i class="x icon" @click="removeItem(block.id, i-1)"></i>
+                        <i class="arrow up icon" @click="moveUpItem(block.id, i-1)"></i>
+                        <i class="arrow down icon" @click="moveDownItem(block.id, i-1)"></i>
+                    </li>
+                </ul>
+                <div class="ui action fluid input">
+                    <input type="text" placeholder="Введите элемент..." v-model="inputText[block.id]" @keypress.enter="addItem(block.id)"/>
+                    <button class="ui blue icon button" @click="addItem(block.id)">
+                        <i class="plus icon"></i>
+                    </button>
                 </div>
-                <div class="ui icon button" @click="moveDownBlock(block.id)">
-                    <i class="arrow down icon"></i>
+            </div>
+            <div v-else-if="block.type == 'numb-list'" class="ui fluid container">
+                <ol class="ui list">
+                    <li v-for="i in block.data.length" :key="i" align="left"> 
+                        {{ block.data[i-1] }}
+                        <i class="x icon" @click="removeItem(block.id, i-1)"></i>
+                        <i class="arrow up icon" @click="moveUpItem(block.id, i-1)"></i>
+                        <i class="arrow down icon" @click="moveDownItem(block.id, i-1)"></i>
+                    </li>
+                </ol>
+                <div class="ui action fluid input">
+                    <input type="text" placeholder="Введите элемент..." v-model="inputText[block.id]" @keypress.enter="addItem(block.id)"/>
+                    <button class="ui blue icon button" @click="addItem(block.id)">
+                        <i class="plus icon"></i>
+                    </button>
+                </div>
+            </div>
+            <div v-else-if="block.type == 'video'" class="ui fluid container">
+                <iframe class="video"
+                    :src="block.data[0]" 
+                    allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;" 
+                    frameborder="0" allowfullscreen>
+                </iframe>
+                <div class="ui action fluid input">
+                    <input type="text" placeholder="Введите код для вставки видео..." v-model="inputText[block.id]" @keypress.enter="editSrcVideo(block.id)"/>
+                    <button class="ui blue icon button" @click="editSrcVideo(block.id)">
+                        <i class="edit icon"></i>
+                    </button>
+                </div>
+            </div>
+            <div v-else-if="block.type == 'photo'" class="ui fluid container">
+                <img class="video" :src="block.data[0]"/>
+                <div class='gallery'>
+                    <img v-for="i in block.data.length" :key="i" style="margin-right: 1%; margin-left: 1%;"
+                        :width="lenItem(block.data.length)" :src="block.data[i-1]"/>
+                </div>
+                <div class="ui action fluid input">
+                    <input type="text" placeholder="Введите ссылку для вставки фото..." v-model="inputText[block.id]" @keypress.enter="editSrcVideo(block.id)"/>
+                    <button class="ui blue icon button" @click="addItem(block.id)">
+                        <i class="edit icon"></i>
+                    </button>
+                </div>
+            </div>
+            <div v-else>
+                {{ block.type }}
+                {{ block.type }}
+            </div>
+            <div class="ui right rail">
+                <div class="ui buttons">
+                    <div class="ui icon button" @click="removeBlock(block.id)">
+                        <i class="x icon"></i>
+                    </div>
+                    <div class="ui icon button" @click="moveUpBlock(block.id)">
+                        <i class="arrow up icon"></i>
+                    </div>
+                    <div class="ui icon button" @click="moveDownBlock(block.id)">
+                        <i class="arrow down icon"></i>
+                    </div>
                 </div>
             </div>
         </div>
