@@ -4,32 +4,21 @@
             <input type="text" placeholder="Заголовок поста..." v-model="title"/>
         </div>
         <div class="ui segment" v-for="block in blocks" :key="block.id">
-            <div v-if="block.type == 'text'" class="ui fluid container">
-                <p v-for="i in block.data.length" :key="i" align="left"> 
-                    {{ block.data[i-1] }}
-                    <i class="x icon" @click="removeItem(block.id, i-1)"></i>
-                    <i class="arrow up icon" @click="moveUpItem(block.id, i-1)"></i>
-                    <i class="arrow down icon" @click="moveDownItem(block.id, i-1)"></i>
-                </p>
-                <div class="ui action fluid input">
-                    <input type="text" placeholder="Введите абзац..." v-model="inputText[block.id]" @keypress.enter="addItem(block.id)"/>
-                    <button class="ui blue icon button" @click="addItem(block.id)">
-                        <i class="plus icon"></i>
-                    </button>
-                </div>
-            </div>
+            <TextBlock :text="block.data" :colons-number="1" v-if="block.type == 'text'"
+                @add="(text) => addItem (block.id, text)" @delete="(j) => removeItem(block.id, j)"
+                @up="(j) => upItem(block.id, j)" @down="(j) => downItem(block.id, j)"/>
             <div v-else-if="block.type == 'mark-list'" class="ui fluid container">
                 <ul class="ui list">
                     <li v-for="i in block.data.length" :key="i" align="left"> 
                         {{ block.data[i-1] }}
                         <i class="x icon" @click="removeItem(block.id, i-1)"></i>
-                        <i class="arrow up icon" @click="moveUpItem(block.id, i-1)"></i>
-                        <i class="arrow down icon" @click="moveDownItem(block.id, i-1)"></i>
+                        <i class="arrow up icon" @click="upItem(block.id, i-1)"></i>
+                        <i class="arrow down icon" @click="downItem(block.id, i-1)"></i>
                     </li>
                 </ul>
                 <div class="ui action fluid input">
-                    <input type="text" placeholder="Введите элемент..." v-model="inputText[block.id]" @keypress.enter="addItem(block.id)"/>
-                    <button class="ui blue icon button" @click="addItem(block.id)">
+                    <input type="text" placeholder="Введите элемент..." v-model="inputText[block.id]" @keypress.enter="addItem2Block(block.id)"/>
+                    <button class="ui blue icon button" @click="addItem2Block(block.id)">
                         <i class="plus icon"></i>
                     </button>
                 </div>
@@ -39,13 +28,13 @@
                     <li v-for="i in block.data.length" :key="i" align="left"> 
                         {{ block.data[i-1] }}
                         <i class="x icon" @click="removeItem(block.id, i-1)"></i>
-                        <i class="arrow up icon" @click="moveUpItem(block.id, i-1)"></i>
-                        <i class="arrow down icon" @click="moveDownItem(block.id, i-1)"></i>
+                        <i class="arrow up icon" @click="upItem(block.id, i-1)"></i>
+                        <i class="arrow down icon" @click="downItem(block.id, i-1)"></i>
                     </li>
                 </ol>
                 <div class="ui action fluid input">
-                    <input type="text" placeholder="Введите элемент..." v-model="inputText[block.id]" @keypress.enter="addItem(block.id)"/>
-                    <button class="ui blue icon button" @click="addItem(block.id)">
+                    <input type="text" placeholder="Введите элемент..." v-model="inputText[block.id]" @keypress.enter="addItem2Block(block.id)"/>
+                    <button class="ui blue icon button" @click="addItem2Block(block.id)">
                         <i class="plus icon"></i>
                     </button>
                 </div>
@@ -71,7 +60,7 @@
                 </div>
                 <div class="ui action fluid input">
                     <input type="text" placeholder="Введите ссылку для вставки фото..." v-model="inputText[block.id]" @keypress.enter="editSrcVideo(block.id)"/>
-                    <button class="ui blue icon button" @click="addItem(block.id)">
+                    <button class="ui blue icon button" @click="addItem2Block(block.id)">
                         <i class="edit icon"></i>
                     </button>
                 </div>
@@ -85,10 +74,10 @@
                     <div class="ui icon button" @click="removeBlock(block.id)">
                         <i class="x icon"></i>
                     </div>
-                    <div class="ui icon button" @click="moveUpBlock(block.id)">
+                    <div class="ui icon button" @click="upBlock(block.id)">
                         <i class="arrow up icon"></i>
                     </div>
-                    <div class="ui icon button" @click="moveDownBlock(block.id)">
+                    <div class="ui icon button" @click="downBlock(block.id)">
                         <i class="arrow down icon"></i>
                     </div>
                 </div>
@@ -113,18 +102,19 @@
         </button>
     </div>
     <button class="ui button" @click="saveChanges">
-        <i class="check icon"></i> Сохранить изменения
+        <i class="check icon"/> Сохранить изменения
     </button>
 </template>
 
 <script setup>
 import { ref } from 'vue';
+import TextBlock from './blocks/TextBlock.vue';
 
 const blocks = ref([
     {
         id: 0,
         type: 'text',
-        data: ['Раз-раз-раз-раз-раз', 'Два-два-два-два-два-два-два', 'Два-два-два-два-два-два-два-два-два-два-два-два-два-два-два-два-два-два-два']
+        data: ['Раз-раз-раз-раз-раз', 'Два-два-два-два-два-два-два', 'Два-два-два-два-два-два-два-два-два-два-два-два-два-два-два-два-два-два-два Два-два-два-два-два-два-два-два-два-два-два-два-два-два-два-два-два-два-два']
     },
     {
         id: 1,
@@ -154,9 +144,13 @@ const blocks = ref([
 const title = ref('Заголовок поста')
 const inputText = ['', '', '', '', '', '', '', '', '', '']
 
-function addItem(i){
+function addItem2Block(i){
     blocks.value[i].data.push(inputText[i])
     inputText[i] = ''
+}
+
+function addItem(i, text){
+    blocks.value[i].data.push(text)
 }
 
 function removeItem(i, j){
@@ -166,7 +160,7 @@ function removeItem(i, j){
     blocks.value[i].data = blocks.value[i].data.slice(0, blocks.value[i].data.length - 1)
 }
 
-function moveUpItem(i, j){
+function upItem(i, j){
     if (j > 0){
         let temp = blocks.value[i].data[j-1].slice()
         blocks.value[i].data[j-1] = blocks.value[i].data[j].slice()
@@ -174,7 +168,7 @@ function moveUpItem(i, j){
     }
 }
 
-function moveDownItem(i, j){
+function downItem(i, j){
     if (j < blocks.value[i].data.length - 1){
         let temp = blocks.value[i].data[j].slice()
         blocks.value[i].data[j] = blocks.value[i].data[j+1].slice()
@@ -212,7 +206,7 @@ function removeBlock(i){
     blocks.value = blocks.value.slice(0, blocks.value.length - 1)
 }
 
-function moveUpBlock(j){
+function upBlock(j){
     if (j > 0){
         let temp = JSON.parse(JSON.stringify(blocks.value[j-1]))
         blocks.value[j-1] = JSON.parse(JSON.stringify(blocks.value[j]))
@@ -223,7 +217,7 @@ function moveUpBlock(j){
     }
 }
 
-function moveDownBlock(j){
+function downBlock(j){
     if (j < blocks.value.length - 1){
         let temp = JSON.parse(JSON.stringify(blocks.value[j+1]))
         blocks.value[j+1] = JSON.parse(JSON.stringify(blocks.value[j]))
