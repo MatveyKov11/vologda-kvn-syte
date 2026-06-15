@@ -24,7 +24,7 @@
     <div class="ui button" @click="listTable = true">
         Выбор таблицы
     </div>
-    <TableListWindow v-if="listTable" @quit="listTable = false"/>
+    <TableListWindow v-if="listTable" @quit="listTable = false" @select="(t) => {changeTable(t); listTable = false}"/>
 </template>
 
 <script setup>
@@ -54,5 +54,9 @@ const table = ref({
 })
 const listTable = ref(false)
 
-table.value.id = props.tableId+0
+function changeTable(id){
+    table.value.id = id
+}
+
+changeTable(props.tableId)
 </script>

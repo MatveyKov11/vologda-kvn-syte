@@ -205,7 +205,6 @@ const blocks = ref([
         meta: true
     }
 ])
-
 const title = ref('Заголовок поста')
 
 function addItem(i, text){
