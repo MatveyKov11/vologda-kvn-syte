@@ -4,7 +4,7 @@
             {{ table.title }}
         </h2>
         <table class="ui table">
-            <thead>
+            <thead v-if="props.viewColumns == 'true'">
                 <tr>
                     <th v-for="(col, i) in table.columns" :key="i">
                         {{ col }}
@@ -34,6 +34,10 @@ import TableListWindow from '../windows/TableListWindow.vue';
 const props = defineProps({
     tableId: {
         type: Number,
+        required: true
+    },
+    viewColumns: {
+        type: String,
         required: true
     }
 })

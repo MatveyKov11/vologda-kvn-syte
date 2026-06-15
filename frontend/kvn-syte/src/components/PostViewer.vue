@@ -14,7 +14,7 @@
                 @edit="(src) => editVideo(i, src)" />
             <ImageBlock :image-src="block.data" :view-type="block.meta" v-else-if="block.type == 'image'"
                 @add="(src) => addItem(i, src)" @delete="removeItem(i, block.data.length-1)"/>
-            <TableBlock :table-id="block.data[0]" v-if="block.type == 'table'"/>
+            <TableBlock :table-id="block.data[0]" :view-columns="block.meta" v-if="block.type == 'table'"/>
             <div class="ui right rail">
                 <div class="ui buttons">
                     <div class="ui icon red button" @click="removeBlock(i)">
@@ -103,6 +103,27 @@
                     </div>
                 </div>
             </div>
+            <div class="ui left rail" v-else-if="block.type == 'table'">
+                <div class="ui segment">
+                    <div class="ui form">
+                        <div class="grouped fields">
+                            <label for="columns">Отображение:</label>
+                            <div class="field">
+                                <div class="ui radio checkbox">
+                                    <input type="radio" name="columns" value="true" v-model="block.meta">
+                                    <label>С названиями столбцов</label>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="ui radio checkbox">
+                                    <input type="radio" name="columns" value="false" v-model="block.meta">
+                                    <label>Без названий столбцов</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <button class="ui button" @click="addBlock('text')">
@@ -180,7 +201,8 @@ const blocks = ref([
     },
     {
         type: 'table',
-        data: [0]
+        data: [0],
+        meta: true
     }
 ])
 
