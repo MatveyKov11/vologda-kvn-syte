@@ -1,4 +1,5 @@
 <template>
+    <div class="ui hidden divider" v-if="!props.isEdit"/>
     <div class="ui fluid container">
         <h2 class="ui header">
             {{ table.title }}
@@ -20,10 +21,11 @@
             </tbody>
         </table>
     </div>
-    <div class="ui hidden divider"/>
-    <div class="ui button" @click="listTable = true">
+    <div class="ui hidden divider" v-if="props.isEdit"/>
+    <div class="ui button" @click="listTable = true" v-if="props.isEdit">
         Выбор таблицы
     </div>
+    <div class="ui hidden divider" v-else/>
     <TableListWindow v-if="listTable" @quit="listTable = false" @select="(t) => {changeTable(t); listTable = false}"/>
 </template>
 
@@ -39,8 +41,13 @@ const props = defineProps({
     viewColumns: {
         type: String,
         required: true
+    },
+    isEdit: {
+        type: Boolean,
+        required: true
     }
 })
+
 const table = ref({
     title: "Abacaba",
     columns: ["ABC", "QWE", "ASD", "ZXC"],

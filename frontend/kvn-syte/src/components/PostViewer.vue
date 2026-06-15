@@ -4,15 +4,15 @@
             <input type="text" placeholder="Заголовок поста..." v-model="title"/>
         </div>
         <div class="ui segment" v-for="(block, i) in blocks" :key="i">
-            <TextBlock :text="block.data" :colons-number="block.meta" v-if="block.type == 'text'"
+            <TextBlock :text="block.data" :colons-number="block.meta" :is-edit="true" v-if="block.type == 'text'"
                 @add="(text) => addItem(i, text)" @delete="(j) => removeItem(i, j)"
                 @up="(j) => upItem(i, j)" @down="(j) => downItem(i, j)"/>
-            <ListBlock :text="block.data" :list-type="block.meta" v-else-if="block.type == 'list'"
+            <ListBlock :text="block.data" :list-type="block.meta" :is-edit="true" v-else-if="block.type == 'list'"
                 @add="(text) => addItem(i, text)" @delete="(j) => removeItem(i, j)"
                 @up="(j) => upItem(i, j)" @down="(j) => downItem(i, j)"/>
-            <VideoBlock :video-src="block.data[0]" v-else-if="block.type == 'video'"
+            <VideoBlock :video-src="block.data[0]" :is-edit="true" v-else-if="block.type == 'video'"
                 @edit="(src) => editVideo(i, src)" />
-            <ImageBlock :image-src="block.data" :view-type="block.meta" v-else-if="block.type == 'image'"
+            <ImageBlock :image-src="block.data" :view-type="block.meta" :is-edit="true" v-else-if="block.type == 'image'"
                 @add="(src) => addItem(i, src)" @delete="removeItem(i, block.data.length-1)"/>
             <TableBlock :table-id="block.data[0]" :view-columns="block.meta" v-if="block.type == 'table'"/>
             <div class="ui right rail">
@@ -145,9 +145,13 @@
         Таблица
     </button>
     <div class="ui divider"/>
-    <button class="ui button" @click="saveChanges">
+    <button class="ui button" @click="lookPost()">
+        <i class="eye icon"/> Предпросмотр поста
+    </button>
+    <button class="ui green button" @click="saveChanges">
         <i class="check icon"/> Сохранить изменения
     </button>
+    <PostWindow :post="post" @quit="look = false; post = {}" v-if="look"/>
 </template>
 
 <script setup>
@@ -157,6 +161,7 @@ import ListBlock from './blocks/ListBlock.vue';
 import VideoBlock from './blocks/VideoBlock.vue';
 import ImageBlock from './blocks/ImageBlock.vue';
 import TableBlock from './blocks/TableBlock.vue';
+import PostWindow from './windows/PostWindow.vue';
 
 const blocks = ref([
     {
@@ -206,6 +211,8 @@ const blocks = ref([
     }
 ])
 const title = ref('Заголовок поста')
+const post = ref({})
+const look = ref(false)
 
 function addItem(i, text){
     blocks.value[i].data.push(text)
@@ -282,8 +289,26 @@ function downBlock(j){
     }
 }
 
+function fixPost(){
+    post.value.blocks = blocks.value
+    post.value.title = title.value
+    let today = new Date()
+    let dd = String(today.getDate()).padStart(2, '0')
+    let mm = String(today.getMonth() + 1).padStart(2, '0')
+    let yyyy = today.getFullYear()
+    post.value.date = dd+'.'+mm+'.'+yyyy
+}
+
 function saveChanges(){
-    console.log(JSON.stringify(blocks.value))
+    fixPost()
+
+    alert('Заглушка! Изменения сохранены!')
+}
+
+function lookPost(){
+    fixPost()
+
+    look.value = true
 }
 </script>
 

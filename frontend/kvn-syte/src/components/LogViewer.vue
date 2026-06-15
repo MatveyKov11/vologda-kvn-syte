@@ -44,7 +44,7 @@
     </div>
     <UserWindow :userId="userId" v-if="userId != -1" @quit="userId = -1" @edit="toProfiles" @delete="deleteUser" @block="blockUser"/>
     <TableWindow :tableId="tableId" v-if="tableId != -1" @quit="tableId = -1" @edit="toTables"/>
-    <PostWindow :postId="postId" v-if="postId != -1" @quit="postId = -1" @edit="toPostEditor"/>
+    <PostWindow :postId="postId" :isEdit="false" v-if="postId != -1" @quit="postId = -1" @edit="toPostEditor"/>
     <CommentWindow :commentId="commentId" v-if="commentId != -1" @quit="commentId = -1" @show="toPost" @delete="deleteComment"/>
     <StyleWindow :styleId="styleId" v-if="styleId != -1" @quit="styleId = -1" @show="toStyleEditor"/>
 </template>

@@ -1,4 +1,5 @@
 <template>
+    <div class="ui hidden divider" v-if="!props.isEdit"/>
     <div class="ui fluid container" v-if="props.viewType == 'gallery'">
         <img class="main-img" v-if="props.imageSrc.length > 0" :src="props.imageSrc[selectedImage]"/>
         <div class="ui fluid segment">
@@ -18,17 +19,18 @@
             <i class="arrow right icon"/>
         </button>
     </div>
-    <div class="ui hidden divider"/>
-    <div class="ui action fluid input">
+    <div class="ui hidden divider" v-if="props.isEdit"/>
+    <div class="ui action fluid input" v-if="props.isEdit">
         <input type="text" placeholder="Введите ссылку для вставки фото..." v-model="inputText" 
             @keypress.enter="$emit('add', inputText); inputText = ''"/>
         <button class="ui blue icon button" @click="$emit('add', inputText); inputText = ''">
             <i class="edit icon"/>
         </button>
     </div>
-    <button class="ui red icon button" @click="$emit('delete')">
+    <button class="ui red icon button" @click="$emit('delete')" v-if="props.isEdit">
         <i class="x icon"/> Удалить последнее изображение
     </button>
+    <div class="ui hidden divider" v-else/>
 </template>
 
 <script setup>
@@ -41,6 +43,10 @@ const props = defineProps({
     },
     viewType: {
         type: String,
+        required: true
+    },
+    isEdit: {
+        type: Boolean,
         required: true
     }
 })
