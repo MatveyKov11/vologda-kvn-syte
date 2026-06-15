@@ -21,13 +21,15 @@
         </table>
     </div>
     <div class="ui hidden divider"/>
-    <div class="ui button">
+    <div class="ui button" @click="listTable = true">
         Выбор таблицы
     </div>
+    <TableListWindow v-if="listTable" @quit="listTable = false"/>
 </template>
 
 <script setup>
 import { ref } from 'vue';
+import TableListWindow from '../windows/TableListWindow.vue';
 
 const props = defineProps({
     tableId: {
@@ -46,6 +48,7 @@ const table = ref({
         [5, 7, "vvc", "1234f"]
     ]
 })
+const listTable = ref(false)
 
 table.value.id = props.tableId+0
 </script>

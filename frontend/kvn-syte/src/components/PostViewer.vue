@@ -105,23 +105,25 @@
             </div>
         </div>
     </div>
-    <div class="ui buttons">
-        <button class="ui button" @click="addBlock('text')">
-            Текст
-        </button>
-        <button class="ui button" @click="addBlock('mark-list')">
-            Маркированный список
-        </button>
-        <button class="ui button" @click="addBlock('numb-list')">
-            Нумерованный список
-        </button>
-        <button class="ui button" @click="addBlock('photo')">
-            Фото
-        </button>
-        <button class="ui button" @click="addBlock('video')">
-            Видео
-        </button>
-    </div>
+    <button class="ui button" @click="addBlock('text')">
+        Текст
+    </button>
+    <button class="ui button" @click="addBlock('mark-list')">
+        Маркированный список
+    </button>
+    <button class="ui button" @click="addBlock('numb-list')">
+        Нумерованный список
+    </button>
+    <button class="ui button" @click="addBlock('photo')">
+        Фото
+    </button>
+    <button class="ui button" @click="addBlock('video')">
+        Видео
+    </button>
+    <button class="ui button" @click="addBlock('table')">
+        Таблица
+    </button>
+    <div class="ui divider"/>
     <button class="ui button" @click="saveChanges">
         <i class="check icon"/> Сохранить изменения
     </button>
