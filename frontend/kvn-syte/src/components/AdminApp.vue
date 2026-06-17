@@ -31,6 +31,9 @@
             <a class="item"  @click="posts">
                 <span> Посты </span>
             </a>
+            <a class="item"  @click="styles">
+                <span> Стили </span>
+            </a>
         </div>
     </div>
     <div class="ui clearing divider"></div>
@@ -66,6 +69,10 @@ function tables() {
 
 function posts() {
     router.push({name: 'Posts'})
+}
+
+function styles() {
+    router.push({name: 'Styles'})
 }
 
 router.push({name: 'Logs'})

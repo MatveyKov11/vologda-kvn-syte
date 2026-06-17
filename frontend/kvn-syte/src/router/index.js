@@ -6,6 +6,7 @@ import ProfileViewer from '@/components/ProfileViewer.vue'
 import EditorApp from '@/components/EditorApp.vue'
 import TableViewer from '@/components/TableViewer.vue'
 import PostViewer from '@/components/PostViewer.vue'
+import StyleViewer from '@/components/StyleViewer.vue'
 
 const routes = [
   {
@@ -37,6 +38,11 @@ const routes = [
         path: 'table',
         name: 'Tables',
         component: TableViewer
+      },
+      {
+        path: 'style',
+        name: 'Styles',
+        component: StyleViewer
       }
     ]
   },
