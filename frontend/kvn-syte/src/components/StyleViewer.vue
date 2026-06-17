@@ -1,7 +1,13 @@
 <template>
     <div class="ui container">
-         <div class="ui input">
-            <input type="text" name="name" v-model="name" placeholder="Название стиля...">
+        <div class="ui input">
+            <input type="text" name="name" v-model="styleName" placeholder="Название стиля...">
+        </div>
+        <div class="ui input">
+            <input type="text" name="font" v-model="fontName" placeholder="Название шрифта...">
+        </div>
+        <div class="ui input">
+            <input type="number" name="size" v-model="fontSize" placeholder="14">
         </div>
         <div class="ui segment" v-for="(color, i) in colors" :key="i">
             {{ color.r }} {{ color.b }} {{ color.g }}
@@ -15,8 +21,9 @@
 <script setup>
 import { ref } from 'vue';
 
-
-const name = ref('')
+const styleName = ref('')
+const fontName = ref('Times New Roman')
+const fontSize = ref(14)
 const colors = ref([
     {
         r: 122,
