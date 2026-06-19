@@ -3,15 +3,32 @@
         <div class="ui input">
             <input type="text" name="name" v-model="styleName" placeholder="Название стиля...">
         </div>
-        <div class="ui input">
-            <input type="text" name="font" v-model="fontName" placeholder="Название шрифта...">
+        <div class="ui form">
+            <div class="field">
+                <input type="text" name="font" v-model="fontName" placeholder="Название шрифта...">
+            </div>
+            <div class="field">
+                <input type="number" name="size" v-model="fontSize" placeholder="14">
+            </div>
         </div>
-        <div class="ui input">
-            <input type="number" name="size" v-model="fontSize" placeholder="14">
-        </div>
-        <div class="ui segment" v-for="(color, i) in colors" :key="i">
-            {{ color.r }} {{ color.b }} {{ color.g }}
-        </div>
+        <h4 class="ui header">
+            <div class="content">
+                Цвета
+            </div>
+        </h4>
+        <div class="ui segment" v-for="(col, i) in colors" :key="i">
+                    <h4 class="ui header">
+                        #{{ i+1 }}
+                    </h4>
+                    <table class="ui very basic table">
+                        <tbody><tr>
+                            <td class="one wide">
+                                <div :style="circleStyle(col)"/>
+                            </td>
+                            <td class="left aligned eight wide">#{{ toHex(col) }}</td>
+                        </tr></tbody>
+                    </table>
+                </div>
         <button class="ui primary button" @click="addColor">
             <i class="plus icon"/> Добавить цвет
         </button>
@@ -32,7 +49,38 @@ const colors = ref([
     }
 ])
 
+const diam = 50
+function circleStyle(col){
+    return {
+        width: diam + 'px',
+        height: diam + 'px',
+        borderRadius: diam / 2 + 'px',
+        backgroundColor: 'rgb('+col.r+', '+col.g+', '+col.b+')',
+        marginLeft: '20%',
+        borderStyle: 'solid'
+    }
+}
+
+const aCode = 'A'.charCodeAt()
+function _toHex(x){
+    let a = Math.floor(x / 16)
+    let b = x % 16
+    let aa = a.toString()
+    let bb = b.toString()
+    if(a > 9){
+        aa = String.fromCharCode(aCode + a - 10)
+    }
+    if(b > 9){
+        bb = String.fromCharCode(aCode + b - 10)
+    }
+    return aa+bb
+}
+
+function toHex(col){
+    return _toHex(col.r)+_toHex(col.g)+_toHex(col.b)
+}
+
 function addColor(){
-    colors.value.push({r:0, g: 0, b: 0})
+    colors.value.push({r:0, g: 255, b: 0})
 }
 </script>

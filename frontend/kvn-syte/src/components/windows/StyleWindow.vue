@@ -57,7 +57,6 @@ const style = ref({
     fontsize: "16pt",
     colors: ["rgb(0, 0, 0)", "rgb(255, 255, 0)", "rgb(255, 0, 255)"]
 })
-
 const diam = ref(50)
 
 function circleStyle(col){
