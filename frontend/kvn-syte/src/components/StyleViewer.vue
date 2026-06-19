@@ -54,7 +54,7 @@
                 </div>
             </div>
         </div>
-        <button class="ui primary button" @click="addColor">
+        <button class="ui primary button" @click="addColor" v-if="colors.length < colorsNumber">
             <i class="plus icon"/> Добавить цвет
         </button>
     </div>
@@ -73,6 +73,7 @@ const colors = ref([
         b: 111
     }
 ])
+const colorsNumber = 4
 
 const diam = 50
 function circleStyle(col){
