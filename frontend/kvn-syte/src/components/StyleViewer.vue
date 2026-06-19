@@ -32,15 +32,15 @@
                         <div class="ui form">
                             <div class="field">
                                 <label for="r">R:</label>
-                                <input type="number" name="r" v-model="col.r">
+                                <input type="number" name="r" v-model="col.r" min="0" max="255">
                             </div>
                             <div class="field">
                                 <label for="g">G:</label>
-                                <input type="number" name="g" v-model="col.g">
+                                <input type="number" name="g" v-model="col.g" min="0" max="255">
                             </div>
                             <div class="field">
                                 <label for="b">B:</label>
-                                <input type="number" name="b" v-model="col.b">
+                                <input type="number" name="b" v-model="col.b" min="0" max="255">
                             </div>
                         </div>
                     </td>
