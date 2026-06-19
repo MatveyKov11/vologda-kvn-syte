@@ -25,7 +25,25 @@
                             <td class="one wide">
                                 <div :style="circleStyle(col)"/>
                             </td>
-                            <td class="left aligned eight wide">#{{ toHex(col) }}</td>
+                            <td class="left aligned eight wide">
+                                #{{ toHex(col) }}
+                            </td>
+                            <td>
+                                <div class="ui form">
+                                    <div class="field">
+                                        <label for="r">R:</label>
+                                        <input type="number" name="r" v-model="col.r">
+                                    </div>
+                                    <div class="field">
+                                        <label for="g">G:</label>
+                                        <input type="number" name="g" v-model="col.g">
+                                    </div>
+                                    <div class="field">
+                                        <label for="b">B:</label>
+                                        <input type="number" name="b" v-model="col.b">
+                                    </div>
+                                </div>
+                            </td>
                         </tr></tbody>
                     </table>
                 </div>
