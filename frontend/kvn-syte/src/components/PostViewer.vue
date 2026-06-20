@@ -1,20 +1,27 @@
 <template>
     <div class="ui text container">
+        <button class="ui button" @click="list = true" v-if="post.empty">
+            <i class="edit icon"/> Открыть готовый пост
+        </button>
+        <button class="ui button" @click="post = {empty: true}" v-else>
+            <i class="plus icon"/> Создать новый пост
+        </button>
+        <div class="ui divider"/>
         <div class="ui fluid input">
             <input type="text" placeholder="Заголовок поста..." v-model="title"/>
         </div>
         <div class="ui segment" v-for="(block, i) in blocks" :key="i">
-            <TextBlock :text="block.data" :colons-number="block.meta" :is-edit="true" v-if="block.type == 'text'"
+            <TextBlock v-if="block.type == 'text'" :text="block.data" :colons-number="block.meta" :is-edit="true"
                 @add="(text) => addItem(i, text)" @delete="(j) => removeItem(i, j)"
                 @up="(j) => upItem(i, j)" @down="(j) => downItem(i, j)"/>
-            <ListBlock :text="block.data" :list-type="block.meta" :is-edit="true" v-else-if="block.type == 'list'"
+            <ListBlock v-else-if="block.type == 'list'" :text="block.data" :list-type="block.meta" :is-edit="true"
                 @add="(text) => addItem(i, text)" @delete="(j) => removeItem(i, j)"
                 @up="(j) => upItem(i, j)" @down="(j) => downItem(i, j)"/>
-            <VideoBlock :video-src="block.data[0]" :is-edit="true" v-else-if="block.type == 'video'"
+            <VideoBlock v-else-if="block.type == 'video'" :video-src="block.data[0]" :is-edit="true"
                 @edit="(src) => editVideo(i, src)" />
-            <ImageBlock :image-src="block.data" :view-type="block.meta" :is-edit="true" v-else-if="block.type == 'image'"
+            <ImageBlock v-else-if="block.type == 'image'" :image-src="block.data" :view-type="block.meta" :is-edit="true"
                 @add="(src) => addItem(i, src)" @delete="removeItem(i, block.data.length-1)"/>
-            <TableBlock :table-id="block.data[0]" :view-columns="block.meta" v-if="block.type == 'table'"/>
+            <TableBlock v-if="block.type == 'table'" :table-id="block.data[0]" :view-columns="block.meta"/>
             <div class="ui right rail">
                 <div class="ui buttons">
                     <div class="ui icon red button" @click="removeBlock(i)">
@@ -151,7 +158,8 @@
     <button class="ui green button" @click="saveChanges">
         <i class="check icon"/> Сохранить изменения
     </button>
-    <PostWindow :post="post" @quit="look = false; post = {}" v-if="look"/>
+    <PostWindow v-if="look" :post="post" @quit="look = false; post = {}"/>
+    <PostListWindow v-if="list" @quit="list = false" @select="(t) => list = false"/>
 </template>
 
 <script setup>
@@ -162,6 +170,7 @@ import VideoBlock from './blocks/VideoBlock.vue';
 import ImageBlock from './blocks/ImageBlock.vue';
 import TableBlock from './blocks/TableBlock.vue';
 import PostWindow from './windows/PostWindow.vue';
+import PostListWindow from './windows/lists/PostListWindow.vue';
 
 const blocks = ref([
     {
@@ -211,8 +220,9 @@ const blocks = ref([
     }
 ])
 const title = ref('Заголовок поста')
-const post = ref({})
+const post = ref({empty: true})
 const look = ref(false)
+const list = ref(false)
 
 function addItem(i, text){
     blocks.value[i].data.push(text)

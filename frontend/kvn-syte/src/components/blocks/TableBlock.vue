@@ -31,7 +31,7 @@
 
 <script setup>
 import { ref } from 'vue';
-import TableListWindow from '../windows/TableListWindow.vue';
+import TableListWindow from '../windows/lists/TableListWindow.vue';
 
 const props = defineProps({
     tableId: {

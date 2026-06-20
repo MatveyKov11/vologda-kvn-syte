@@ -39,7 +39,7 @@ import ContestTable from './tables/ContestTable.vue';
 import ResultTable from './tables/ResultTable.vue';
 import ScheduleTable from './tables/ScheduleTable.vue';
 import TeamTable from './tables/TeamTable.vue';
-import TableListWindow from './windows/TableListWindow.vue';
+import TableListWindow from './windows/lists/TableListWindow.vue';
 import RewardTable from './tables/RewardTable.vue';
 import CustomTable from './tables/CustomTable.vue';
 
