@@ -1,6 +1,6 @@
 <template>
     <div class="ui container">
-        <button class="ui button" @click="listTable = true" v-if="table.empty">
+        <button class="ui button" @click="list = true" v-if="table.empty">
             <i class="edit icon"/> Открыть готовую таблицу
         </button>
         <button class="ui button" @click="table = {title: '', empty: true}" v-else>
@@ -13,7 +13,7 @@
         </h3>
         <div class="ui divider"></div>
         <div class="field">
-            <select class="ui fluid dropdown" v-model="tableType">
+            <select class="ui fluid dropdown" v-model="type">
                 <option value="schedule"> Расписание игр </option>
                 <option value="contest"> Конкурсы </option>
                 <option value="team"> Команды </option>
@@ -22,14 +22,14 @@
                 <option value="own"> Свой тип </option>
             </select>
         </div>
-        <div class="ui divider"></div>
-        <ContestTable v-if="tableType == 'contest'" :table="table" :title="table.title"/>
-        <ResultTable v-if="tableType == 'result'" :table="table"/>
-        <TeamTable v-if="tableType == 'team'" :table="table"/>
-        <ScheduleTable v-if="tableType == 'schedule'" :table="table"/>
-        <RewardTable v-if="tableType == 'reward'" :table="table"/>
-        <CustomTable v-if="tableType == 'own'" :table="table"/>
-        <TableListWindow v-if="listTable" @quit="listTable = false" @select="(t) => selectTable(t)"/>
+        <div class="ui divider"/>
+        <ContestTable v-if="type == 'contest'" :table="table" :title="table.title"/>
+        <ResultTable v-if="type == 'result'" :table="table"/>
+        <TeamTable v-if="type == 'team'" :table="table"/>
+        <ScheduleTable v-if="type == 'schedule'" :table="table"/>
+        <RewardTable v-if="type == 'reward'" :table="table"/>
+        <CustomTable v-if="type == 'own'" :table="table"/>
+        <TableListWindow v-if="list" @quit="list = false" @select="(t) => selectTable(t)"/>
     </div>
 </template>
 
@@ -43,16 +43,16 @@ import TableListWindow from './windows/TableListWindow.vue';
 import RewardTable from './tables/RewardTable.vue';
 import CustomTable from './tables/CustomTable.vue';
 
-const tableType = ref('none')
-const listTable = ref(false)
+const type = ref('none')
+const list = ref(false)
 const table = ref({
     title: "",
     empty: true
 })
 
 function selectTable(t){
-    tableType.value = t.type
-    listTable.value = false
+    type.value = t.type
+    list.value = false
 
     table.value.title = t.title
     table.value.empty = false
