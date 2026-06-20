@@ -64,6 +64,17 @@
         <button class="ui primary button" @click="addColor" v-if="colors.length < colorsNumber">
             <i class="plus icon"/> Добавить цвет
         </button>
+        <div class="ui divider"/>
+        <button class="ui button" @click="lookStyle()">
+            <i class="eye icon"/> Предпросмотр стиля
+        </button>
+        <button class="ui green button" @click="saveChanges">
+            <i class="check icon"/> Сохранить изменения
+        </button>
+        <button class="ui primary button" @click="publish = true">
+            <i class="check icon"/> Сделать стиль текущим
+        </button>
+        <StyleWindow v-if="look" @quit="look = false"/>
         <StyleListWindow v-if="list" @quit="list = false" @select="(s) => list = false" />
     </div>
 </template>
@@ -71,6 +82,7 @@
 <script setup>
 import { ref } from 'vue';
 import StyleListWindow from './windows/lists/StyleListWindow.vue';
+import StyleWindow from './windows/StyleWindow.vue';
 
 const name = ref('')
 const fontName = ref('Times New Roman')
@@ -86,7 +98,9 @@ const colorsNumber = 4
 const style = ref({
     empty: true
 })
+const look = ref(false)
 const list = ref(false)
+const publish = ref(false)
 
 const diam = 50
 function circleStyle(col){
@@ -114,7 +128,6 @@ function _toHex(x){
     }
     return aa+bb
 }
-
 function toHex(col){
     return _toHex(col.r)+_toHex(col.g)+_toHex(col.b)
 }
@@ -130,5 +143,28 @@ function removeColor(r){
         }
     })
     colors.value = colorsCopy
+}
+
+function toRGB(col){
+    return 'rgb('+col.r+', '+col.g+', '+col.b+')'
+}
+function fixStyle(){
+    style.value.name = name.value
+    style.value.fontname = fontName.value
+    style.value.fontsize = fontSize.value
+    style.value.colors = []
+    colors.value.forEach((col) => style.value.colors.push(toRGB(col)))
+}
+
+function lookStyle(){
+    fixStyle()
+
+    look.value = true
+}
+
+function saveChanges(){
+    fixStyle()
+
+    alert('Заглушка! Изменения сохранены')
 }
 </script>
