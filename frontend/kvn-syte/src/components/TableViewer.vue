@@ -1,9 +1,9 @@
 <template>
     <div class="ui container">
-        <button class="ui button" @click="listTable = true" v-if="tableType == 'none'">
+        <button class="ui button" @click="listTable = true" v-if="table.empty">
             <i class="edit icon"/> Открыть готовую таблицу
         </button>
-        <button class="ui button" @click="tableType = 'none'; table = {title: ''}" v-else>
+        <button class="ui button" @click="table = {title: '', empty: true}" v-else>
             <i class="plus icon"/> Создать новую таблицу
         </button>
         <h3 class="ui header">
@@ -46,7 +46,8 @@ import CustomTable from './tables/CustomTable.vue';
 const tableType = ref('none')
 const listTable = ref(false)
 const table = ref({
-    title: ""
+    title: "",
+    empty: true
 })
 
 function selectTable(t){
@@ -54,6 +55,7 @@ function selectTable(t){
     listTable.value = false
 
     table.value.title = t.title
+    table.value.empty = false
     if (t.type == 'team'){
         table.value.teams = ref([
             {
