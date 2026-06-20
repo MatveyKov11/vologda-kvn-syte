@@ -1,7 +1,14 @@
 <template>
     <div class="ui container">
+        <button class="ui button" @click="list = true" v-if="style.empty">
+            <i class="edit icon"/> Открыть готовый стиль
+        </button>
+        <button class="ui button" @click="style = {empty: true}" v-else>
+            <i class="plus icon"/> Создать новый стиль
+        </button>
+        <div class="ui divider"/>
         <div class="ui input">
-            <input type="text" name="name" v-model="styleName" placeholder="Название стиля...">
+            <input type="text" name="name" v-model="name" placeholder="Название стиля...">
         </div>
         <div class="ui form">
             <div class="field">
@@ -57,13 +64,15 @@
         <button class="ui primary button" @click="addColor" v-if="colors.length < colorsNumber">
             <i class="plus icon"/> Добавить цвет
         </button>
+        <StyleListWindow v-if="list" @quit="list = false" @select="(s) => list = false" />
     </div>
 </template>
 
 <script setup>
 import { ref } from 'vue';
+import StyleListWindow from './windows/lists/StyleListWindow.vue';
 
-const styleName = ref('')
+const name = ref('')
 const fontName = ref('Times New Roman')
 const fontSize = ref(14)
 const colors = ref([
@@ -74,6 +83,10 @@ const colors = ref([
     }
 ])
 const colorsNumber = 4
+const style = ref({
+    empty: true
+})
+const list = ref(false)
 
 const diam = 50
 function circleStyle(col){
