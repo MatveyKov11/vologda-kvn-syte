@@ -76,6 +76,7 @@
         </button>
         <StyleWindow v-if="look" @quit="look = false"/>
         <StyleListWindow v-if="list" @quit="list = false" @select="(s) => list = false" />
+        <PublishStyleWindow v-if="publish" @quit="publish = false" @publish="saveChanges; publish = false" />
     </div>
 </template>
 
@@ -83,6 +84,7 @@
 import { ref } from 'vue';
 import StyleListWindow from './windows/lists/StyleListWindow.vue';
 import StyleWindow from './windows/StyleWindow.vue';
+import PublishStyleWindow from './windows/actions/PublishStyleWindow.vue';
 
 const name = ref('')
 const fontName = ref('Times New Roman')
