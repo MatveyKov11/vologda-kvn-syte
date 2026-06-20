@@ -1,7 +1,10 @@
 <template>
     <div class="ui container">
-        <button class="ui button" @click="listTable = true">
+        <button class="ui button" @click="listTable = true" v-if="tableType == 'none'">
             <i class="edit icon"/> Открыть готовую таблицу
+        </button>
+        <button class="ui button" @click="tableType = 'none'; table = {title: ''}" v-else>
+            <i class="plus icon"/> Создать новую таблицу
         </button>
         <h3 class="ui header">
             <div class="content">
