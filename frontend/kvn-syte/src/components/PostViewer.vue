@@ -158,8 +158,12 @@
     <button class="ui green button" @click="saveChanges">
         <i class="check icon"/> Сохранить изменения
     </button>
+    <button class="ui primary button" @click="publish = true">
+        <i class="check icon"/> Опубликовать пост
+    </button>
     <PostWindow v-if="look" :post="post" @quit="look = false; post = {}"/>
-    <PostListWindow v-if="list" @quit="list = false" @select="(t) => list = false"/>
+    <PostListWindow v-if="list" @quit="list = false" @select="(p) => list = false"/>
+    <PublishPostWindow v-if="publish" :title="title" @quit="publish = false" @publish="(s) => publishPost()"/>
 </template>
 
 <script setup>
@@ -171,6 +175,7 @@ import ImageBlock from './blocks/ImageBlock.vue';
 import TableBlock from './blocks/TableBlock.vue';
 import PostWindow from './windows/PostWindow.vue';
 import PostListWindow from './windows/lists/PostListWindow.vue';
+import PublishPostWindow from './windows/actions/PublishPostWindow.vue';
 
 const blocks = ref([
     {
@@ -223,6 +228,7 @@ const title = ref('Заголовок поста')
 const post = ref({empty: true})
 const look = ref(false)
 const list = ref(false)
+const publish = ref(false)
 
 function addItem(i, text){
     blocks.value[i].data.push(text)
@@ -319,6 +325,12 @@ function lookPost(){
     fixPost()
 
     look.value = true
+}
+
+function publishPost(){
+    fixPost()
+
+    alert('Заглушка! Пост опубликован!')
 }
 </script>
 
