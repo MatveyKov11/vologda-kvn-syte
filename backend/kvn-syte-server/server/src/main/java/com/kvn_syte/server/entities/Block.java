@@ -1,5 +1,7 @@
 package com.kvn_syte.server.entities;
 
+import java.util.ArrayList;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,11 +9,12 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Log {
+public class Block {
     Long id;
+    Long postId;
 
-    Long userId;
-    String action;
-    Long objectId;
-    String objectType;
+    Long position;
+    ArrayList<String> data;
+    String type;
+    String feature;
 }
