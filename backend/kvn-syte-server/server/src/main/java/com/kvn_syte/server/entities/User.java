@@ -1,9 +1,10 @@
 package com.kvn_syte.server.entities;
 
+import java.util.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import java.util.Date;
 
 @Data
 @NoArgsConstructor

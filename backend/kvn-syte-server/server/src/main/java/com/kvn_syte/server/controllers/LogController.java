@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.kvn_syte.server.entities.Log;
 import com.kvn_syte.server.repos.LogRepository;
 
-
 @RestController
 @RequestMapping("/api/logs")
 public class LogController {
@@ -24,6 +23,7 @@ public class LogController {
     
     @GetMapping("/all")
     public ArrayList<Log> getAll() {
+
         return repo.getAll();
     }
     

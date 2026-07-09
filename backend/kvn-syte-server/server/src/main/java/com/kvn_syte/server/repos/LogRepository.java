@@ -11,8 +11,8 @@ public class LogRepository {
     public ArrayList<Log> getAll(){
         ArrayList<Log> a = new ArrayList<>();
         a.add(new Log(0L, 0L, "ADD", 0L, "POST"));
-        a.add(new Log(0L, 0L, "ADD", 0L, "POST"));
-        a.add(new Log(0L, 0L, "ADD", 0L, "POST"));
+        a.add(new Log(1L, 0L, "ADD", 0L, "POST"));
+        a.add(new Log(2L, 0L, "ADD", 0L, "POST"));
         return a;
     }
 }
