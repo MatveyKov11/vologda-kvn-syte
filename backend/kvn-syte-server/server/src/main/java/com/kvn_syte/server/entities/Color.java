@@ -1,7 +1,7 @@
 package com.kvn_syte.server.entities;
 
 public class Color {
-Long colorId;
+    Long colorId;
 
     Long r;
     Long g;

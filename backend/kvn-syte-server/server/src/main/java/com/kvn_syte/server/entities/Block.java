@@ -14,7 +14,7 @@ public class Block {
     Long postId;
 
     Long position;
-    ArrayList<String> data;
+    ArrayList<Content> contents;
     String type;
     String feature;
 }
