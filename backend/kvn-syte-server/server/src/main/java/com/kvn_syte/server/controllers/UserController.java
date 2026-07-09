@@ -1,24 +1,28 @@
 package com.kvn_syte.server.controllers;
 
 import java.util.ArrayList;
-import java.util.Date;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kvn_syte.server.entities.User;
+import com.kvn_syte.server.repos.UserRepository;
 
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
+
+    private UserRepository repo;
+
+    @Autowired
+    public UserController(UserRepository r){
+        this.repo = r;
+    }
     
     @GetMapping("/all")
     public ArrayList<User> getAll() {
-        ArrayList<User> a = new ArrayList<>();
-        a.add(new User(0L, "123", "ADD", "POST", false, new Date()));
-        a.add(new User(1L, "123", "ADD", "POST", false, new Date()));
-        a.add(new User(2L, "123", "ADD", "POST", false, new Date()));
-        return a;
+        return repo.getAll();
     }
 }
