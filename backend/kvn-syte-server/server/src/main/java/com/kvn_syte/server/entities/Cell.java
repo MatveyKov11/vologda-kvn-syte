@@ -7,15 +7,11 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Column {
+public class Cell {
     Long id;
     Long tableId;
 
-    Long position;
-    String title;
-    ValueType valueType;
-
-    enum ValueType {
-        Number, Text
-    }
+    Long column;
+    Long row;
+    String data;
 }
