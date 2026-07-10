@@ -1,5 +1,6 @@
 package com.kvn_syte.server.entities;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import lombok.AllArgsConstructor;
@@ -33,5 +34,13 @@ public class User {
                     return "???";
             }
         }
+    }
+
+    public ArrayList<User> testData(){
+        ArrayList<User> a = new ArrayList<>();
+        a.add(new User(0L, "admin", "1234", UserType.Admin, false, new Date()));
+        a.add(new User(1L, "admin2", "1111", UserType.Admin, false, new Date()));
+        a.add(new User(2L, "editor", "353535", UserType.Editor, true, new Date()));
+        return a;
     }
 }
