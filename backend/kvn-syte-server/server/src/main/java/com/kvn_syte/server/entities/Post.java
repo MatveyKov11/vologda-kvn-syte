@@ -2,6 +2,7 @@ package com.kvn_syte.server.entities;
 
 import java.util.ArrayList;
 import java.util.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
