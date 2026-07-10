@@ -14,7 +14,24 @@ public class User {
 
     String username;
     String password;
-    String role;
+    UserType role;
     boolean isBlocked;
     Date lastActionTime;
+
+    public enum UserType{
+        Anon, Admin, Editor;
+
+        public String toString(){
+            switch (this){
+                case UserType.Anon:
+                    return "Anon";
+                case UserType.Admin:
+                    return "Admin";
+                case UserType.Editor:
+                    return "Editor";
+                default:
+                    return "???";
+            }
+        }
+    }
 }
