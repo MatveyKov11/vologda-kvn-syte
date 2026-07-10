@@ -7,14 +7,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kvn_syte.server.entities.Style;
+import com.kvn_syte.server.repos.StyleRepository;
 
 @RestController
 @RequestMapping("/api/styles")
 public class StyleController {
+
+    private StyleRepository repo;
+
+    public StyleController(StyleRepository r){
+        this.repo = r;
+    }
     
     @GetMapping("/all")
     public ArrayList<Style> getAll() {
-        Style a = new Style();
-        return a.testData();
+        return repo.getAll();
     }
 }
