@@ -20,17 +20,14 @@ public class Style {
     public enum RoleType{
         None, Main, Dark, Blind;
 
+        @Override
         public String toString(){
-            switch (this){
-                case RoleType.Main:
-                    return "Main";
-                case RoleType.Dark:
-                    return "Dark";
-                case RoleType.Blind:
-                    return "Blind";
-                default:
-                    return "---";
-            }
+            return switch (this) {
+                case RoleType.Main -> "Main";
+                case RoleType.Dark -> "Dark";
+                case RoleType.Blind -> "Blind";
+                default -> "---";
+            };
         }
     }
 

@@ -1,7 +1,5 @@
 package com.kvn_syte.server.entities;
 
-import com.kvn_syte.server.entities.Log.ActionType;
-
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -25,57 +23,45 @@ public class Log {
     public enum UserType{
         Anon, Admin, Editor;
 
+        @Override
         public String toString(){
-            switch (this){
-                case UserType.Anon:
-                    return "Anon";
-                case UserType.Admin:
-                    return "Admin";
-                case UserType.Editor:
-                    return "Editor";
-                default:
-                    return "???";
-            }
+            return switch (this) {
+                case UserType.Anon -> "Anon";
+                case UserType.Admin -> "Admin";
+                case UserType.Editor -> "Editor";
+                default -> "???";
+            };
         }
     }
 
     public enum ActionType{
         Add, Change, Delete, Block;
 
+        @Override
         public String toString(){
-            switch (this){
-                case ActionType.Add:
-                    return "Add";
-                case ActionType.Change:
-                    return "Change";
-                case ActionType.Delete:
-                    return "Delete";
-                case ActionType.Block:
-                    return "Block";
-                default:
-                    return "???";
-            }
+            return switch (this) {
+                case ActionType.Add -> "Add";
+                case ActionType.Change -> "Change";
+                case ActionType.Delete -> "Delete";
+                case ActionType.Block -> "Block";
+                default -> "???";
+            };
         }
     }
 
     public enum ObjectType{
         User, Table, Style, Post, Comment;
 
+        @Override
         public String toString(){
-            switch (this){
-                case ObjectType.User:
-                    return "User";
-                case ObjectType.Table:
-                    return "Table";
-                case ObjectType.Style:
-                    return "Style";
-                case ObjectType.Post:
-                    return "Post";
-                case ObjectType.Comment:
-                    return "Comment";
-                default:
-                    return "???";
-            }
+            return switch (this) {
+                case ObjectType.User -> "User";
+                case ObjectType.Table -> "Table";
+                case ObjectType.Style -> "Style";
+                case ObjectType.Post -> "Post";
+                case ObjectType.Comment -> "Comment";
+                default -> "???";
+            };
         }
     }
 
