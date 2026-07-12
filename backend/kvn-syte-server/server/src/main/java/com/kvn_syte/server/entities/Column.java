@@ -16,6 +16,15 @@ public class Column {
     ValueType valueType;
 
     enum ValueType {
-        Number, Text
+        Number, Text;
+
+        @Override
+        public String toString(){
+            return switch (this){
+                case ValueType.Number -> "Number";
+                case ValueType.Text -> "Text";
+                default -> "???";
+            };
+        }
     }
 }
