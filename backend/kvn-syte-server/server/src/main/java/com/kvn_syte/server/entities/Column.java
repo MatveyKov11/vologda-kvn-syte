@@ -15,14 +15,15 @@ public class Column {
     String title;
     ValueType valueType;
 
-    enum ValueType {
-        Number, Text;
+    public enum ValueType {
+        Number, Text, Data;
 
         @Override
         public String toString(){
             return switch (this){
                 case ValueType.Number -> "Number";
                 case ValueType.Text -> "Text";
+                case ValueType.Data -> "Data";
                 default -> "???";
             };
         }
