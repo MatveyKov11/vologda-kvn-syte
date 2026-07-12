@@ -7,15 +7,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kvn_syte.server.entities.Table;
-import com.kvn_syte.server.repos.UserRepository;
+import com.kvn_syte.server.repos.TableRepository;
 
 @RestController
 @RequestMapping("/api/tables")
 public class TableController {
+
+    private final TableRepository repo;
+
+    public TableController(TableRepository r){
+        this.repo = r;
+    }
     
     @GetMapping("/all")
     public ArrayList<Table> getAll(){
-        Table a = new Table();
-        return a.testData();
+        return repo.getAll();
     }
 }
