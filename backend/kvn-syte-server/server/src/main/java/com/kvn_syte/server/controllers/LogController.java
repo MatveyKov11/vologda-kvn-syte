@@ -13,7 +13,7 @@ import com.kvn_syte.server.repos.LogRepository;
 @RequestMapping("/api/logs")
 public class LogController {
 
-    private LogRepository repo;
+    private final LogRepository repo;
 
     public LogController(LogRepository r){
         this.repo = r;
@@ -21,7 +21,6 @@ public class LogController {
     
     @GetMapping("/all")
     public ArrayList<Log> getAll() {
-
         return repo.getAll();
     }
     

@@ -13,7 +13,7 @@ import com.kvn_syte.server.repos.StyleRepository;
 @RequestMapping("/api/styles")
 public class StyleController {
 
-    private StyleRepository repo;
+    private final StyleRepository repo;
 
     public StyleController(StyleRepository r){
         this.repo = r;

@@ -13,7 +13,7 @@ import com.kvn_syte.server.repos.UserRepository;
 @RequestMapping("/api/users")
 public class UserController {
 
-    private UserRepository repo;
+    private final UserRepository repo;
 
     public UserController(UserRepository r){
         this.repo = r;
