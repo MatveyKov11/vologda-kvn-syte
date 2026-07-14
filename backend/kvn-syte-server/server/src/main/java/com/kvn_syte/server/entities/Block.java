@@ -15,6 +15,22 @@ public class Block {
 
     Long position;
     ArrayList<Content> contents;
-    String type;
+    BlockType type;
     String feature;
+
+    public enum BlockType{
+        Text, List, Image, Table, Video;
+
+        @Override
+        public String toString(){
+            return switch(this){
+                case BlockType.Text -> "Text";
+                case BlockType.Video -> "Video";
+                case BlockType.Image -> "Image";
+                case BlockType.List -> "List";
+                case BlockType.Table -> "Table";
+                default -> "???";
+            };
+        }
+    }
 }

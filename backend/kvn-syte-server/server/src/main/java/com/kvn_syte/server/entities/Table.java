@@ -2,11 +2,11 @@ package com.kvn_syte.server.entities;
 
 import java.util.ArrayList;
 
+import com.kvn_syte.server.entities.Column.ValueType;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import com.kvn_syte.server.entities.Column.ValueType;
 
 @Data
 @NoArgsConstructor
@@ -39,23 +39,24 @@ public class Table {
     private ArrayList<Column> getColumn(TableType t){
         ArrayList<Column> c = new ArrayList<>();
         switch(t){
-            case TableType.Team:
+            case TableType.Team -> {
                 c.add(new Column(0L, 0L, 1L, "Команда", ValueType.Text));
                 c.add(new Column(0L, 0L, 2L, "Описание", ValueType.Text));
-                break;
-            case TableType.Contest:
+            }
+            case TableType.Contest -> {
                 c.add(new Column(0L, 0L, 1L, "Конкурс", ValueType.Text));
                 c.add(new Column(0L, 0L, 2L, "Описание", ValueType.Text));
-                break;
-            case TableType.Schedule:
+            }
+            case TableType.Schedule -> {
                 c.add(new Column(0L, 0L, 1L, "Игра", ValueType.Text));
                 c.add(new Column(0L, 0L, 2L, "Дата", ValueType.Data));
-                break;
-            case TableType.Reward:
+            }
+            case TableType.Reward -> {
                 c.add(new Column(0L, 0L, 1L, "Награда", ValueType.Text));
                 c.add(new Column(0L, 0L, 2L, "Кому", ValueType.Text));
-                break;
-            default:
+            }
+            default -> {
+            }
         }
         return c;
     }
