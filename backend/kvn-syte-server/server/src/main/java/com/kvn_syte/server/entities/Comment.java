@@ -14,7 +14,21 @@ public class Comment {
     Long postId;
 
     Long userId;
-    String username;
+    UserType user;
     String message;
     Date publishTime;
+
+    public enum UserType{
+        Anon, Admin, Editor;
+
+        @Override
+        public String toString(){
+            return switch (this) {
+                case UserType.Anon -> "Аноним";
+                case UserType.Admin -> "Администратор";
+                case UserType.Editor -> "Редактор";
+                default -> "???";
+            };
+        }
+    }
 }
